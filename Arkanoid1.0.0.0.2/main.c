@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #define width  800
 #define height  900
-#define MAX_LVL 3
+#define MAX_LVL 5
 
 struct block
 {
@@ -26,45 +26,48 @@ struct Quad_Tree_Node
     int x;
     int y;
     struct block* block_ptr;
+    struct Ball* ball_ptr;
     struct Quad_Tree_Node* ne, * nw, * sw, * se;
 };
 
-struct Quad_Tree_Node* init_node(struct Quad_Tree_Node* root, int choice)
+
+
+struct Quad_Tree_Node** init_node(struct Quad_Tree_Node* root, int choice)
 {
     if (choice == 0)
     {
         root = (struct Quad_Tree_Node*)malloc(sizeof(struct Quad_Tree_Node));
         if (root) {
-        root->x = width / 2;
-        root->y = height * (8 / 9) / 2;
-        root->h = height * (8 / 9) / 2;
-        root->w = width / 2;
-        root->ne = NULL;
-        root->nw = NULL;
-        root->sw = NULL;
-        root->se = NULL;
-    }
+            root->x = width / 2;
+            root->y = height * (5.0 / 9.0);
+            root->h = height * (8.0 / 9.0) / 2.0;
+            root->w = width / 2;
+            root->ne = NULL;
+            root->nw = NULL;
+            root->sw = NULL;
+            root->se = NULL;
+        }
         return root;
     }
-    else if(choice == 1){   //ne
+    else if (choice == 1) {   //ne
         struct Quad_Tree_Node* node = (struct Quad_Tree_Node*)malloc(sizeof(struct Quad_Tree_Node));
-        if (node){
-            node->x = root->x + root->w / 2;
-            node->y = root->y - root->h / 2;
-            node->h = root->h / 2;
-            node->w = root->w / 2;
+        if (node) {
+            node->x = root->x + root->w / 2.0;
+            node->y = root->y - root->h / 2.0;
+            node->h = root->h / 2.0;
+            node->w = root->w / 2.0;
             node->ne = NULL;
             node->nw = NULL;
             node->sw = NULL;
             node->se = NULL;
-            }
+        }
         return node;
     }
     else if (choice == 2) { //nw
         struct Quad_Tree_Node* node = (struct Quad_Tree_Node*)malloc(sizeof(struct Quad_Tree_Node));
         if (node) {
-            node->x = root->x - root->w / 2;
-            node->y = root->y - root->h / 2;
+            node->x = root->x - root->w / 2.0;
+            node->y = root->y - root->h / 2.0;
             node->h = root->h / 2;
             node->w = root->w / 2;
             node->ne = NULL;
@@ -77,8 +80,8 @@ struct Quad_Tree_Node* init_node(struct Quad_Tree_Node* root, int choice)
     else if (choice == 3) { //sw
         struct Quad_Tree_Node* node = (struct Quad_Tree_Node*)malloc(sizeof(struct Quad_Tree_Node));
         if (node) {
-            node->x = root->x - root->w / 2;
-            node->y = root->y + root->h / 2;
+            node->x = root->x - root->w / 2.0;
+            node->y = root->y + root->h / 2.0;
             node->h = root->h / 2;
             node->w = root->w / 2;
             node->ne = NULL;
@@ -91,8 +94,8 @@ struct Quad_Tree_Node* init_node(struct Quad_Tree_Node* root, int choice)
     else if (choice == 4) { //se
         struct Quad_Tree_Node* node = (struct Quad_Tree_Node*)malloc(sizeof(struct Quad_Tree_Node));
         if (node) {
-            node->x = root->x + root->w / 2;
-            node->y = root->y + root->h / 2;
+            node->x = root->x + root->w / 2.0;
+            node->y = root->y + root->h / 2.0;
             node->h = root->h / 2;
             node->w = root->w / 2;
             node->ne = NULL;
@@ -107,7 +110,7 @@ struct Quad_Tree_Node* init_node(struct Quad_Tree_Node* root, int choice)
 
 void draw_node(struct Quad_Tree_Node* node)
 {
-    al_draw_rectangle(node->x, node->y-node->h, node->x + node->w, node->y, al_map_rgb(255, 255, 255), 2); // ne
+    al_draw_rectangle(node->x, node->y - node->h, node->x + node->w, node->y, al_map_rgb(255, 255, 255), 2); // ne
     al_draw_rectangle(node->x - node->w, node->y - node->h, node->x, node->y, al_map_rgb(255, 255, 255), 2); //nw
     al_draw_rectangle(node->x - node->w, node->y, node->x, node->y + node->h, al_map_rgb(255, 255, 255), 2); //sw
     al_draw_rectangle(node->x, node->y, node->x + node->w, node->y + node->h, al_map_rgb(255, 255, 255), 2); //se
@@ -115,7 +118,7 @@ void draw_node(struct Quad_Tree_Node* node)
 
 void free_node(struct Quad_Tree_Node* node)
 {
-    if (node!=NULL)
+    if (node != NULL)
     {
         free_node(node->ne);
         free_node(node->nw);
@@ -131,10 +134,10 @@ void subdivide(struct Quad_Tree_Node* node, int levels)
     if (node && levels > 0)
     {
         levels--;
-        node->ne = init_node(node,1);
-        node->nw = init_node(node,2);
-        node->sw = init_node(node,3);
-        node->se = init_node(node,4);
+        node->ne = init_node(node, 1);
+        node->nw = init_node(node, 2);
+        node->sw = init_node(node, 3);
+        node->se = init_node(node, 4);
         draw_node(node);
         subdivide(node->ne, levels);
         subdivide(node->nw, levels);
@@ -144,12 +147,12 @@ void subdivide(struct Quad_Tree_Node* node, int levels)
 }
 
 
-void update(struct Quad_Tree_Node* root)
+void update(struct Quad_Tree_Node** root)
 {
-    free_node(root);
-    root = NULL;
-    root = init_node(root,0);
-    subdivide(root, MAX_LVL - 1);
+    free_node(*root);
+    *root = NULL;
+    *root = init_node(root, 0);
+    subdivide(*root, MAX_LVL - 1);
 }
 
 
@@ -162,34 +165,43 @@ struct Ball
     int vy;
 }ball;
 
-struct Platform
-{
-    int x1;
-    int y1;
-    int x2;
-    int y2;
-};
 
 void move(struct Ball* ball)
 {
-    if (ball->x < 800)
-        ball->x += ball->vx;
-    if (ball->y < 900)
-        ball->y += ball->vy;
-    if (ball->y == 900) {
+    ball->x += ball->vx;
+    ball->y += ball->vy;
+
+    if (ball->x==790||ball->x==10)
+        ball->vx = (-1)*ball->vx;
+    if (ball->y == 110||ball->y==890)
+        ball->vy = (-1) * ball->vy;
+   
+        
+    /*if (ball->y == 900) {
         ball->x = width / 2;
-        ball->y = height / 2;
-    }
+        ball->y = 150 ;
+    }*/
+}
+
+bool contain(struct Quad_Tree_Node* node, struct Ball* ball)
+{
+    if (ball->x >= node->x - node->w &&
+        ball->x <= node->x + node->w &&
+        ball->y >= node->y - node->h &&
+        ball->y <= node->y + node->h)
+        return true;
+    else
+        return false;
 }
 
 int main(int argc, char* argv[])
 {
-    
+
     bool working = true;
     bool pressed_key[ALLEGRO_KEY_MAX];
 
     struct block Platform = { width / 2, height - 50,Platform.x1 + 100,Platform.y1 + 20 };
-    struct Ball New_Ball = { width / 2, height / 2, 10, 1, 1 };
+    struct Ball New_Ball = { width / 2, 150, 10, 1, 1 };
     ALLEGRO_DISPLAY* display = NULL;
     ALLEGRO_BITMAP* bitmap = NULL;
     ALLEGRO_BITMAP* board = NULL;
@@ -219,7 +231,7 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    timer_FPS = al_create_timer(1.0 / 60);
+    timer_FPS = al_create_timer(1.0 / 160);
     if (!timer_FPS) {
         fprintf(stderr, "Failed to create FPS timer!\n");
         return -1;
@@ -236,7 +248,7 @@ int main(int argc, char* argv[])
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     int i = 0;
 
-    
+
     struct Quad_Tree_Node* root = NULL;
     root = init_node(root, 0);
     draw_node(root);
@@ -244,60 +256,41 @@ int main(int argc, char* argv[])
 
     while (working)
     {
-        update(root);
-        /*al_draw_rectangle(1, height * 1 / 9, width - 1, height - 1, al_map_rgb(255, 255, 255), 4);
+        update(&root);
+        al_draw_rectangle(1, height * 1.0 / 9.0, width - 1, height - 1, al_map_rgb(255, 255, 255), 4);
         al_draw_filled_rectangle(Platform.x1, Platform.y1, Platform.x2, Platform.y2, al_map_rgb(255, 255, 255));
-        al_draw_filled_circle(New_Ball.x, New_Ball.y, New_Ball.r, al_map_rgb(0, 0, 255));*/
+        al_draw_filled_circle(New_Ball.x, New_Ball.y, New_Ball.r, al_map_rgb(0, 0, 255));
         al_flip_display();
         al_clear_to_color(al_map_rgb(0, 0, 0));
-        
+
         ALLEGRO_EVENT ev;
         ALLEGRO_KEYBOARD_STATE key;
-        if (i == 20) {
+        if (i == 5) {
             move(&New_Ball);
             i = 0;
         }
         al_get_next_event(event_queue, &ev);
-        if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
+        if (ev.type == ALLEGRO_EVENT_KEY_CHAR)
         {
-            al_get_keyboard_state(&key);
             switch (ev.keyboard.keycode)
             {
             case ALLEGRO_KEY_LEFT:
-                pressed_key[ALLEGRO_KEY_LEFT] = true;
+                if (Platform.x1 > 0)
+                {
+                    Platform.x1 -= 5;
+                    Platform.x2 -= 5;
+                }
                 break;
             case ALLEGRO_KEY_RIGHT:
-                pressed_key[ALLEGRO_KEY_RIGHT] = true;
+                if (Platform.x2 < width)
+                {
+                    Platform.x1 += 5;
+                    Platform.x2 += 5;
+                }
                 break;
             case ALLEGRO_KEY_ESCAPE:
                 working = false;
                 break;
-            }
-        }
-        if (ev.type == ALLEGRO_EVENT_KEY_UP)
-        {
-            al_get_keyboard_state(&key);
-            switch (ev.keyboard.keycode)
-            {
-            case ALLEGRO_KEY_LEFT:
-                pressed_key[ALLEGRO_KEY_LEFT] = false;
-                break;
-            case ALLEGRO_KEY_RIGHT:
-                pressed_key[ALLEGRO_KEY_RIGHT] = false;
-                break;
-            }
-        }
-        if (ev.type == ALLEGRO_EVENT_TIMER)
-        {
-            if(pressed_key[ALLEGRO_KEY_LEFT]&& Platform.x1 > 0)
-            {
-                Platform.x1 -= 1;
-                Platform.x2 -= 1;
-            }
-            if (pressed_key[ALLEGRO_KEY_RIGHT] && Platform.x2 < width - 1)
-            {
-                Platform.x1 += 1;
-                Platform.x2 += 1;
             }
         }
         i++;
