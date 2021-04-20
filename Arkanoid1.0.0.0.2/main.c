@@ -31,67 +31,78 @@ struct Quad_Tree_Node
 
 struct Quad_Tree_Node* init_node(struct Quad_Tree_Node* root, int choice)
 {
-    if (root == NULL && choice == 0)
+    if (choice == 0)
     {
         root = (struct Quad_Tree_Node*)malloc(sizeof(struct Quad_Tree_Node));
+        if (root) {
         root->x = width / 2;
-        root->y = height * (1 / 9) / 2;
+        root->y = height * (8 / 9) / 2;
         root->h = height * (8 / 9) / 2;
         root->w = width / 2;
         root->ne = NULL;
         root->nw = NULL;
         root->sw = NULL;
         root->se = NULL;
+    }
         return root;
     }
     else if(choice == 1){   //ne
         struct Quad_Tree_Node* node = (struct Quad_Tree_Node*)malloc(sizeof(struct Quad_Tree_Node));
-        node->x = root->x + root->w / 2;
-        node->y = root->y - root->h / 2;
-        node->h = root->h / 2;
-        node->w = root->w / 2;
-        node->ne = NULL;
-        node->nw = NULL;
-        node->sw = NULL;
-        node->se = NULL;
+        if (node){
+            node->x = root->x + root->w / 2;
+            node->y = root->y - root->h / 2;
+            node->h = root->h / 2;
+            node->w = root->w / 2;
+            node->ne = NULL;
+            node->nw = NULL;
+            node->sw = NULL;
+            node->se = NULL;
+            }
         return node;
     }
     else if (choice == 2) { //nw
         struct Quad_Tree_Node* node = (struct Quad_Tree_Node*)malloc(sizeof(struct Quad_Tree_Node));
-        node->x = root->x - root->w / 2;
-        node->y = root->y - root->h / 2;
-        node->h = root->h / 2;
-        node->w = root->w / 2;
-        node->ne = NULL;
-        node->nw = NULL;
-        node->sw = NULL;
-        node->se = NULL;
+        if (node) {
+            node->x = root->x - root->w / 2;
+            node->y = root->y - root->h / 2;
+            node->h = root->h / 2;
+            node->w = root->w / 2;
+            node->ne = NULL;
+            node->nw = NULL;
+            node->sw = NULL;
+            node->se = NULL;
+        }
         return node;
     }
     else if (choice == 3) { //sw
         struct Quad_Tree_Node* node = (struct Quad_Tree_Node*)malloc(sizeof(struct Quad_Tree_Node));
-        node->x = root->x - root->w / 2;
-        node->y = root->y + root->h / 2;
-        node->h = root->h / 2;
-        node->w = root->w / 2;
-        node->ne = NULL;
-        node->nw = NULL;
-        node->sw = NULL;
-        node->se = NULL;
+        if (node) {
+            node->x = root->x - root->w / 2;
+            node->y = root->y + root->h / 2;
+            node->h = root->h / 2;
+            node->w = root->w / 2;
+            node->ne = NULL;
+            node->nw = NULL;
+            node->sw = NULL;
+            node->se = NULL;
+        }
         return node;
     }
     else if (choice == 4) { //se
         struct Quad_Tree_Node* node = (struct Quad_Tree_Node*)malloc(sizeof(struct Quad_Tree_Node));
-        node->x = root->x + root->w / 2;
-        node->y = root->y + root->h / 2;
-        node->h = root->h / 2;
-        node->w = root->w / 2;
-        node->ne = NULL;
-        node->nw = NULL;
-        node->sw = NULL;
-        node->se = NULL;
+        if (node) {
+            node->x = root->x + root->w / 2;
+            node->y = root->y + root->h / 2;
+            node->h = root->h / 2;
+            node->w = root->w / 2;
+            node->ne = NULL;
+            node->nw = NULL;
+            node->sw = NULL;
+            node->se = NULL;
+        }
         return node;
     }
+    return root;
 }
 
 void draw_node(struct Quad_Tree_Node* node)
@@ -104,14 +115,14 @@ void draw_node(struct Quad_Tree_Node* node)
 
 void free_node(struct Quad_Tree_Node* node)
 {
-    if (node)
+    if (node!=NULL)
     {
         free_node(node->ne);
         free_node(node->nw);
         free_node(node->sw);
         free_node(node->se);
-        free(node);
     }
+    free(node);
 }
 
 
@@ -136,7 +147,6 @@ void subdivide(struct Quad_Tree_Node* node, int levels)
 void update(struct Quad_Tree_Node* root)
 {
     free_node(root);
-    free(root);
     root = NULL;
     root = init_node(root,0);
     subdivide(root, MAX_LVL - 1);
@@ -227,16 +237,17 @@ int main(int argc, char* argv[])
     int i = 0;
 
     
-    
+    struct Quad_Tree_Node* root = NULL;
+    root = init_node(root, 0);
+    draw_node(root);
+    subdivide(root, MAX_LVL - 1);
 
     while (working)
     {
-        struct Quad_Tree_Node* root = NULL;
-        root = init_node(root, 0);
-        subdivide(root, MAX_LVL - 1);
-        al_draw_rectangle(1, height * 1 / 9, width - 1, height - 1, al_map_rgb(255, 255, 255), 4);
+        update(root);
+        /*al_draw_rectangle(1, height * 1 / 9, width - 1, height - 1, al_map_rgb(255, 255, 255), 4);
         al_draw_filled_rectangle(Platform.x1, Platform.y1, Platform.x2, Platform.y2, al_map_rgb(255, 255, 255));
-        al_draw_filled_circle(New_Ball.x, New_Ball.y, New_Ball.r, al_map_rgb(0, 0, 255));
+        al_draw_filled_circle(New_Ball.x, New_Ball.y, New_Ball.r, al_map_rgb(0, 0, 255));*/
         al_flip_display();
         al_clear_to_color(al_map_rgb(0, 0, 0));
         
