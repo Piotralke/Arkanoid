@@ -4,18 +4,19 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/keyboard.h>
 #include <stdbool.h>
+#include <math.h>
 #define width  800
 #define height  900
 #define MAX_LVL 5
+const int platform_state = 1;
+int ball_move = 0;
 
 struct block
 {
-    int x1;
-    int y1;
-    int x2;
-    int y2;
-    int center_x; //  (x1 + x2) / 2;
-    int center_y; //  (y1 + y2) / 2;
+    int x;
+    int y;
+    int w;
+    int h;
     bool state;
 };
 
@@ -36,9 +37,9 @@ struct Ball
     int r;
     int vx;
     int vy;
-}ball;
+};
 
-struct Quad_Tree_Node** init_node(struct Quad_Tree_Node* root, int choice)
+struct Quad_Tree_Node* init_node(struct Quad_Tree_Node* root, int choice)
 {
     if (choice == 0)
     {
@@ -114,21 +115,21 @@ struct Quad_Tree_Node** init_node(struct Quad_Tree_Node* root, int choice)
     return root;
 }
 
-void move(struct Ball* ball) 
+void move(struct Ball* ball, struct block platform)
 {
     ball->x += ball->vx;
-    ball->y += ball->vy;
+    ball->y -= ball->vy;
 
     if (ball->x == 790 || ball->x == 10)
         ball->vx = (-1) * ball->vx;
-    if (ball->y == 110 || ball->y == 890)
+    if (ball->y == 110)
         ball->vy = (-1) * ball->vy;
-
-
-    /*if (ball->y == 900) {
-        ball->x = width / 2;
-        ball->y = 150 ;
-    }*/
+    if (ball->y == 890) {
+        ball_move = 0;
+        ball->vy = (-1) * ball->vy;
+        ball->x = platform.x;
+        ball->y = platform.y - platform.h;
+    }
 }
 
 void draw_node(struct Quad_Tree_Node* node)
@@ -139,12 +140,49 @@ void draw_node(struct Quad_Tree_Node* node)
     al_draw_rectangle(node->x, node->y, node->x + node->w, node->y + node->h, al_map_rgb(255, 255, 255), 2); //se
 }
 
+void draw_range(struct Ball* ball)
+{
+    al_draw_rectangle(ball->x - ball->r - 25, ball->y - ball->r - 25, ball->x + ball->r + 25, ball->y + ball->r + 25, al_map_rgb(0, 255, 0), 1);
+}
+
 bool contain(struct Quad_Tree_Node* node, struct Ball* ball)
 {
-    return (ball->x >= node->x - node->w &&
-        ball->x <= node->x + node->w &&
-        ball->y >= node->y - node->h &&
-        ball->y <= node->y + node->h);
+    if (ball->x - ball->r - 25 >= node->x - node->w &&  //
+        ball->x - ball->r - 25 <= node->x + node->w &&  // Lewa gorna
+        ball->y - ball->r - 25 >= node->y - node->h &&  //
+        ball->y - ball->r - 25 <= node->y + node->h ||  
+        ball->x + ball->r + 25 <= node->x + node->w &&  //
+        ball->x + ball->r + 25 >= node->x - node->w &&  // Prawa dolna
+        ball->y + ball->r + 25 <= node->y + node->h &&  //
+        ball->y + ball->r + 25 >= node->y - node->h ||
+        ball->x - ball->r - 25 >= node->x - node->w &&  //
+        ball->x - ball->r - 25 <= node->x + node->w &&  // Lewa dolna
+        ball->y + ball->r + 25 >= node->y - node->h &&  //
+        ball->y + ball->r + 25 <= node->y + node->h || 
+        ball->x + ball->r + 25 <= node->x + node->w &&  //
+        ball->x + ball->r + 25 >= node->x - node->w &&  //  prawa gorna
+        ball->y - ball->r - 25 >= node->y - node->h &&  //
+        ball->y - ball->r - 25 <= node->y + node->h)
+        return true;
+    else
+        return false;
+}
+
+bool contain_block(struct Quad_Tree_node* node, struct block* block)
+{
+
+}
+
+void check_collision(struct Quad_Tree_Node* node, struct Ball* ball)
+{
+    
+    float distance = sqrt(pow((float)node->block_ptr->x - ball->x, 2) + pow((float)node->block_ptr->y - ball->y, 2));
+    if (distance <= sqrt(pow((float)ball->x + ball->r + 25, 2) + (pow((float)ball->y + ball->r + 25, 2))))
+    {
+        ball->vx = (-1) * ball->vx;
+        ball->vy = (-1) * ball->vy;
+    }
+   //     destroy_node(node);
 }
 
 void free_node(struct Quad_Tree_Node* node)
@@ -159,7 +197,6 @@ void free_node(struct Quad_Tree_Node* node)
     free(node);
 }
 
-
 void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball)
 {
     if (node && levels > 0 && contain(node, ball))
@@ -170,19 +207,24 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball)
         node->sw = init_node(node, 3);
         node->se = init_node(node, 4);
         draw_node(node);
+        draw_range(ball);
+        if (levels == 0) {
+            contain_block(node, node->block_ptr)
+        }
         subdivide(node->ne, levels, ball);
         subdivide(node->nw, levels, ball);
         subdivide(node->sw, levels, ball);
         subdivide(node->se, levels, ball);
-    }
-}
 
+    }
+   
+}
 
 void update(struct Quad_Tree_Node** root, struct Ball* ball)
 {
     free_node(*root);
     *root = NULL;
-    *root = init_node(root, 0);
+    *root = init_node(*root, 0);
     subdivide(*root, MAX_LVL - 1, ball);
 }
 
@@ -190,10 +232,9 @@ int main(int argc, char* argv[])
 {
 
     bool working = true;
-    bool pressed_key[ALLEGRO_KEY_MAX];
-
-    struct block Platform = { width / 2, height - 50,Platform.x1 + 100,Platform.y1 + 20 };
-    struct Ball New_Ball = { width / 2, 150, 10, 1, 1 };
+    int i = 0;
+    struct block Platform = { (width / 2), height - 50,75,10, platform_state };
+    struct Ball New_Ball = { Platform.x , Platform.y - Platform.h, 10, 1, 1 };
     ALLEGRO_DISPLAY* display = NULL;
     ALLEGRO_BITMAP* bitmap = NULL;
     ALLEGRO_BITMAP* board = NULL;
@@ -238,7 +279,6 @@ int main(int argc, char* argv[])
     al_flip_display();
 
     al_register_event_source(event_queue, al_get_keyboard_event_source());
-    int i = 0;
 
 
     struct Quad_Tree_Node* root = NULL;
@@ -246,17 +286,16 @@ int main(int argc, char* argv[])
 
     while (working)
     {
-        
+
         al_draw_rectangle(1, height * 1.0 / 9.0, width - 1, height - 1, al_map_rgb(255, 255, 255), 4);
-        al_draw_filled_rectangle(Platform.x1, Platform.y1, Platform.x2, Platform.y2, al_map_rgb(255, 255, 255));
+        al_draw_filled_rectangle(Platform.x-Platform.w, Platform.y-Platform.h+New_Ball.r, Platform.x+Platform.w, Platform.y+Platform.h, al_map_rgb(255, 255, 255));
         al_draw_filled_circle(New_Ball.x, New_Ball.y, New_Ball.r, al_map_rgb(0, 0, 255));
         al_flip_display();
         al_clear_to_color(al_map_rgb(0, 0, 0));
 
         ALLEGRO_EVENT ev;
-        ALLEGRO_KEYBOARD_STATE key;
-        if (i == 5) {
-            move(&New_Ball);
+        if (i == 15 && ball_move == 1) {
+            move(&New_Ball, Platform);
             i = 0;
         }
         al_get_next_event(event_queue, &ev);
@@ -265,25 +304,40 @@ int main(int argc, char* argv[])
             switch (ev.keyboard.keycode)
             {
             case ALLEGRO_KEY_LEFT:
-                if (Platform.x1 > 0)
+                if (Platform.x-Platform.w > 0 && ball_move == 0)
                 {
-                    Platform.x1 -= 5;
-                    Platform.x2 -= 5;
+                    Platform.x -= 5;
+                    New_Ball.x -= 5;
+                    New_Ball.vx = -1;
+                }
+                else if (Platform.x - Platform.w > 0)
+                {
+                    Platform.x -= 5;
                 }
                 break;
             case ALLEGRO_KEY_RIGHT:
-                if (Platform.x2 < width)
+                if (Platform.x+Platform.w < width && ball_move == 0)
                 {
-                    Platform.x1 += 5;
-                    Platform.x2 += 5;
+                    Platform.x += 5;
+                    New_Ball.x += 5;
+                    New_Ball.vx = 1;
                 }
+                else if (Platform.x+Platform.w < width)
+                {
+                    Platform.x += 5;
+                }
+                break;
+            case ALLEGRO_KEY_SPACE:
+                ball_move = 1;
+                i = 14;
                 break;
             case ALLEGRO_KEY_ESCAPE:
                 working = false;
                 break;
             }
         }
-        update(&root, &ball);
+        update(&root, &New_Ball);
+
         i++;
     }
     al_uninstall_keyboard();
