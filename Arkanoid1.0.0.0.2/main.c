@@ -29,8 +29,14 @@ struct Quad_Tree_Node
     struct Ball* ball_ptr;
     struct Quad_Tree_Node* ne, * nw, * sw, * se;
 };
-
-
+struct Ball
+{
+    int x;
+    int y;
+    int r;
+    int vx;
+    int vy;
+}ball;
 
 struct Quad_Tree_Node** init_node(struct Quad_Tree_Node* root, int choice)
 {
@@ -108,12 +114,37 @@ struct Quad_Tree_Node** init_node(struct Quad_Tree_Node* root, int choice)
     return root;
 }
 
+void move(struct Ball* ball) 
+{
+    ball->x += ball->vx;
+    ball->y += ball->vy;
+
+    if (ball->x == 790 || ball->x == 10)
+        ball->vx = (-1) * ball->vx;
+    if (ball->y == 110 || ball->y == 890)
+        ball->vy = (-1) * ball->vy;
+
+
+    /*if (ball->y == 900) {
+        ball->x = width / 2;
+        ball->y = 150 ;
+    }*/
+}
+
 void draw_node(struct Quad_Tree_Node* node)
 {
-    al_draw_rectangle(node->x, node->y - node->h, node->x + node->w, node->y, al_map_rgb(255, 255, 255), 2); // ne
+    al_draw_rectangle(node->x, node->y - node->h, node->x + node->w, node->y, al_map_rgb(255, 255, 255), 2); //ne
     al_draw_rectangle(node->x - node->w, node->y - node->h, node->x, node->y, al_map_rgb(255, 255, 255), 2); //nw
     al_draw_rectangle(node->x - node->w, node->y, node->x, node->y + node->h, al_map_rgb(255, 255, 255), 2); //sw
     al_draw_rectangle(node->x, node->y, node->x + node->w, node->y + node->h, al_map_rgb(255, 255, 255), 2); //se
+}
+
+bool contain(struct Quad_Tree_Node* node, struct Ball* ball)
+{
+    return (ball->x >= node->x - node->w &&
+        ball->x <= node->x + node->w &&
+        ball->y >= node->y - node->h &&
+        ball->y <= node->y + node->h);
 }
 
 void free_node(struct Quad_Tree_Node* node)
@@ -129,9 +160,9 @@ void free_node(struct Quad_Tree_Node* node)
 }
 
 
-void subdivide(struct Quad_Tree_Node* node, int levels)
+void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball)
 {
-    if (node && levels > 0)
+    if (node && levels > 0 && contain(node, ball))
     {
         levels--;
         node->ne = init_node(node, 1);
@@ -139,59 +170,20 @@ void subdivide(struct Quad_Tree_Node* node, int levels)
         node->sw = init_node(node, 3);
         node->se = init_node(node, 4);
         draw_node(node);
-        subdivide(node->ne, levels);
-        subdivide(node->nw, levels);
-        subdivide(node->sw, levels);
-        subdivide(node->se, levels);
+        subdivide(node->ne, levels, ball);
+        subdivide(node->nw, levels, ball);
+        subdivide(node->sw, levels, ball);
+        subdivide(node->se, levels, ball);
     }
 }
 
 
-void update(struct Quad_Tree_Node** root)
+void update(struct Quad_Tree_Node** root, struct Ball* ball)
 {
     free_node(*root);
     *root = NULL;
     *root = init_node(root, 0);
-    subdivide(*root, MAX_LVL - 1);
-}
-
-
-struct Ball
-{
-    int x;
-    int y;
-    int r;
-    int vx;
-    int vy;
-}ball;
-
-
-void move(struct Ball* ball)
-{
-    ball->x += ball->vx;
-    ball->y += ball->vy;
-
-    if (ball->x==790||ball->x==10)
-        ball->vx = (-1)*ball->vx;
-    if (ball->y == 110||ball->y==890)
-        ball->vy = (-1) * ball->vy;
-   
-        
-    /*if (ball->y == 900) {
-        ball->x = width / 2;
-        ball->y = 150 ;
-    }*/
-}
-
-bool contain(struct Quad_Tree_Node* node, struct Ball* ball)
-{
-    if (ball->x >= node->x - node->w &&
-        ball->x <= node->x + node->w &&
-        ball->y >= node->y - node->h &&
-        ball->y <= node->y + node->h)
-        return true;
-    else
-        return false;
+    subdivide(*root, MAX_LVL - 1, ball);
 }
 
 int main(int argc, char* argv[])
@@ -251,12 +243,10 @@ int main(int argc, char* argv[])
 
     struct Quad_Tree_Node* root = NULL;
     root = init_node(root, 0);
-    draw_node(root);
-    subdivide(root, MAX_LVL - 1);
 
     while (working)
     {
-        update(&root);
+        
         al_draw_rectangle(1, height * 1.0 / 9.0, width - 1, height - 1, al_map_rgb(255, 255, 255), 4);
         al_draw_filled_rectangle(Platform.x1, Platform.y1, Platform.x2, Platform.y2, al_map_rgb(255, 255, 255));
         al_draw_filled_circle(New_Ball.x, New_Ball.y, New_Ball.r, al_map_rgb(0, 0, 255));
@@ -293,6 +283,7 @@ int main(int argc, char* argv[])
                 break;
             }
         }
+        update(&root, &ball);
         i++;
     }
     al_uninstall_keyboard();
