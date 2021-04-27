@@ -128,7 +128,7 @@ void move(struct Ball* ball, struct block platform)
         ball_move = 0;
         ball->vy = (-1) * ball->vy;
         ball->x = platform.x;
-        ball->y = platform.y - platform.h;
+        ball->y = platform.y - platform.h-5;
     }
 }
 
@@ -147,42 +147,61 @@ void draw_range(struct Ball* ball)
 
 bool contain(struct Quad_Tree_Node* node, struct Ball* ball)
 {
-    if (ball->x - ball->r - 25 >= node->x - node->w &&  //
-        ball->x - ball->r - 25 <= node->x + node->w &&  // Lewa gorna
-        ball->y - ball->r - 25 >= node->y - node->h &&  //
+    if (ball->x - ball->r - 25 >= node->x - node->w &&  
+        ball->x - ball->r - 25 <= node->x + node->w &&  
+        ball->y - ball->r - 25 >= node->y - node->h &&  
         ball->y - ball->r - 25 <= node->y + node->h ||  
-        ball->x + ball->r + 25 <= node->x + node->w &&  //
-        ball->x + ball->r + 25 >= node->x - node->w &&  // Prawa dolna
-        ball->y + ball->r + 25 <= node->y + node->h &&  //
+        ball->x + ball->r + 25 <= node->x + node->w &&  
+        ball->x + ball->r + 25 >= node->x - node->w &&  
+        ball->y + ball->r + 25 <= node->y + node->h &&  
         ball->y + ball->r + 25 >= node->y - node->h ||
-        ball->x - ball->r - 25 >= node->x - node->w &&  //
-        ball->x - ball->r - 25 <= node->x + node->w &&  // Lewa dolna
-        ball->y + ball->r + 25 >= node->y - node->h &&  //
+        ball->x - ball->r - 25 >= node->x - node->w &&  
+        ball->x - ball->r - 25 <= node->x + node->w &&  
+        ball->y + ball->r + 25 >= node->y - node->h &&  
         ball->y + ball->r + 25 <= node->y + node->h || 
-        ball->x + ball->r + 25 <= node->x + node->w &&  //
-        ball->x + ball->r + 25 >= node->x - node->w &&  //  prawa gorna
-        ball->y - ball->r - 25 >= node->y - node->h &&  //
+        ball->x + ball->r + 25 <= node->x + node->w &&  
+        ball->x + ball->r + 25 >= node->x - node->w &&  
+        ball->y - ball->r - 25 >= node->y - node->h &&  
         ball->y - ball->r - 25 <= node->y + node->h)
         return true;
     else
         return false;
 }
 
-bool contain_block(struct Quad_Tree_node* node, struct block* block)
+bool contain_block(struct Quad_Tree_Node* node, struct block* block)
 {
-
+    if (block->x - block->w >= node->x - node->w &&  
+        block->x - block->w <= node->x + node->w &&  
+        block->y - block->h >= node->y - node->h &&  
+        block->y - block->h <= node->y + node->h ||
+        block->x + block->w <= node->x + node->w &&  
+        block->x + block->w >= node->x - node->w &&  
+        block->y + block->h <= node->y + node->h &&  
+        block->y + block->h >= node->y - node->h ||
+        block->x - block->w >= node->x - node->w &&  
+        block->x - block->w <= node->x + node->w &&  
+        block->y + block->h >= node->y - node->h &&  
+        block->y + block->h <= node->y + node->h ||
+        block->x + block->w <= node->x + node->w &&  
+        block->x + block->w >= node->x - node->w &&  
+        block->y - block->h >= node->y - node->h &&  
+        block->y - block->h <= node->y + node->h||
+        block->y>=node->y-node->h&&
+        block->y<=node->y+node->h)
+        return true;
+    else
+        return false;
 }
 
-void check_collision(struct Quad_Tree_Node* node, struct Ball* ball)
+void check_collision(struct Ball* ball, struct block* block)    //funkcja do poprawy, nie dziala.
 {
-    
-    float distance = sqrt(pow((float)node->block_ptr->x - ball->x, 2) + pow((float)node->block_ptr->y - ball->y, 2));
-    if (distance <= sqrt(pow((float)ball->x + ball->r + 25, 2) + (pow((float)ball->y + ball->r + 25, 2))))
+    if (ball->x > block->x - ball->r - block->w &&  
+        ball->x < block->x + ball->r + block->w &&
+        ball->y < block->y&&
+        ball->y > block->y - ball->r - block->h)
     {
-        ball->vx = (-1) * ball->vx;
         ball->vy = (-1) * ball->vy;
     }
-   //     destroy_node(node);
 }
 
 void free_node(struct Quad_Tree_Node* node)
@@ -197,7 +216,12 @@ void free_node(struct Quad_Tree_Node* node)
     free(node);
 }
 
-void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball)
+draw_outline(struct Quad_Tree_Node* node)
+{
+    al_draw_rectangle(node->x - node->w, node->y - node->h, node->x + node->w, node->y + node->h, al_map_rgb(255, 0, 0), 2);
+}
+
+void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struct block* block)
 {
     if (node && levels > 0 && contain(node, ball))
     {
@@ -208,33 +232,34 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball)
         node->se = init_node(node, 4);
         draw_node(node);
         draw_range(ball);
-        if (levels == 0) {
-            contain_block(node, node->block_ptr)
-        }
-        subdivide(node->ne, levels, ball);
-        subdivide(node->nw, levels, ball);
-        subdivide(node->sw, levels, ball);
-        subdivide(node->se, levels, ball);
+        
+        subdivide(node->ne, levels, ball, block);
+        subdivide(node->nw, levels, ball, block);
+        subdivide(node->sw, levels, ball, block);
+        subdivide(node->se, levels, ball, block);
 
     }
-   
+    if (levels == 0) {
+        if (contain_block(node, block))
+            draw_outline(node);
+             check_collision(ball, block);
+    }
 }
 
-void update(struct Quad_Tree_Node** root, struct Ball* ball)
+void update(struct Quad_Tree_Node** root, struct Ball* ball, struct block* block)
 {
     free_node(*root);
     *root = NULL;
     *root = init_node(*root, 0);
-    subdivide(*root, MAX_LVL - 1, ball);
+    subdivide(*root, MAX_LVL - 1, ball, block);
 }
 
 int main(int argc, char* argv[])
 {
-
     bool working = true;
     int i = 0;
-    struct block Platform = { (width / 2), height - 50,75,10, platform_state };
-    struct Ball New_Ball = { Platform.x , Platform.y - Platform.h, 10, 1, 1 };
+    struct block Platform = { (width / 2), height - 30,75,10, platform_state };
+    struct Ball New_Ball = { Platform.x , Platform.y - Platform.h- 5, 10, 1, 1 };
     ALLEGRO_DISPLAY* display = NULL;
     ALLEGRO_BITMAP* bitmap = NULL;
     ALLEGRO_BITMAP* board = NULL;
@@ -294,7 +319,7 @@ int main(int argc, char* argv[])
         al_clear_to_color(al_map_rgb(0, 0, 0));
 
         ALLEGRO_EVENT ev;
-        if (i == 15 && ball_move == 1) {
+        if (i == 8 && ball_move == 1) {
             move(&New_Ball, Platform);
             i = 0;
         }
@@ -329,14 +354,14 @@ int main(int argc, char* argv[])
                 break;
             case ALLEGRO_KEY_SPACE:
                 ball_move = 1;
-                i = 14;
+                i = 7;
                 break;
             case ALLEGRO_KEY_ESCAPE:
                 working = false;
                 break;
             }
         }
-        update(&root, &New_Ball);
+        update(&root, &New_Ball, &Platform);
 
         i++;
     }

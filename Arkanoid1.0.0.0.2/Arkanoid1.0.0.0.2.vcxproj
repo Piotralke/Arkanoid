@@ -160,7 +160,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
-    <ClCompile Include="quadtree.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
