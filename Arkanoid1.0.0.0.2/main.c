@@ -26,8 +26,6 @@ struct Quad_Tree_Node
     int w;
     int x;
     int y;
-    struct block* block_ptr;
-    struct Ball* ball_ptr;
     struct Quad_Tree_Node* ne, * nw, * sw, * se;
 };
 struct Ball
@@ -38,6 +36,22 @@ struct Ball
     int vx;
     int vy;
 };
+
+void init_array(struct block** array, int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < 2 * size; j++)
+        {
+            array[i][j].x = 25 + j;
+            array[i][j].y = 125 + i;
+            array[i][j].h = 25;
+            array[i][j].w = 25;
+            array[i][j].state = 1;
+        }
+    }
+
+}
 
 struct Quad_Tree_Node* init_node(struct Quad_Tree_Node* root, int choice)
 {
@@ -240,6 +254,17 @@ void free_node(struct Quad_Tree_Node* node)
     free(node);
 }
 
+void free_ptr(struct block** array, int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        free(array[i]);
+        array[i] = NULL;
+    }
+    free(array);
+    array = NULL;
+}
+
 draw_outline(struct Quad_Tree_Node* node)
 {
     al_draw_rectangle(node->x - node->w, node->y - node->h, node->x + node->w, node->y + node->h, al_map_rgb(255, 0, 0), 2);
@@ -281,7 +306,7 @@ void update(struct Quad_Tree_Node** root, struct Ball* ball, struct block* block
 }
 
 int main(int argc, char* argv[])
-{
+{   
     bool working = true;
     int i = 0;
     struct block Platform = { (width / 2), height - 30,75,10, platform_state };
@@ -291,6 +316,19 @@ int main(int argc, char* argv[])
     ALLEGRO_BITMAP* board = NULL;
     ALLEGRO_EVENT_QUEUE* event_queue = NULL;
     ALLEGRO_TIMER* timer_FPS = NULL;
+
+
+    int size = 8;
+    struct block** array = (struct block**)calloc(size, sizeof(struct block*));
+    for (int a = 0; a < 16; a++)
+        array[a] = (struct block*)calloc(size*2, sizeof(struct block));
+    if (!array)
+    {
+        fprintf(stderr, "Blad zalokowania pamieci");
+        free_ptr(array, size * 2);
+    }
+
+    init_array(array, size);
 
     if (!al_init()) {
         fprintf(stderr, "Failed to initialize allegro!\n");
@@ -345,7 +383,7 @@ int main(int argc, char* argv[])
         al_clear_to_color(al_map_rgb(0, 0, 0));
 
         ALLEGRO_EVENT ev;
-        if (i == 8 && ball_move == 1) {
+        if (i == 30 && ball_move == 1) {
             move(&New_Ball, Platform);
             i = 0;
         }
@@ -380,7 +418,7 @@ int main(int argc, char* argv[])
                 break;
             case ALLEGRO_KEY_SPACE:
                 ball_move = 1;
-                i = 7;
+                i = 29;
                 break;
             case ALLEGRO_KEY_ESCAPE:
                 working = false;
@@ -393,6 +431,7 @@ int main(int argc, char* argv[])
     }
     al_uninstall_keyboard();
     al_destroy_display(display);
+    free_ptr(array, size * 2);
 
     return 0;
 }
