@@ -5,6 +5,7 @@
 #include <allegro5/keyboard.h>
 #include <stdbool.h>
 #include <math.h>
+#include <time.h>
 #define width  800
 #define height  900
 #define MAX_LVL 5
@@ -43,14 +44,34 @@ void init_array(struct block** array, int size)
     {
         for (int j = 0; j < 2 * size; j++)
         {
-            array[i][j].x = 25 + j;
-            array[i][j].y = 125 + i;
+            array[i][j].x = 25 + j*50;
+            array[i][j].y = 125 + i*50;
             array[i][j].h = 25;
             array[i][j].w = 25;
             array[i][j].state = 1;
         }
     }
+}
 
+void draw_block(struct block** array, int size)
+{
+    srand(time(NULL));
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < 2 * size; j++)
+        {
+            al_draw_filled_rectangle(array[i][j].x - array[i][j].w, 
+                                     array[i][j].y - array[i][j].h, 
+                                     array[i][j].x + array[i][j].w, 
+                                     array[i][j].y + array[i][j].h, 
+                                     al_map_rgb(rand()%255, rand()%255, rand()%255));
+            al_draw_rectangle(array[i][j].x - array[i][j].w,
+                array[i][j].y - array[i][j].h,
+                array[i][j].x + array[i][j].w,
+                array[i][j].y + array[i][j].h,
+                al_map_rgb(0,0,0),2);
+        }
+    }
 }
 
 struct Quad_Tree_Node* init_node(struct Quad_Tree_Node* root, int choice)
@@ -265,7 +286,7 @@ void free_ptr(struct block** array, int size)
     array = NULL;
 }
 
-draw_outline(struct Quad_Tree_Node* node)
+void draw_outline(struct Quad_Tree_Node* node)
 {
     al_draw_rectangle(node->x - node->w, node->y - node->h, node->x + node->w, node->y + node->h, al_map_rgb(255, 0, 0), 2);
 }
@@ -278,8 +299,8 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
         node->nw = init_node(node, 2);
         node->sw = init_node(node, 3);
         node->se = init_node(node, 4);
-        draw_node(node);
-        draw_range(ball);
+       // draw_node(node);
+      //  draw_range(ball);
         levels--;
         subdivide(node->ne, levels, ball, block);
         subdivide(node->nw, levels, ball, block);
@@ -290,7 +311,7 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
 
     if (levels == 0) {
         if (contain_block(node, block)) {
-            draw_outline(node);
+          //  draw_outline(node);
             check_collision(ball, block);
         }
     }
@@ -318,17 +339,15 @@ int main(int argc, char* argv[])
     ALLEGRO_TIMER* timer_FPS = NULL;
 
 
-    int size = 8;
-    struct block** array = (struct block**)calloc(size, sizeof(struct block*));
-    for (int a = 0; a < 16; a++)
-        array[a] = (struct block*)calloc(size*2, sizeof(struct block));
-    if (!array)
-    {
-        fprintf(stderr, "Blad zalokowania pamieci");
-        free_ptr(array, size * 2);
-    }
-
-    init_array(array, size);
+    //int size = 8;
+    //struct block** array = (struct block**)calloc(size, sizeof(struct block*));
+    //for (int a = 0; a < 16; a++)
+    //    array[a] = (struct block*)calloc(size*2, sizeof(struct block));
+    //if (!array)
+    //{
+    //    fprintf(stderr, "Blad zalokowania pamieci");
+    //    free_ptr(array, size * 2);
+    //}
 
     if (!al_init()) {
         fprintf(stderr, "Failed to initialize allegro!\n");
@@ -375,13 +394,14 @@ int main(int argc, char* argv[])
 
     while (working)
     {
-
+        
         al_draw_rectangle(1, height * 1.0 / 9.0, width - 1, height - 1, al_map_rgb(255, 255, 255), 4);
         al_draw_filled_rectangle(Platform.x - Platform.w, Platform.y - Platform.h + New_Ball.r, Platform.x + Platform.w, Platform.y + Platform.h, al_map_rgb(255, 255, 255));
         al_draw_filled_circle(New_Ball.x, New_Ball.y, New_Ball.r, al_map_rgb(0, 0, 255));
         al_flip_display();
         al_clear_to_color(al_map_rgb(0, 0, 0));
-
+       // init_array(array, size);
+       // draw_block(array, size);
         ALLEGRO_EVENT ev;
         if (i == 30 && ball_move == 1) {
             move(&New_Ball, Platform);
@@ -425,13 +445,15 @@ int main(int argc, char* argv[])
                 break;
             }
         }
+        
+       // free_ptr(array, size);
         update(&root, &New_Ball, &Platform);
 
         i++;
     }
     al_uninstall_keyboard();
     al_destroy_display(display);
-    free_ptr(array, size * 2);
+   // free_ptr(array,size);
 
     return 0;
 }
