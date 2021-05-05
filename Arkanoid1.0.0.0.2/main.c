@@ -128,7 +128,7 @@ void move(struct Ball* ball, struct block platform)
         ball_move = 0;
         ball->vy = (-1) * ball->vy;
         ball->x = platform.x;
-        ball->y = platform.y - platform.h-5;
+        ball->y = platform.y - platform.h - 5;
     }
 }
 
@@ -147,21 +147,21 @@ void draw_range(struct Ball* ball)
 
 bool contain(struct Quad_Tree_Node* node, struct Ball* ball)
 {
-    if (ball->x - ball->r - 25 >= node->x - node->w &&  
-        ball->x - ball->r - 25 <= node->x + node->w &&  
-        ball->y - ball->r - 25 >= node->y - node->h &&  
-        ball->y - ball->r - 25 <= node->y + node->h ||  
-        ball->x + ball->r + 25 <= node->x + node->w &&  
-        ball->x + ball->r + 25 >= node->x - node->w &&  
-        ball->y + ball->r + 25 <= node->y + node->h &&  
+    if (ball->x - ball->r - 25 >= node->x - node->w &&
+        ball->x - ball->r - 25 <= node->x + node->w &&
+        ball->y - ball->r - 25 >= node->y - node->h &&
+        ball->y - ball->r - 25 <= node->y + node->h ||
+        ball->x + ball->r + 25 <= node->x + node->w &&
+        ball->x + ball->r + 25 >= node->x - node->w &&
+        ball->y + ball->r + 25 <= node->y + node->h &&
         ball->y + ball->r + 25 >= node->y - node->h ||
-        ball->x - ball->r - 25 >= node->x - node->w &&  
-        ball->x - ball->r - 25 <= node->x + node->w &&  
-        ball->y + ball->r + 25 >= node->y - node->h &&  
-        ball->y + ball->r + 25 <= node->y + node->h || 
-        ball->x + ball->r + 25 <= node->x + node->w &&  
-        ball->x + ball->r + 25 >= node->x - node->w &&  
-        ball->y - ball->r - 25 >= node->y - node->h &&  
+        ball->x - ball->r - 25 >= node->x - node->w &&
+        ball->x - ball->r - 25 <= node->x + node->w &&
+        ball->y + ball->r + 25 >= node->y - node->h &&
+        ball->y + ball->r + 25 <= node->y + node->h ||
+        ball->x + ball->r + 25 <= node->x + node->w &&
+        ball->x + ball->r + 25 >= node->x - node->w &&
+        ball->y - ball->r - 25 >= node->y - node->h &&
         ball->y - ball->r - 25 <= node->y + node->h)
         return true;
     else
@@ -170,24 +170,34 @@ bool contain(struct Quad_Tree_Node* node, struct Ball* ball)
 
 bool contain_block(struct Quad_Tree_Node* node, struct block* block)
 {
-    if (block->x - block->w >= node->x - node->w &&  
-        block->x - block->w <= node->x + node->w &&  
-        block->y - block->h >= node->y - node->h &&  
+    if (block->x - block->w >= node->x - node->w &&
+        block->x - block->w <= node->x + node->w &&
+        block->y - block->h >= node->y - node->h &&
         block->y - block->h <= node->y + node->h ||
-        block->x + block->w <= node->x + node->w &&  
-        block->x + block->w >= node->x - node->w &&  
-        block->y + block->h <= node->y + node->h &&  
+        block->x + block->w <= node->x + node->w &&
+        block->x + block->w >= node->x - node->w &&
+        block->y + block->h <= node->y + node->h &&
         block->y + block->h >= node->y - node->h ||
-        block->x - block->w >= node->x - node->w &&  
-        block->x - block->w <= node->x + node->w &&  
-        block->y + block->h >= node->y - node->h &&  
+        block->x - block->w >= node->x - node->w &&
+        block->x - block->w <= node->x + node->w &&
+        block->y + block->h >= node->y - node->h &&
         block->y + block->h <= node->y + node->h ||
-        block->x + block->w <= node->x + node->w &&  
-        block->x + block->w >= node->x - node->w &&  
-        block->y - block->h >= node->y - node->h &&  
-        block->y - block->h <= node->y + node->h||
-        block->y>=node->y-node->h&&
-        block->y<=node->y+node->h)
+        block->x + block->w <= node->x + node->w &&
+        block->x + block->w >= node->x - node->w &&
+        block->y - block->h >= node->y - node->h &&
+        block->y - block->h <= node->y + node->h ||
+        block->y >= node->y - node->h &&
+        block->y <= node->y + node->h &&
+        block->x >= node->x - node->w &&
+        block->x <= node->x + node->w ||
+        block->y >= node->y - node->h &&
+        block->y <= node->y + node->h &&
+        block->x + 0.5*block->w >= node->x - node->w &&
+        block->x + 0.5 * block->w <= node->x + node->w ||
+        block->y >= node->y - node->h &&
+        block->y <= node->y + node->h &&
+        block->x - 0.5 * block->w >= node->x - node->w &&
+        block->x - 0.5 * block->w <= node->x + node->w)
         return true;
     else
         return false;
@@ -195,12 +205,26 @@ bool contain_block(struct Quad_Tree_Node* node, struct block* block)
 
 void check_collision(struct Ball* ball, struct block* block)    //funkcja do poprawy, nie dziala.
 {
-    if (ball->x > block->x - ball->r - block->w &&  
-        ball->x < block->x + ball->r + block->w &&
-        ball->y < block->y&&
-        ball->y > block->y - ball->r - block->h)
+    float testX = ball->x;
+    float testY = ball->y;
+
+    if (ball->x < block->x - block->w)
+        testX = block->x - block->w;
+    else if (ball->x > block->x + block->w)
+        testX = block->x + block->w;
+    if (ball->y < block->y - block->h)
+        testY = block->y - block->h;
+    else if (ball->y > block->y + block->h)
+        testY = block->y + block->h;
+
+    float distX = ball->x - testX;
+    float distY = ball->y - testY;
+    float distance = sqrt((distX * distX) + (distY * distY));
+
+    if (distance <= 0)
     {
-        ball->vy = (-1) * ball->vy;
+        ball->y -= 1;
+        ball->vy = (-1)*ball->vy;
     }
 }
 
@@ -225,25 +249,27 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
 {
     if (node && levels > 0 && contain(node, ball))
     {
-        levels--;
         node->ne = init_node(node, 1);
         node->nw = init_node(node, 2);
         node->sw = init_node(node, 3);
         node->se = init_node(node, 4);
         draw_node(node);
         draw_range(ball);
-        
+        levels--;
         subdivide(node->ne, levels, ball, block);
         subdivide(node->nw, levels, ball, block);
         subdivide(node->sw, levels, ball, block);
         subdivide(node->se, levels, ball, block);
 
     }
+
     if (levels == 0) {
-        if (contain_block(node, block))
+        if (contain_block(node, block)) {
             draw_outline(node);
-             check_collision(ball, block);
+            check_collision(ball, block);
+        }
     }
+    
 }
 
 void update(struct Quad_Tree_Node** root, struct Ball* ball, struct block* block)
@@ -259,7 +285,7 @@ int main(int argc, char* argv[])
     bool working = true;
     int i = 0;
     struct block Platform = { (width / 2), height - 30,75,10, platform_state };
-    struct Ball New_Ball = { Platform.x , Platform.y - Platform.h- 5, 10, 1, 1 };
+    struct Ball New_Ball = { Platform.x , Platform.y - Platform.h - 5, 10, 1, 1 };
     ALLEGRO_DISPLAY* display = NULL;
     ALLEGRO_BITMAP* bitmap = NULL;
     ALLEGRO_BITMAP* board = NULL;
@@ -313,7 +339,7 @@ int main(int argc, char* argv[])
     {
 
         al_draw_rectangle(1, height * 1.0 / 9.0, width - 1, height - 1, al_map_rgb(255, 255, 255), 4);
-        al_draw_filled_rectangle(Platform.x-Platform.w, Platform.y-Platform.h+New_Ball.r, Platform.x+Platform.w, Platform.y+Platform.h, al_map_rgb(255, 255, 255));
+        al_draw_filled_rectangle(Platform.x - Platform.w, Platform.y - Platform.h + New_Ball.r, Platform.x + Platform.w, Platform.y + Platform.h, al_map_rgb(255, 255, 255));
         al_draw_filled_circle(New_Ball.x, New_Ball.y, New_Ball.r, al_map_rgb(0, 0, 255));
         al_flip_display();
         al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -329,7 +355,7 @@ int main(int argc, char* argv[])
             switch (ev.keyboard.keycode)
             {
             case ALLEGRO_KEY_LEFT:
-                if (Platform.x-Platform.w > 0 && ball_move == 0)
+                if (Platform.x - Platform.w > 0 && ball_move == 0)
                 {
                     Platform.x -= 5;
                     New_Ball.x -= 5;
@@ -341,13 +367,13 @@ int main(int argc, char* argv[])
                 }
                 break;
             case ALLEGRO_KEY_RIGHT:
-                if (Platform.x+Platform.w < width && ball_move == 0)
+                if (Platform.x + Platform.w < width && ball_move == 0)
                 {
                     Platform.x += 5;
                     New_Ball.x += 5;
                     New_Ball.vx = 1;
                 }
-                else if (Platform.x+Platform.w < width)
+                else if (Platform.x + Platform.w < width)
                 {
                     Platform.x += 5;
                 }
