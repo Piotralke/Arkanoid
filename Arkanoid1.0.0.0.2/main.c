@@ -9,9 +9,8 @@
 #define width  800
 #define height  900
 #define MAX_LVL 5
-const int platform_state = 1;
 int ball_move = 0;
-
+int size = 8;
 struct block
 {
     int x;
@@ -42,12 +41,12 @@ void init_array(struct block** array, int size)
 {
     for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < 2 * size; j++)
+        for (int j = 0; j <  size; j++)
         {
-            array[i][j].x = 25 + j*50;
+            array[i][j].x = 50 + j*100;
             array[i][j].y = 125 + i*50;
             array[i][j].h = 25;
-            array[i][j].w = 25;
+            array[i][j].w = 50;
             array[i][j].state = 1;
         }
     }
@@ -58,18 +57,22 @@ void draw_block(struct block** array, int size)
     srand(time(NULL));
     for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < 2 * size; j++)
+        for (int j = 0; j <  size; j++)
         {
-            al_draw_filled_rectangle(array[i][j].x - array[i][j].w, 
-                                     array[i][j].y - array[i][j].h, 
-                                     array[i][j].x + array[i][j].w, 
-                                     array[i][j].y + array[i][j].h, 
-                                     al_map_rgb(rand()%255, rand()%255, rand()%255));
-            al_draw_rectangle(array[i][j].x - array[i][j].w,
-                array[i][j].y - array[i][j].h,
-                array[i][j].x + array[i][j].w,
-                array[i][j].y + array[i][j].h,
-                al_map_rgb(0,0,0),2);
+            if (array[i][j].state == 1)
+            {
+                al_draw_filled_rectangle(array[i][j].x - array[i][j].w,
+                    array[i][j].y - array[i][j].h,
+                    array[i][j].x + array[i][j].w,
+                    array[i][j].y + array[i][j].h,
+                    al_map_rgb(255 - i*15, 0, 0));
+                al_draw_rectangle(array[i][j].x - array[i][j].w,
+                    array[i][j].y - array[i][j].h,
+                    array[i][j].x + array[i][j].w,
+                    array[i][j].y + array[i][j].h,
+                    al_map_rgb(0, 0, 0), 2);
+            }
+            
         }
     }
 }
@@ -203,7 +206,7 @@ bool contain(struct Quad_Tree_Node* node, struct Ball* ball)
         return false;
 }
 
-bool contain_block(struct Quad_Tree_Node* node, struct block* block)
+bool contain_platform(struct Quad_Tree_Node* node, struct block* block)
 {
     if (block->x - block->w >= node->x - node->w &&
         block->x - block->w <= node->x + node->w &&
@@ -238,7 +241,43 @@ bool contain_block(struct Quad_Tree_Node* node, struct block* block)
         return false;
 }
 
-void check_collision(struct Ball* ball, struct block* block)    //funkcja do poprawy, nie dziala.
+bool contain_block(struct Quad_Tree_Node* node, struct block* block)
+{
+    if (block->state == 1)
+    {
+
+        if (block->x - block->w >= node->x - node->w &&
+            block->x - block->w <= node->x + node->w &&
+            block->y - block->h >= node->y - node->h &&
+            block->y - block->h <= node->y + node->h ||
+            block->x + block->w <= node->x + node->w &&
+            block->x + block->w >= node->x - node->w &&
+            block->y + block->h <= node->y + node->h &&
+            block->y + block->h >= node->y - node->h ||
+            block->x - block->w >= node->x - node->w &&
+            block->x - block->w <= node->x + node->w &&
+            block->y + block->h >= node->y - node->h &&
+            block->y + block->h <= node->y + node->h ||
+            block->x + block->w <= node->x + node->w &&
+            block->x + block->w >= node->x - node->w &&
+            block->y - block->h >= node->y - node->h &&
+            block->y - block->h <= node->y + node->h ||
+            block->y >= node->y - node->h &&
+            block->y <= node->y + node->h &&
+            block->x >= node->x - node->w &&
+            block->x <= node->x + node->w ||
+            block->y >= node->y - node->h &&
+            block->y <= node->y + node->h)
+            return true;
+        else
+            return false;
+    }
+    else
+        return false;
+}
+
+
+void check_collision(struct Ball* ball, struct block* block)   
 {
     float testX = ball->x;
     float testY = ball->y;
@@ -256,10 +295,11 @@ void check_collision(struct Ball* ball, struct block* block)    //funkcja do pop
     float distY = ball->y - testY;
     float distance = sqrt((distX * distX) + (distY * distY));
 
-    if (distance <= 0)
+    if (distance <= ball->r && block->state == 1)
     {
         ball->y -= 1;
         ball->vy = (-1)*ball->vy;
+        block->state = 0;
     }
 }
 
@@ -291,7 +331,7 @@ void draw_outline(struct Quad_Tree_Node* node)
     al_draw_rectangle(node->x - node->w, node->y - node->h, node->x + node->w, node->y + node->h, al_map_rgb(255, 0, 0), 2);
 }
 
-void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struct block* block)
+void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struct block* platform, struct block** block)
 {
     if (node && levels > 0 && contain(node, ball))
     {
@@ -299,38 +339,61 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
         node->nw = init_node(node, 2);
         node->sw = init_node(node, 3);
         node->se = init_node(node, 4);
-       // draw_node(node);
-      //  draw_range(ball);
+        draw_node(node);
+        draw_range(ball);
         levels--;
-        subdivide(node->ne, levels, ball, block);
-        subdivide(node->nw, levels, ball, block);
-        subdivide(node->sw, levels, ball, block);
-        subdivide(node->se, levels, ball, block);
+        subdivide(node->ne, levels, ball, platform, block);
+        subdivide(node->nw, levels, ball, platform, block);
+        subdivide(node->sw, levels, ball, platform, block);
+        subdivide(node->se, levels, ball, platform, block);
 
     }
 
     if (levels == 0) {
-        if (contain_block(node, block)) {
-          //  draw_outline(node);
-            check_collision(ball, block);
+        if (contain_platform(node, platform)) {
+            draw_outline(node);
+            check_collision(ball, platform);
         }
+     //   if (ball->y - ball->r - 25 <= 500)
+ //       {
+            for (int i = 0; i < size;i++)
+            {
+                for (int j = 0; j < size;j++)
+                {
+                    if (contain_block(node, &(block[i][j])))
+                    {
+
+                        draw_outline(node);
+                        check_collision(ball, &(block[i][j]));
+                    }
+                        //if (contain_block(node, &(block[8][8])))
+                        //{
+                        //    draw_outline(node);
+                        //    check_collision(ball, block);
+                        //}
+
+                    
+                }
+            }
+            
+      //  }
     }
     
 }
 
-void update(struct Quad_Tree_Node** root, struct Ball* ball, struct block* block)
+void update(struct Quad_Tree_Node** root, struct Ball* ball, struct block* platform, struct block** block)
 {
     free_node(*root);
     *root = NULL;
     *root = init_node(*root, 0);
-    subdivide(*root, MAX_LVL - 1, ball, block);
+    subdivide(*root, MAX_LVL - 1, ball, platform, block);
 }
 
 int main(int argc, char* argv[])
 {   
     bool working = true;
     int i = 0;
-    struct block Platform = { (width / 2), height - 30,75,10, platform_state };
+    struct block Platform = { (width / 2), height - 30,75,10, 1 };
     struct Ball New_Ball = { Platform.x , Platform.y - Platform.h - 5, 10, 1, 1 };
     ALLEGRO_DISPLAY* display = NULL;
     ALLEGRO_BITMAP* bitmap = NULL;
@@ -339,15 +402,16 @@ int main(int argc, char* argv[])
     ALLEGRO_TIMER* timer_FPS = NULL;
 
 
-    //int size = 8;
-    //struct block** array = (struct block**)calloc(size, sizeof(struct block*));
-    //for (int a = 0; a < 16; a++)
-    //    array[a] = (struct block*)calloc(size*2, sizeof(struct block));
-    //if (!array)
-    //{
-    //    fprintf(stderr, "Blad zalokowania pamieci");
-    //    free_ptr(array, size * 2);
-    //}
+
+struct block** array = (struct block**)calloc(size, sizeof(struct block*));
+for (int a = 0; a < size; a++)
+    array[a] = (struct block*)calloc(size, sizeof(struct block));
+if (!array)
+{
+    fprintf(stderr, "Blad zalokowania pamieci");
+    free_ptr(array, size );
+    return -1;
+}
 
     if (!al_init()) {
         fprintf(stderr, "Failed to initialize allegro!\n");
@@ -391,19 +455,19 @@ int main(int argc, char* argv[])
 
     struct Quad_Tree_Node* root = NULL;
     root = init_node(root, 0);
+    init_array(array, size);
 
     while (working)
     {
-        
+        Platform.state = 1;
         al_draw_rectangle(1, height * 1.0 / 9.0, width - 1, height - 1, al_map_rgb(255, 255, 255), 4);
-        al_draw_filled_rectangle(Platform.x - Platform.w, Platform.y - Platform.h + New_Ball.r, Platform.x + Platform.w, Platform.y + Platform.h, al_map_rgb(255, 255, 255));
+        al_draw_filled_rectangle(Platform.x - Platform.w, Platform.y - Platform.h, Platform.x + Platform.w, Platform.y + Platform.h, al_map_rgb(255, 255, 255));
         al_draw_filled_circle(New_Ball.x, New_Ball.y, New_Ball.r, al_map_rgb(0, 0, 255));
         al_flip_display();
         al_clear_to_color(al_map_rgb(0, 0, 0));
-       // init_array(array, size);
-       // draw_block(array, size);
+        draw_block(array, size);
         ALLEGRO_EVENT ev;
-        if (i == 30 && ball_move == 1) {
+        if (i == 10 && ball_move == 1) {
             move(&New_Ball, Platform);
             i = 0;
         }
@@ -438,7 +502,7 @@ int main(int argc, char* argv[])
                 break;
             case ALLEGRO_KEY_SPACE:
                 ball_move = 1;
-                i = 29;
+                i = 9;
                 break;
             case ALLEGRO_KEY_ESCAPE:
                 working = false;
@@ -446,14 +510,14 @@ int main(int argc, char* argv[])
             }
         }
         
-       // free_ptr(array, size);
-        update(&root, &New_Ball, &Platform);
+        
+        update(&root, &New_Ball, &Platform, array);
 
         i++;
     }
     al_uninstall_keyboard();
     al_destroy_display(display);
-   // free_ptr(array,size);
+    free_ptr(array,size);
 
     return 0;
 }
