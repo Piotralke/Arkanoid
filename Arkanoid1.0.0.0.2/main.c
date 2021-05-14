@@ -65,7 +65,7 @@ void draw_block(struct block** array, int size)
                     array[i][j].y - array[i][j].h,
                     array[i][j].x + array[i][j].w,
                     array[i][j].y + array[i][j].h,
-                    al_map_rgb(255 - i*15, 0, 0));
+                    al_map_rgb(255 - i*15, i*15, 0));
                 al_draw_rectangle(array[i][j].x - array[i][j].w,
                     array[i][j].y - array[i][j].h,
                     array[i][j].x + array[i][j].w,
@@ -208,34 +208,34 @@ bool contain(struct Quad_Tree_Node* node, struct Ball* ball)
 
 bool contain_platform(struct Quad_Tree_Node* node, struct block* block)
 {
-    if (block->x - block->w >= node->x - node->w &&
-        block->x - block->w <= node->x + node->w &&
-        block->y - block->h >= node->y - node->h &&
-        block->y - block->h <= node->y + node->h ||
-        block->x + block->w <= node->x + node->w &&
-        block->x + block->w >= node->x - node->w &&
-        block->y + block->h <= node->y + node->h &&
-        block->y + block->h >= node->y - node->h ||
-        block->x - block->w >= node->x - node->w &&
-        block->x - block->w <= node->x + node->w &&
-        block->y + block->h >= node->y - node->h &&
-        block->y + block->h <= node->y + node->h ||
-        block->x + block->w <= node->x + node->w &&
-        block->x + block->w >= node->x - node->w &&
-        block->y - block->h >= node->y - node->h &&
-        block->y - block->h <= node->y + node->h ||
-        block->y >= node->y - node->h &&
-        block->y <= node->y + node->h &&
-        block->x >= node->x - node->w &&
-        block->x <= node->x + node->w ||
-        block->y >= node->y - node->h &&
-        block->y <= node->y + node->h &&
-        block->x + 0.5*block->w >= node->x - node->w &&
-        block->x + 0.5 * block->w <= node->x + node->w ||
-        block->y >= node->y - node->h &&
-        block->y <= node->y + node->h &&
-        block->x - 0.5 * block->w >= node->x - node->w &&
-        block->x - 0.5 * block->w <= node->x + node->w)
+    if (block->x - block->w > node->x - node->w &&
+        block->x - block->w < node->x + node->w &&
+        block->y - block->h > node->y - node->h &&
+        block->y - block->h < node->y + node->h ||
+        block->x + block->w < node->x + node->w &&
+        block->x + block->w > node->x - node->w &&
+        block->y + block->h < node->y + node->h &&
+        block->y + block->h > node->y - node->h ||
+        block->x - block->w > node->x - node->w &&
+        block->x - block->w < node->x + node->w &&
+        block->y + block->h > node->y - node->h &&
+        block->y + block->h < node->y + node->h ||
+        block->x + block->w < node->x + node->w &&
+        block->x + block->w > node->x - node->w &&
+        block->y - block->h > node->y - node->h &&
+        block->y - block->h < node->y + node->h ||
+        block->y > node->y - node->h &&
+        block->y < node->y + node->h &&
+        block->x > node->x - node->w &&
+        block->x < node->x + node->w ||
+        block->y > node->y - node->h &&
+        block->y < node->y + node->h &&
+        block->x + 0.5*block->w > node->x - node->w &&
+        block->x + 0.5 * block->w < node->x + node->w ||
+        block->y > node->y - node->h &&
+        block->y < node->y + node->h &&
+        block->x - 0.5 * block->w > node->x - node->w &&
+        block->x - 0.5 * block->w < node->x + node->w)
         return true;
     else
         return false;
@@ -246,28 +246,26 @@ bool contain_block(struct Quad_Tree_Node* node, struct block* block)
     if (block->state == 1)
     {
 
-        if (block->x - block->w >= node->x - node->w &&
-            block->x - block->w <= node->x + node->w &&
-            block->y - block->h >= node->y - node->h &&
-            block->y - block->h <= node->y + node->h ||
-            block->x + block->w <= node->x + node->w &&
-            block->x + block->w >= node->x - node->w &&
-            block->y + block->h <= node->y + node->h &&
-            block->y + block->h >= node->y - node->h ||
-            block->x - block->w >= node->x - node->w &&
-            block->x - block->w <= node->x + node->w &&
-            block->y + block->h >= node->y - node->h &&
-            block->y + block->h <= node->y + node->h ||
-            block->x + block->w <= node->x + node->w &&
-            block->x + block->w >= node->x - node->w &&
-            block->y - block->h >= node->y - node->h &&
-            block->y - block->h <= node->y + node->h ||
+        if (block->x - block->w > node->x - node->w &&
+            block->x - block->w < node->x + node->w &&
+            block->y - block->h > node->y - node->h &&
+            block->y - block->h < node->y + node->h ||
+            block->x + block->w < node->x + node->w &&
+            block->x + block->w > node->x - node->w &&
+            block->y + block->h < node->y + node->h &&
+            block->y + block->h > node->y - node->h ||
+            block->x - block->w > node->x - node->w &&
+            block->x - block->w < node->x + node->w &&
+            block->y + block->h > node->y - node->h &&
+            block->y + block->h < node->y + node->h ||
+            block->x + block->w < node->x + node->w &&
+            block->x + block->w > node->x - node->w &&
+            block->y - block->h > node->y - node->h &&
+            block->y - block->h < node->y + node->h ||
             block->y >= node->y - node->h &&
             block->y <= node->y + node->h &&
             block->x >= node->x - node->w &&
-            block->x <= node->x + node->w ||
-            block->y >= node->y - node->h &&
-            block->y <= node->y + node->h)
+            block->x <= node->x + node->w )
             return true;
         else
             return false;
@@ -354,8 +352,7 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
             draw_outline(node);
             check_collision(ball, platform);
         }
-     //   if (ball->y - ball->r - 25 <= 500)
- //       {
+
             for (int i = 0; i < size;i++)
             {
                 for (int j = 0; j < size;j++)
@@ -365,20 +362,10 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
 
                         draw_outline(node);
                         check_collision(ball, &(block[i][j]));
-                    }
-                        //if (contain_block(node, &(block[8][8])))
-                        //{
-                        //    draw_outline(node);
-                        //    check_collision(ball, block);
-                        //}
-
-                    
+                    }                    
                 }
             }
-            
-      //  }
     }
-    
 }
 
 void update(struct Quad_Tree_Node** root, struct Ball* ball, struct block* platform, struct block** block)
@@ -467,7 +454,7 @@ if (!array)
         al_clear_to_color(al_map_rgb(0, 0, 0));
         draw_block(array, size);
         ALLEGRO_EVENT ev;
-        if (i == 10 && ball_move == 1) {
+        if (i == 7 && ball_move == 1) {
             move(&New_Ball, Platform);
             i = 0;
         }
@@ -502,7 +489,7 @@ if (!array)
                 break;
             case ALLEGRO_KEY_SPACE:
                 ball_move = 1;
-                i = 9;
+                i = 6;
                 break;
             case ALLEGRO_KEY_ESCAPE:
                 working = false;
