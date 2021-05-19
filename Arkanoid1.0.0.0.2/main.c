@@ -2,7 +2,9 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_image.h>
 #include <allegro5/keyboard.h>
+#include <allegro5/allegro_native_dialog.h>
 #include <stdbool.h>
 #include <math.h>
 #include <time.h>
@@ -11,6 +13,10 @@
 #define MAX_LVL 5
 int ball_move = 0;
 int size = 8;
+int debug = -1;
+int sound = -1;
+int lives = 3;
+int points = 0;
 struct block
 {
     int x;
@@ -37,7 +43,7 @@ struct Ball
     int vy;
 };
 
-void init_array(struct block** array, int size)
+void init_array(struct block** array)
 {
     for (int i = 0; i < size; i++)
     {
@@ -52,7 +58,7 @@ void init_array(struct block** array, int size)
     }
 }
 
-void draw_block(struct block** array, int size)
+void draw_block(struct block** array)
 {
     srand(time(NULL));
     for (int i = 0; i < size; i++)
@@ -163,6 +169,7 @@ void move(struct Ball* ball, struct block platform)
     if (ball->y == 110)
         ball->vy = (-1) * ball->vy;
     if (ball->y == 890) {
+        lives--;
         ball_move = 0;
         ball->vy = (-1) * ball->vy;
         ball->x = platform.x;
@@ -275,7 +282,7 @@ bool contain_block(struct Quad_Tree_Node* node, struct block* block)
 }
 
 
-void check_collision(struct Ball* ball, struct block* block)   
+bool check_collision(struct Ball* ball, struct block* block)   
 {
     float testX = ball->x;
     float testY = ball->y;
@@ -298,7 +305,9 @@ void check_collision(struct Ball* ball, struct block* block)
         ball->y -= 1;
         ball->vy = (-1)*ball->vy;
         block->state = 0;
+        return true;
     }
+    return false;
 }
 
 void free_node(struct Quad_Tree_Node* node)
@@ -313,7 +322,7 @@ void free_node(struct Quad_Tree_Node* node)
     free(node);
 }
 
-void free_ptr(struct block** array, int size)
+void free_ptr(struct block** array)
 {
     for (int i = 0; i < size; i++)
     {
@@ -337,8 +346,12 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
         node->nw = init_node(node, 2);
         node->sw = init_node(node, 3);
         node->se = init_node(node, 4);
-        draw_node(node);
-        draw_range(ball);
+        if (debug>0)
+        {
+            draw_node(node);
+            draw_range(ball);
+        }
+
         levels--;
         subdivide(node->ne, levels, ball, platform, block);
         subdivide(node->nw, levels, ball, platform, block);
@@ -349,8 +362,9 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
 
     if (levels == 0) {
         if (contain_platform(node, platform)) {
-            draw_outline(node);
-            check_collision(ball, platform);
+            if(debug>0)
+                draw_outline(node);
+                check_collision(ball, platform);
         }
 
             for (int i = 0; i < size;i++)
@@ -359,9 +373,10 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
                 {
                     if (contain_block(node, &(block[i][j])))
                     {
-
-                        draw_outline(node);
-                        check_collision(ball, &(block[i][j]));
+                        if(debug>0)
+                            draw_outline(node);
+                        if (check_collision(ball, &(block[i][j])))
+                            points += 100;
                     }                    
                 }
             }
@@ -375,83 +390,181 @@ void update(struct Quad_Tree_Node** root, struct Ball* ball, struct block* platf
     *root = init_node(*root, 0);
     subdivide(*root, MAX_LVL - 1, ball, platform, block);
 }
-
-int main(int argc, char* argv[])
-{   
-    bool working = true;
-    int i = 0;
-    struct block Platform = { (width / 2), height - 30,75,10, 1 };
-    struct Ball New_Ball = { Platform.x , Platform.y - Platform.h - 5, 10, 1, 1 };
-    ALLEGRO_DISPLAY* display = NULL;
-    ALLEGRO_BITMAP* bitmap = NULL;
-    ALLEGRO_BITMAP* board = NULL;
-    ALLEGRO_EVENT_QUEUE* event_queue = NULL;
-    ALLEGRO_TIMER* timer_FPS = NULL;
-
-
-
-struct block** array = (struct block**)calloc(size, sizeof(struct block*));
-for (int a = 0; a < size; a++)
-    array[a] = (struct block*)calloc(size, sizeof(struct block));
-if (!array)
+void wynik(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_BITMAP* wyniki, FILE* scores)
 {
-    fprintf(stderr, "Blad zalokowania pamieci");
-    free_ptr(array, size );
-    return -1;
+    bool working_wyniki = true;
+    al_draw_bitmap(wyniki, 0, 0, 0);
+    al_flip_display();
+    while (working_wyniki)
+    {
+        al_flip_display();
+        ALLEGRO_EVENT ev;
+        al_get_next_event(event_queue, &ev);
+        if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
+        {
+            switch (ev.keyboard.keycode)
+            {
+                case ALLEGRO_KEY_ENTER:
+                    working_wyniki = false;
+                    break;
+            }
+        }                
+    }
 }
 
-    if (!al_init()) {
-        fprintf(stderr, "Failed to initialize allegro!\n");
-        return -1;
-    }
-    event_queue = al_create_event_queue();
-    display = al_create_display(width, height);
-    if (!display) {
-        fprintf(stderr, "Failed to create display!\n");
-        return -1;
-    }
-
-    bitmap = al_create_bitmap(width, height);
-    if (!bitmap) {
-        fprintf(stderr, "Failed to create bitmap!\n");
-        return -1;
-    }
-
-    board = al_create_sub_bitmap(bitmap, 1, height * 1 / 9, width - 1, height - 1);
-    if (!board) {
-        fprintf(stderr, "Failed to create bitmap!\n");
-        return -1;
-    }
-
-    timer_FPS = al_create_timer(1.0 / 160);
-    if (!timer_FPS) {
-        fprintf(stderr, "Failed to create FPS timer!\n");
-        return -1;
-    }
-
-
-    al_register_event_source(event_queue, al_get_timer_event_source(timer_FPS));
-    al_init_primitives_addon();
-    al_install_keyboard();
-    al_start_timer(timer_FPS);
-    al_clear_to_color(al_map_rgb(0, 0, 0));                             //kolor tla
+void opcje(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_BITMAP* opcje1, ALLEGRO_BITMAP* opcje2, ALLEGRO_BITMAP* opcje3)
+{
+    int choice = 1;
+    bool working_opcje = true;
+    al_draw_bitmap(opcje1, 0, 0, 0);
     al_flip_display();
+    while (working_opcje)
+    {
+        ALLEGRO_EVENT ev;
+        al_get_next_event(event_queue, &ev);
+        switch (choice)
+        {
+        case 1:
+            al_draw_bitmap(opcje1, 0, 0, 0);
+            break;
+        case 2:
+            al_draw_bitmap(opcje2, 0, 0, 0);
+            break;
+        case 3:
+            al_draw_bitmap(opcje3, 0, 0, 0);
+            break;
+        }
 
+        al_flip_display();
+        if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
+        {
+            switch (ev.keyboard.keycode)
+            {
+            case ALLEGRO_KEY_UP:
+                if (choice > 1)
+                    choice--;
+                break;
+            case ALLEGRO_KEY_DOWN:
+                if (choice < 3)
+                    choice++;
+                break;
+            case ALLEGRO_KEY_ENTER:
+                switch (choice)
+                {
+                    case 1 :
+                        debug *= (-1);
+                        break;
+                    case 2:
+                        sound *= (-1);
+                        break;
+                    case 3:
+                        working_opcje = 0;
+                        break;
+                }
+                break;
+            }
+        }
+
+    }
+}
+
+
+bool menu(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_BITMAP* menu1, ALLEGRO_BITMAP* menu2, ALLEGRO_BITMAP* menu3, ALLEGRO_BITMAP* menu4,
+          ALLEGRO_BITMAP* opcje1, ALLEGRO_BITMAP* opcje2, ALLEGRO_BITMAP* opcje3, ALLEGRO_BITMAP* wyniki, FILE* scores)
+{
+    
+    int choice = 1;
+    bool working_menu = true;
+    al_draw_bitmap(menu1, 0, 0, 0);
+    al_flip_display();
+    while (working_menu)
+    {
+        ALLEGRO_EVENT ev;
+        al_get_next_event(event_queue, &ev);
+        switch (choice)
+        {
+        case 1:
+            al_draw_bitmap(menu1, 0, 0, 0);
+            break;
+        case 2:
+            al_draw_bitmap(menu2, 0, 0, 0);
+            break;
+        case 3:
+            al_draw_bitmap(menu3, 0, 0, 0);
+            break;
+        case 4:
+            al_draw_bitmap(menu4, 0, 0, 0);
+            break;
+        }
+
+        al_flip_display();
+        if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
+        {
+            switch (ev.keyboard.keycode)
+            {
+            case ALLEGRO_KEY_UP:
+                if (choice > 1)
+                    choice--;
+                break;
+            case ALLEGRO_KEY_DOWN:
+                if (choice < 4)
+                    choice++;
+                break;
+            case ALLEGRO_KEY_ENTER:
+                switch (choice)
+                {
+                    case 1:
+                        working_menu = 0;
+                        return true;
+                        break;
+                    case 2:
+                        opcje(event_queue, opcje1, opcje2, opcje3);
+                        break;
+                    case 3:
+                        wynik(event_queue, wyniki, scores);
+                        break;
+                    case 4:
+                        working_menu = 0;
+                        return false;
+                        break;
+
+                }
+                break;
+            }
+        }
+
+    }
+}
+
+void wait_for_keypress()
+{
+    ALLEGRO_EVENT_QUEUE* event_queue;
+    ALLEGRO_EVENT event;
+
+    event_queue = al_create_event_queue();
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
+    do
+        al_wait_for_event(event_queue, &event);
+    while (event.type != ALLEGRO_EVENT_KEY_DOWN);
 
-    struct Quad_Tree_Node* root = NULL;
-    root = init_node(root, 0);
-    init_array(array, size);
+    al_destroy_event_queue(event_queue);
+}
 
+void game(bool working, struct block** array,struct Quad_Tree_Node* root, struct block Platform, struct Ball New_Ball, 
+    ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_BITMAP* menu1, ALLEGRO_BITMAP* menu2, ALLEGRO_BITMAP* menu3, ALLEGRO_BITMAP* menu4,
+    ALLEGRO_BITMAP* opcje1, ALLEGRO_BITMAP* opcje2, ALLEGRO_BITMAP* opcje3, ALLEGRO_BITMAP* wyniki, ALLEGRO_BITMAP* tlo, FILE* scores, ALLEGRO_FONT* font)
+{
+    int i = 0;
     while (working)
     {
         Platform.state = 1;
+        al_draw_textf(font, al_map_rgb(255, 255, 255), 30, 30, 0, "SCORE: %d", points);
         al_draw_rectangle(1, height * 1.0 / 9.0, width - 1, height - 1, al_map_rgb(255, 255, 255), 4);
         al_draw_filled_rectangle(Platform.x - Platform.w, Platform.y - Platform.h, Platform.x + Platform.w, Platform.y + Platform.h, al_map_rgb(255, 255, 255));
         al_draw_filled_circle(New_Ball.x, New_Ball.y, New_Ball.r, al_map_rgb(0, 0, 255));
         al_flip_display();
-        al_clear_to_color(al_map_rgb(0, 0, 0));
+        al_draw_bitmap(tlo, 0, 0, 0);
         draw_block(array, size);
         ALLEGRO_EVENT ev;
         if (i == 7 && ball_move == 1) {
@@ -493,18 +606,153 @@ if (!array)
                 break;
             case ALLEGRO_KEY_ESCAPE:
                 working = false;
+                working = menu(event_queue, menu1, menu2, menu3, menu4, opcje1, opcje2, opcje3, wyniki, scores);
                 break;
             }
         }
-        
-        
         update(&root, &New_Ball, &Platform, array);
-
         i++;
+        if (lives == 0)
+        {
+            ball_move = 0;
+            //al_draw_bitmap();
+            al_flip_display();
+            wait_for_keypress();
+            working = false;
+        }
     }
+}
+
+int main(int argc, char* argv[])
+{   
+    bool working;
+    
+    struct block Platform = { (width / 2), height - 30,75,10, 1 };
+    struct Ball New_Ball = { Platform.x , Platform.y - Platform.h - 5, 10, 1, 1 };
+    ALLEGRO_DISPLAY* display = NULL;
+    ALLEGRO_EVENT_QUEUE* event_queue = NULL;
+    ALLEGRO_TIMER* timer_FPS = NULL;
+    ALLEGRO_BITMAP* tlo = NULL;
+    ALLEGRO_BITMAP* menu1 = NULL;
+    ALLEGRO_BITMAP* menu2 = NULL;
+    ALLEGRO_BITMAP* menu3 = NULL;
+    ALLEGRO_BITMAP* menu4 = NULL;
+    ALLEGRO_BITMAP* opcje1 = NULL;
+    ALLEGRO_BITMAP* opcje2 = NULL;
+    ALLEGRO_BITMAP* opcje3 = NULL;
+    ALLEGRO_BITMAP* wyniki = NULL;
+    ALLEGRO_FONT* font = NULL;
+    FILE* scores;
+    scores = fopen("scores.txt", "a+" );
+    if (scores == NULL)
+    {
+        fprintf(stderr, "Blad otwarcia pliku");
+        return -1;
+    }
+
+    if (!al_init()) {
+        fprintf(stderr, "Failed to initialize allegro!\n");
+        return -1;
+    }
+    al_init_ttf_addon();
+    al_init_image_addon();
+    al_init_primitives_addon();
+    event_queue = al_create_event_queue();
+    display = al_create_display(width, height);
+    if (!display) {
+        fprintf(stderr, "Failed to create display!\n");
+        return -1;
+    }
+    font = al_load_ttf_font("font.ttf", 28, ALLEGRO_TTF_MONOCHROME);
+    if (!font)
+    {
+        fprintf(stderr, "Failed to initialize font!\n");
+        return -1;
+    }
+    tlo = al_load_bitmap("BACKGROUND.png");
+    if (!tlo) {
+        fprintf(stderr, "Failed to create bitmap!\n");
+        return -1;
+    }
+    menu1 = al_load_bitmap("MENU1.png");
+    if (!menu1) {
+        fprintf(stderr, "Failed to create bitmap!\n");
+        return -1;
+    }
+    menu2 = al_load_bitmap("MENU2.png");
+    if (!menu2) {
+        fprintf(stderr, "Failed to create bitmap!\n");
+        return -1;
+    }
+    menu3 = al_load_bitmap("MENU3.png");
+    if (!menu3) {
+        fprintf(stderr, "Failed to create bitmap!\n");
+        return -1;
+    }
+    menu4 = al_load_bitmap("MENU4.png");
+    if (!menu4) {
+        fprintf(stderr, "Failed to create bitmap!\n");
+        return -1;
+    }
+    opcje1 = al_load_bitmap("OPCJE1.png");
+    if (!opcje1) {
+        fprintf(stderr, "Failed to create bitmap!\n");
+        return -1;
+    }
+    opcje2 = al_load_bitmap("OPCJE2.png");
+    if (!opcje2) {
+        fprintf(stderr, "Failed to create bitmap!\n");
+        return -1;
+    }
+    opcje3 = al_load_bitmap("OPCJE3.png");
+    if (!opcje3) {
+        fprintf(stderr, "Failed to create bitmap!\n");
+        return -1;
+    }
+    wyniki = al_load_bitmap("WYNIKI.png");
+    if (!wyniki) {
+        fprintf(stderr, "Failed to create bitmap!\n");
+        return -1;
+    }
+    timer_FPS = al_create_timer(1.0 / 160);
+    if (!timer_FPS) {
+        fprintf(stderr, "Failed to create FPS timer!\n");
+        return -1;
+    }
+
+
+    al_register_event_source(event_queue, al_get_timer_event_source(timer_FPS));
+    
+    al_install_keyboard();
+    al_start_timer(timer_FPS);
+    al_flip_display();
+
+    al_register_event_source(event_queue, al_get_keyboard_event_source());
+
+    struct block** array = (struct block**)calloc(size, sizeof(struct block*));
+    for (int a = 0; a < size; a++)
+        array[a] = (struct block*)calloc(size, sizeof(struct block));
+    if (!array)
+    {
+        fprintf(stderr, "Blad zalokowania pamieci");
+        free_ptr(array);
+        return -1;
+    }
+
+    struct Quad_Tree_Node* root = NULL;
+    root = init_node(root, 0);
+    init_array(array);
+
+    working = menu(event_queue, menu1, menu2, menu3, menu4, opcje1, opcje2, opcje3, wyniki, scores);
+   
+    while(working)
+    game(working,array,root,Platform,New_Ball,
+         event_queue, menu1, menu2, menu3, menu4,
+         opcje1, opcje2, opcje3, wyniki, tlo, scores, font);
+
     al_uninstall_keyboard();
     al_destroy_display(display);
-    free_ptr(array,size);
+    free_ptr(array);
 
     return 0;
 }
