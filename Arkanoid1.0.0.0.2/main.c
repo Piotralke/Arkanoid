@@ -71,6 +71,7 @@ void game(bool working, struct block** array,struct Quad_Tree_Node* root, struct
                al_flip_display();
                wait_for_keypress();
                working = false;
+               points += lives * 100;
                break;
            }
         }
@@ -221,7 +222,7 @@ void sort_scores(FILE* scores)
     if (scores)
     {
         int m = 0;
-        while (m < 5)
+        while (m < 6)
         {
             fprintf(scores, "%d\n", highscore_table[m]);
             m++;

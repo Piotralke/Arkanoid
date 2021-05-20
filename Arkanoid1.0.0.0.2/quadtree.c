@@ -1,5 +1,7 @@
 #include "quadtree.h"
 
+bonus_counter = 1;
+
 struct Quad_Tree_Node* init_node(struct Quad_Tree_Node* root, int choice)
 {
     if (choice == 0)
@@ -224,9 +226,12 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
         if (contain_platform(node, platform)) {
             if (debug > 0)
                 draw_outline(node);
-            if (check_collision(ball, platform))
+            if (check_collision(ball, platform)) {
+                bonus_counter = 1;
                 if (sound > 0)
                     al_play_sample(hit, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+            }
+
         }
 
         for (int i = 0; i < size;i++)
@@ -239,7 +244,8 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
                         draw_outline(node);
                     if (check_collision(ball, &(block[i][j])))
                     {
-                        points += 100;
+                        points += bonus_counter*100;
+                        bonus_counter++;
                         block_counter--;
                         if (sound > 0)
                             al_play_sample(destroy, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
