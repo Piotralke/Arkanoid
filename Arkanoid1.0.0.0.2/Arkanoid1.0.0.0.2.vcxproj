@@ -199,20 +199,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="include_lib.c" />
+    <ClCompile Include="levels.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="menu.c" />
+    <ClCompile Include="physic.c" />
+    <ClCompile Include="quadtree.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="menu1.png" />
-    <Image Include="MENU2.png" />
-    <Image Include="MENU3.png" />
-    <Image Include="MENU4.png" />
-    <Image Include="OPCJE1.png" />
-    <Image Include="OPCJE2.png" />
-    <Image Include="OPCJE3.png" />
-    <Image Include="WYNIKI.png" />
+    <ClInclude Include="include_lib.h" />
+    <ClInclude Include="levels.h" />
+    <ClInclude Include="menu.h" />
+    <ClInclude Include="physic.h" />
+    <ClInclude Include="quadtree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

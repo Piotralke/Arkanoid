@@ -18,34 +18,40 @@
     <ClCompile Include="main.c">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="quadtree.c">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="include_lib.c">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.c">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="physic.c">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="levels.c">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="menu1.png">
-      <Filter>Pliki zasobów</Filter>
-    </Image>
-    <Image Include="MENU2.png">
-      <Filter>Pliki zasobów</Filter>
-    </Image>
-    <Image Include="MENU3.png">
-      <Filter>Pliki zasobów</Filter>
-    </Image>
-    <Image Include="MENU4.png">
-      <Filter>Pliki zasobów</Filter>
-    </Image>
-    <Image Include="OPCJE1.png">
-      <Filter>Pliki zasobów</Filter>
-    </Image>
-    <Image Include="OPCJE2.png">
-      <Filter>Pliki zasobów</Filter>
-    </Image>
-    <Image Include="OPCJE3.png">
-      <Filter>Pliki zasobów</Filter>
-    </Image>
-    <Image Include="WYNIKI.png">
-      <Filter>Pliki zasobów</Filter>
-    </Image>
+    <ClInclude Include="include_lib.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="quadtree.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="physic.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="levels.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
