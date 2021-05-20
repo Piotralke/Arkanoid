@@ -148,44 +148,57 @@ void game(bool working, struct block** array,struct Quad_Tree_Node* root, struct
         
     }
 }
-//void sort_scores(FILE* scores)
-//{
-//    int i=0, temp = 0;
-//    int size = 5;
-//    int *scores_table=NULL;
-//    scores_table = (int)calloc(5, sizeof(int));
-//    while (!feof(scores))
-//    {
-//        fscanf(scores, "%d", scores_table[i]);
-//        i++;
-//    }
-//    fclose(scores);
-//    do {
-//        for (int i = 0; i < size; i++) {
-//            if (scores_table[i] > scores_table[i + i]) {
-//                temp = scores_table[i];
-//                scores_table[i] = scores_table[i + 1];
-//                scores_table[i + 1] = temp;
-//            }
-//        }
-//        size--;
-//    } while (size > 1);
-//    scores = fopen("scores.txt", "w");
-//    if (scores == NULL)
-//    {
-//        fprintf(stderr, "Blad otwarcia pliku");
-//        return -1;
-//    }
-//    for (int i = 0; i < 5;i++)
-//    {
-//        fprintf(scores, "%d", scores_table[i]);
-//    }
-//    fclose(scores);
-//}
+
+void swap(int* first, int* second)
+{
+    int t;
+    t = *first;
+    *first = *second;
+    *second = *first;
+}
+
+void bubble_sort(int array[])
+{
+    int i, j;
+    for (i = 0; i < 6; i++)
+        for (j = 6 - 1; j > i; j--)
+            if (array[j - 1] > array[j])
+                swap(&array[j - 1], &array[j]);
+}
+
+
+/*void sort_scores()
+{
+    int i=0, size=5, liczba;
+    int scores_table[6];
+    FILE* scores;
+    scores = fopen("scores.txt", "r");
+ 
+    while (fscanf(scores, "%d", &liczba) != EOF && i<7)
+    {
+        scores_table[i] = liczba;
+        i++;
+    }
+    fclose(scores);
+
+    bubble_sort(scores_table);
+ 
+    scores = fopen("scores.txt", "w");
+    if (scores == NULL)
+    {
+        fprintf(stderr, "Blad otwarcia pliku");
+        return -1;
+    }
+    for (int i = 0; i < 5;i++)
+    {
+        fprintf(scores, "%d\n", scores_table[i]);
+    }
+    fclose(scores);
+}*/
 void sort_scores(FILE* scores)
 {
     int* highscore_table = NULL;
-
+    fclose(scores);
     int number, counter = 0;
     scores = fopen("scores.txt", "r");
     if (scores)
@@ -222,7 +235,7 @@ void sort_scores(FILE* scores)
     if (scores)
     {
         int m = 0;
-        while (m < 6)
+        while (m < 5)
         {
             fprintf(scores, "%d\n", highscore_table[m]);
             m++;
@@ -266,7 +279,7 @@ int main(int argc, char* argv[])
     ALLEGRO_SAMPLE_INSTANCE* musicInstance = NULL;
     ALLEGRO_FONT* font = NULL;
     FILE* scores;
-    scores = fopen("scores.txt", "a+" );
+    scores = fopen("scores.txt", "a" );
     if (scores == NULL)
     {
         fprintf(stderr, "Blad otwarcia pliku");
@@ -407,7 +420,6 @@ int main(int argc, char* argv[])
 
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
-    struct block** array;
     do
     {
         lives = 3;
