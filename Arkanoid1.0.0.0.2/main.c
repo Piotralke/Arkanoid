@@ -87,16 +87,16 @@ void game(bool working, struct block** array,struct Quad_Tree_Node* root, struct
         switch (choice_lvl)
         {
         case 1:
-            draw_block1(array, size);
+            draw_block1(array);
             break;
         case 2:
-            draw_block2(array, size);
+            draw_block2(array);
             break;
         case 3:
-            draw_block3(array, size);
+            draw_block3(array);
             break;
         case 4:
-            draw_block4(array, size);
+            draw_block4(array);
             break;
         }
         ALLEGRO_EVENT ev;
@@ -149,22 +149,18 @@ void game(bool working, struct block** array,struct Quad_Tree_Node* root, struct
     }
 }
 
-void swap(int* first, int* second)
+void sortowanie_babelkowe(int tab[])
 {
-    int t;
-    t = *first;
-    *first = *second;
-    *second = *first;
-}
+ for (int i = 1; i < 6; ++i)
+    for (int j = 6 - 1; j > 0; --j){
+        if (tab[j] > tab[j - 1]){
+            int tmp = tab[j - 1];
+            tab[j - 1] = tab[j];
+            tab[j] = tmp;
+        }
+    }
+ }
 
-void bubble_sort(int array[])
-{
-    int i, j;
-    for (i = 0; i < 6; i++)
-        for (j = 6 - 1; j > i; j--)
-            if (array[j - 1] > array[j])
-                swap(&array[j - 1], &array[j]);
-}
 
 
 /*void sort_scores()
@@ -215,29 +211,16 @@ void sort_scores(FILE* scores)
         }
         fclose(scores);
     }
-    int i = 0, tmp;
-    while (i < counter - 1)
-    {
-        int j = 0;
-        while (j < counter - i - 1)
-        {
-            if (highscore_table[j] < highscore_table[j + 1])
-            {
-                tmp = highscore_table[j];
-                highscore_table[j] = highscore_table[j + 1];
-                highscore_table[j + 1] = tmp;
-            }
-            j++;
-        }
-        i++;
-    }
+    
+    sortowanie_babelkowe(highscore_table);
+
     scores = fopen("scores.txt", "w");
     if (scores)
     {
         int m = 0;
         while (m < 5)
         {
-            fprintf(scores, "%d\n", highscore_table[m]);
+            fprintf(scores, "%d\n", (int)highscore_table[m]);
             m++;
             counter--;
         }
@@ -250,9 +233,9 @@ void save_score(FILE* scores)
     sort_scores(scores);
 }
 int main(int argc, char* argv[])
-{   
+{
     bool working;
-    
+
     struct block Platform = { (width / 2), height - 30,75,10, 1 };
     struct Ball New_Ball = { Platform.x , Platform.y - Platform.h - 5, 10, 1, 1 };
     ALLEGRO_DISPLAY* display = NULL;
@@ -279,7 +262,7 @@ int main(int argc, char* argv[])
     ALLEGRO_SAMPLE_INSTANCE* musicInstance = NULL;
     ALLEGRO_FONT* font = NULL;
     FILE* scores;
-    scores = fopen("scores.txt", "a" );
+    scores = fopen("scores.txt", "a");
     if (scores == NULL)
     {
         fprintf(stderr, "Blad otwarcia pliku");
@@ -413,7 +396,7 @@ int main(int argc, char* argv[])
 
 
     al_register_event_source(event_queue, al_get_timer_event_source(timer_FPS));
-    
+
     al_install_keyboard();
     al_start_timer(timer_FPS);
     al_flip_display();
@@ -437,15 +420,15 @@ int main(int argc, char* argv[])
         }
         struct Quad_Tree_Node* root = NULL;
         root = init_node(root, 0);
-        working = menu(event_queue, menu1, menu2, menu3, menu4, opcje1, opcje2, opcje3, wyniki, scores, font, ruch, klik, check,musicInstance);
+        working = menu(event_queue, menu1, menu2, menu3, menu4, opcje1, opcje2, opcje3, wyniki, scores, font, ruch, klik, check, musicInstance);
         game(working, array, root, Platform, New_Ball,
             event_queue, menu1, menu2, menu3, menu4,
-            opcje1, opcje2, opcje3, wyniki, tlo,zycie,gameover, scores, font,
+            opcje1, opcje2, opcje3, wyniki, tlo, zycie, gameover, scores, font,
             ruch, klik, check, hit, destroy, gameover_m, musicInstance);
         al_stop_sample_instance(musicInstance);
         free_ptr(array);
         save_score(scores);
-    }while (working);
+    } while (working);
 
     al_uninstall_keyboard();
     al_destroy_display(display);
