@@ -151,8 +151,8 @@ void game(bool working, struct block** array,struct Quad_Tree_Node* root, struct
 
 void sortowanie_babelkowe(int tab[])
 {
- for (int i = 1; i < 6; ++i)
-    for (int j = 6 - 1; j > 0; --j){
+ for (int i = 1; i < 7; ++i)
+    for (int j = 7 - 1; j > 0; --j){
         if (tab[j] > tab[j - 1]){
             int tmp = tab[j - 1];
             tab[j - 1] = tab[j];
@@ -162,76 +162,32 @@ void sortowanie_babelkowe(int tab[])
  }
 
 
-
-/*void sort_scores()
-{
-    int i=0, size=5, liczba;
-    int scores_table[6];
-    FILE* scores;
-    scores = fopen("scores.txt", "r");
- 
-    while (fscanf(scores, "%d", &liczba) != EOF && i<7)
-    {
-        scores_table[i] = liczba;
-        i++;
-    }
-    fclose(scores);
-
-    bubble_sort(scores_table);
- 
-    scores = fopen("scores.txt", "w");
-    if (scores == NULL)
-    {
-        fprintf(stderr, "Blad otwarcia pliku");
-        return -1;
-    }
-    for (int i = 0; i < 5;i++)
-    {
-        fprintf(scores, "%d\n", scores_table[i]);
-    }
-    fclose(scores);
-}*/
 void sort_scores(FILE* scores)
 {
-    int* highscore_table = NULL;
+    int scores_table[7] = {0, 0, 0, 0, 0, 0, 0};
     fclose(scores);
-    int number, counter = 0;
+    int number;
     scores = fopen("scores.txt", "r");
     if (scores)
-    {
-        while (!feof(scores))
-        {
-            fscanf(scores, "%d", &number);
-            counter++;
-            if (!feof(scores))
-            {
-                highscore_table = realloc(highscore_table, sizeof(int) * counter);
-                highscore_table[counter - 1] = number;
-            }
-        }
-        fclose(scores);
-    }
-    
-    sortowanie_babelkowe(highscore_table);
+        for (int i = 0; fscanf(scores, "%d", &number) != EOF && i < 7; i++)
+            scores_table[i] = number;
+
+    fclose(scores);
+    sortowanie_babelkowe(scores_table);
 
     scores = fopen("scores.txt", "w");
     if (scores)
-    {
-        int m = 0;
-        while (m < 5)
-        {
-            fprintf(scores, "%d\n", (int)highscore_table[m]);
-            m++;
-            counter--;
-        }
-        fclose(scores);
-    }
+        for (int i = 0; i < 5; i++)
+            fprintf(scores, "%d\n", (int)scores_table[i]);
+    fclose(scores);
 }
+
 void save_score(FILE* scores)
 {
     fprintf(scores, "%d\n", points);
     sort_scores(scores);
 }
+
 int main(int argc, char* argv[])
 {
     bool working;
@@ -429,7 +385,7 @@ int main(int argc, char* argv[])
         free_ptr(array);
         save_score(scores);
     } while (working);
-
+    fclose(scores);
     al_uninstall_keyboard();
     al_destroy_display(display);
     return 0;
