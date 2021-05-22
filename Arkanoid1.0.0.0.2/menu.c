@@ -129,6 +129,8 @@ bool menu(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_BITMAP* menu1, ALLEGRO_BITMA
             al_draw_bitmap(menu4, 0, 0, 0);
             break;
         }
+        if (pause < 0)
+            al_draw_text(font, al_map_rgb(255, 0, 0), 300, 330, 0, "PAUSE");
 
         al_flip_display();
         if (ev.type == ALLEGRO_EVENT_KEY_DOWN)

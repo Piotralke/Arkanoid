@@ -19,6 +19,7 @@ int ball_move;
 int size;
 int debug ;
 int sound ;
+int pause;
 int lives ;
 int block_counter;
 int points ;

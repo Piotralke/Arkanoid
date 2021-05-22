@@ -141,7 +141,9 @@ void game(bool working, struct block** array,struct Quad_Tree_Node* root, struct
                 break;
             case ALLEGRO_KEY_ESCAPE:
                 working = false;
+                pause *= (-1);
                 working = menu(event_queue, menu1, menu2, menu3, menu4, opcje1, opcje2, opcje3, wyniki, scores, font,ruch, klik, check,musicInstance);
+                pause *= (-1);
                 break;
             }
         }
