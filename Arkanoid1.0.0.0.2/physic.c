@@ -33,15 +33,28 @@ bool check_collision(struct Ball* ball, struct block* block)
 {
     float testX = ball->x;
     float testY = ball->y;
+    int odbicie = 0;
 
-    if (ball->x < block->x - block->w)
+    if (ball->x < block->x - block->w) {
         testX = block->x - block->w;
-    else if (ball->x > block->x + block->w)
+        odbicie = 1;
+    }
+        
+    else if (ball->x > block->x + block->w) {
         testX = block->x + block->w;
-    if (ball->y < block->y - block->h)
+        odbicie = 1;
+    }
+        
+    if (ball->y < block->y - block->h) {
         testY = block->y - block->h;
-    else if (ball->y > block->y + block->h)
+        odbicie = 2;
+    }
+        
+    else if (ball->y > block->y + block->h) {
         testY = block->y + block->h;
+        odbicie = 2;
+    }
+
 
     float distX = ball->x - testX;
     float distY = ball->y - testY;
@@ -50,7 +63,10 @@ bool check_collision(struct Ball* ball, struct block* block)
     if (distance <= ball->r && block->state == 1)
     {
         ball->y -= 1;
-        ball->vy = (-1) * ball->vy;
+        if(odbicie==1)
+            ball->vx = (-1) * ball->vx;
+        if(odbicie==2)
+            ball->vy = (-1) * ball->vy;
         block->state = 0;
         return true;
     }
