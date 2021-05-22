@@ -8,6 +8,7 @@
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/keyboard.h>
 #include <allegro5/allegro_native_dialog.h>
+#include <Windows.h>
 #include <stdbool.h>
 #include <math.h>
 #include <time.h>

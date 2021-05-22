@@ -21,8 +21,8 @@ void wait_for_keypress()
 void game(bool working, struct block** array,struct Quad_Tree_Node* root, struct block Platform, struct Ball New_Ball, 
     ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_BITMAP* menu1, ALLEGRO_BITMAP* menu2, ALLEGRO_BITMAP* menu3, ALLEGRO_BITMAP* menu4,
     ALLEGRO_BITMAP* opcje1, ALLEGRO_BITMAP* opcje2, ALLEGRO_BITMAP* opcje3, ALLEGRO_BITMAP* wyniki, ALLEGRO_BITMAP* tlo, ALLEGRO_BITMAP* zycie,
-    ALLEGRO_BITMAP* gameover, FILE* scores, ALLEGRO_FONT* font,ALLEGRO_SAMPLE* ruch,ALLEGRO_SAMPLE* klik,ALLEGRO_SAMPLE* check , 
-    ALLEGRO_SAMPLE* hit ,ALLEGRO_SAMPLE* destroy,ALLEGRO_SAMPLE* gameover_m, ALLEGRO_SAMPLE_INSTANCE* musicInstance)
+    ALLEGRO_BITMAP* gameover, ALLEGRO_BITMAP* youwin, FILE* scores, ALLEGRO_FONT* font,ALLEGRO_SAMPLE* ruch,ALLEGRO_SAMPLE* klik,ALLEGRO_SAMPLE* check , 
+    ALLEGRO_SAMPLE* hit ,ALLEGRO_SAMPLE* destroy,ALLEGRO_SAMPLE* gameover_m, ALLEGRO_SAMPLE* youwin_m, ALLEGRO_SAMPLE_INSTANCE* musicInstance)
 {
     init_level1(array);
 
@@ -37,6 +37,7 @@ void game(bool working, struct block** array,struct Quad_Tree_Node* root, struct
                 al_play_sample(gameover_m, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
             al_draw_bitmap(gameover,200,300,0);
             al_flip_display();
+            Sleep(2000);
             wait_for_keypress();
             working = false;
         }
@@ -54,7 +55,7 @@ void game(bool working, struct block** array,struct Quad_Tree_Node* root, struct
                init_level1(array);
                break;
            case 2:
-               init_level2(array);
+               //init_level2(array);
                break;
            case 3:
                //init_level3(array);
@@ -66,9 +67,10 @@ void game(bool working, struct block** array,struct Quad_Tree_Node* root, struct
                ball_move = 0;
                al_stop_sample_instance(musicInstance);
                if (sound > 0)
-                   al_play_sample(gameover_m, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
-               al_draw_bitmap(gameover, 200, 300, 0);
+                   al_play_sample(youwin_m, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+               al_draw_bitmap(youwin, 200, 300, 0);
                al_flip_display();
+               Sleep(3000);
                wait_for_keypress();
                working = false;
                points += lives * 100;
@@ -161,11 +163,10 @@ void sortowanie_babelkowe(int tab[])
     }
  }
 
-
 void sort_scores(FILE* scores)
 {
-    int scores_table[7] = {0, 0, 0, 0, 0, 0, 0};
     fclose(scores);
+    int scores_table[7] = { 0, 0, 0, 0, 0, 0, 0 };
     int number;
     scores = fopen("scores.txt", "r");
     if (scores)
@@ -184,9 +185,14 @@ void sort_scores(FILE* scores)
 
 void save_score(FILE* scores)
 {
-    fprintf(scores, "%d\n", points);
+    fclose(scores);
+    scores = fopen("scores.txt", "a");
+    if(scores)
+        fprintf(scores, "%d\n", points);
     sort_scores(scores);
 }
+
+
 
 int main(int argc, char* argv[])
 {
@@ -208,12 +214,14 @@ int main(int argc, char* argv[])
     ALLEGRO_BITMAP* wyniki = NULL;
     ALLEGRO_BITMAP* zycie = NULL;
     ALLEGRO_BITMAP* gameover = NULL;
+    ALLEGRO_BITMAP* youwin = NULL;
     ALLEGRO_SAMPLE* ruch = NULL;
     ALLEGRO_SAMPLE* klik = NULL;
     ALLEGRO_SAMPLE* check = NULL;
     ALLEGRO_SAMPLE* hit = NULL;
     ALLEGRO_SAMPLE* destroy = NULL;
     ALLEGRO_SAMPLE* gameover_m = NULL;
+    ALLEGRO_SAMPLE* youwin_m = NULL;
     ALLEGRO_SAMPLE* music = NULL;
     ALLEGRO_SAMPLE_INSTANCE* musicInstance = NULL;
     ALLEGRO_FONT* font = NULL;
@@ -302,6 +310,11 @@ int main(int argc, char* argv[])
         fprintf(stderr, "Failed to create bitmap!\n");
         return -1;
     }
+    youwin = al_load_bitmap("YOUWIN.png");
+    if (!youwin) {
+        fprintf(stderr, "Failed to create bitmap!\n");
+        return -1;
+    }
     ruch = al_load_sample("przechodzenie.ogg");
     if (!ruch) {
         fprintf(stderr, "Failed to load audio!\n");
@@ -329,6 +342,11 @@ int main(int argc, char* argv[])
     }
     gameover_m = al_load_sample("gameover.ogg");
     if (!gameover_m) {
+        fprintf(stderr, "Failed to load audio!\n");
+        return -1;
+    }
+    youwin_m = al_load_sample("youwin.ogg");
+    if (!youwin_m) {
         fprintf(stderr, "Failed to load audio!\n");
         return -1;
     }
@@ -379,13 +397,12 @@ int main(int argc, char* argv[])
         working = menu(event_queue, menu1, menu2, menu3, menu4, opcje1, opcje2, opcje3, wyniki, scores, font, ruch, klik, check, musicInstance);
         game(working, array, root, Platform, New_Ball,
             event_queue, menu1, menu2, menu3, menu4,
-            opcje1, opcje2, opcje3, wyniki, tlo, zycie, gameover, scores, font,
-            ruch, klik, check, hit, destroy, gameover_m, musicInstance);
+            opcje1, opcje2, opcje3, wyniki, tlo, zycie, gameover, youwin, scores, font,
+            ruch, klik, check, hit, destroy, gameover_m, youwin_m, musicInstance);
         al_stop_sample_instance(musicInstance);
         free_ptr(array);
         save_score(scores);
     } while (working);
-    fclose(scores);
     al_uninstall_keyboard();
     al_destroy_display(display);
     return 0;

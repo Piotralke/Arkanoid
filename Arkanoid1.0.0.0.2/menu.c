@@ -1,12 +1,13 @@
 #include "menu.h"
 
-void wynik(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_BITMAP* wyniki, FILE* scores, ALLEGRO_SAMPLE* klik)
+void wynik(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_BITMAP* wyniki, FILE* scores, ALLEGRO_SAMPLE* klik, ALLEGRO_FONT* font)
 {
     bool working_wyniki = true;
     al_draw_bitmap(wyniki, 0, 0, 0);
     al_flip_display();
     while (working_wyniki)
     {
+        read_scores(scores,font);
         al_flip_display();
         ALLEGRO_EVENT ev;
         al_get_next_event(event_queue, &ev);
@@ -170,7 +171,7 @@ bool menu(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_BITMAP* menu1, ALLEGRO_BITMA
                 case 3:
                     if (sound > 0)
                         al_play_sample(klik, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
-                    wynik(event_queue, wyniki, scores, klik);
+                    wynik(event_queue, wyniki, scores, klik, font);
                     break;
                 case 4:
                     if (sound > 0)
@@ -185,4 +186,17 @@ bool menu(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_BITMAP* menu1, ALLEGRO_BITMA
         }
 
     }
+}
+
+void read_scores(FILE* scores, ALLEGRO_FONT* font)
+{
+    int number;
+    fclose(scores);
+    scores = fopen("scores.txt", "r");
+    if (scores)
+        for (int i = 0; fscanf(scores, "%d", &number) != EOF && i < 5;i++)
+        {
+            al_draw_textf(font, al_map_rgb(0, 0, 0), 195, 495 + i * 50, 0, "%d. %d", i + 1, number);
+        }
+    fclose(scores);
 }
