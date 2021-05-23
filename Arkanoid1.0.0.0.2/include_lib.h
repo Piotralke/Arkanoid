@@ -24,6 +24,8 @@ int lives ;
 int block_counter;
 int points ;
 int choice_lvl;
+int ball_speed;
+int bonus_active;
 struct block
 {
     int x;

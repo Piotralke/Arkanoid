@@ -7,3 +7,5 @@ pause = 1;
 lives = 3;
 points = 0;
 block_counter = 0;
+ball_speed = 7;
+bonus_active = 0;

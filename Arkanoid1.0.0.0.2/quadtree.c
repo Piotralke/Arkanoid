@@ -200,7 +200,7 @@ void free_node(struct Quad_Tree_Node* node)
 }
 
 void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struct block* platform, struct block** block,
-    ALLEGRO_SAMPLE* hit, ALLEGRO_SAMPLE* destroy)
+    ALLEGRO_SAMPLE* hit, ALLEGRO_SAMPLE* destroy, struct queue_pointers* queue)
 {
     if (node && levels > 0 && contain(node, ball))
     {
@@ -215,10 +215,10 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
         }
 
         levels--;
-        subdivide(node->ne, levels, ball, platform, block, hit, destroy);
-        subdivide(node->nw, levels, ball, platform, block, hit, destroy);
-        subdivide(node->sw, levels, ball, platform, block, hit, destroy);
-        subdivide(node->se, levels, ball, platform, block, hit, destroy);
+        subdivide(node->ne, levels, ball, platform, block, hit, destroy, queue);
+        subdivide(node->nw, levels, ball, platform, block, hit, destroy, queue);
+        subdivide(node->sw, levels, ball, platform, block, hit, destroy, queue);
+        subdivide(node->se, levels, ball, platform, block, hit, destroy, queue);
 
     }
 
@@ -247,6 +247,7 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
                         points += bonus_counter*100;
                         bonus_counter++;
                         block_counter--;
+                        bonus(&(block[i][j]),queue);
                         if (sound > 0)
                             al_play_sample(destroy, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                     }
@@ -257,10 +258,10 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
     }
 }
 
-void update(struct Quad_Tree_Node** root, struct Ball* ball, struct block* platform, struct block** block, ALLEGRO_SAMPLE* hit, ALLEGRO_SAMPLE* destroy)
+void update(struct Quad_Tree_Node** root, struct Ball* ball, struct block* platform, struct block** block, ALLEGRO_SAMPLE* hit, ALLEGRO_SAMPLE* destroy, struct queue_pointers* queue)
 {
     free_node(*root);
     *root = NULL;
     *root = init_node(*root, 0);
-    subdivide(*root, MAX_LVL - 1, ball, platform, block, hit, destroy);
+    subdivide(*root, MAX_LVL - 1, ball, platform, block, hit, destroy, queue);
 }

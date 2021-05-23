@@ -200,21 +200,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="include_lib.c" />
+    <ClCompile Include="init.c" />
     <ClCompile Include="levels.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="menu.c" />
     <ClCompile Include="physic.c" />
     <ClCompile Include="quadtree.c" />
+    <ClCompile Include="scores.c" />
+    <ClCompile Include="uninstall.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include_lib.h" />
+    <ClInclude Include="init.h" />
     <ClInclude Include="levels.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="physic.h" />
     <ClInclude Include="quadtree.h" />
+    <ClInclude Include="scores.h" />
+    <ClInclude Include="uninstall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

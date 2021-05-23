@@ -2,6 +2,88 @@
 #include "menu.h"
 #include "physic.h"
 #include "levels.h"
+#include "scores.h"
+#include "init.h"
+#include "uninstall.h"
+
+struct queue_node
+{
+    int x;
+    int y;
+    int w;
+    int h;
+    ALLEGRO_BITMAP* bonus_bitmap;
+    struct queue_node* next;
+};
+struct queue_pointers
+{
+    struct queue_node* head, * tail;
+};
+bool enqueue(struct queue_pointers* queue, struct block* block, ALLEGRO_BITMAP* bonus_bitmap)
+{
+    struct queue_node* new_node = (struct queue_node*)malloc(sizeof(struct queue_node));
+    if (new_node != NULL)
+    {
+        new_node->x = block->x;
+        new_node->y = block->y;
+        new_node->w = 50;
+        new_node->h = 50;
+        new_node->bonus_bitmap = bonus_bitmap;
+        new_node->next = NULL;
+        if (queue->head == NULL)
+        {
+            queue->head = queue->tail = new_node;
+        }
+        else
+        {
+            queue->tail->next = new_node;
+            queue->tail = new_node;
+        }
+        return true;
+    }
+    return false;
+}
+bool dequeue(struct queue_pointers* queue)
+{
+    if (NULL != queue->head)
+    {
+        struct queue_node* tmp = queue->head->next;
+       // free(queue->head);
+        queue->head = tmp;
+        if (NULL == tmp)
+            queue->tail = NULL;
+        return true;
+    }
+    return false;
+}
+void print_queue(struct queue_node* queue)
+{
+    al_draw_bitmap(queue->bonus_bitmap, queue->x, queue->y, 0);
+    if (queue->next == NULL)
+    {
+        return;
+    }
+    print_queue(queue->next);
+}
+
+void move_bonus(struct queue_node* queue)
+{
+    if (queue != NULL)
+    {
+        queue->y += 1;
+        if (queue->y > 900)
+        {
+            bonus_active--;
+            if(dequeue(&queue));
+                move_bonus(queue);
+            
+        }
+        if(queue!=NULL)
+            move_bonus(queue->next);
+    }
+    else
+        return;
+}
 
 void wait_for_keypress()
 {
@@ -22,13 +104,15 @@ void game(bool working, struct block** array,struct Quad_Tree_Node* root, struct
     ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_BITMAP* menu1, ALLEGRO_BITMAP* menu2, ALLEGRO_BITMAP* menu3, ALLEGRO_BITMAP* menu4,
     ALLEGRO_BITMAP* opcje1, ALLEGRO_BITMAP* opcje2, ALLEGRO_BITMAP* opcje3, ALLEGRO_BITMAP* wyniki, ALLEGRO_BITMAP* tlo, ALLEGRO_BITMAP* zycie,
     ALLEGRO_BITMAP* gameover, ALLEGRO_BITMAP* youwin, FILE* scores, ALLEGRO_FONT* font,ALLEGRO_SAMPLE* ruch,ALLEGRO_SAMPLE* klik,ALLEGRO_SAMPLE* check , 
-    ALLEGRO_SAMPLE* hit ,ALLEGRO_SAMPLE* destroy,ALLEGRO_SAMPLE* gameover_m, ALLEGRO_SAMPLE* youwin_m, ALLEGRO_SAMPLE_INSTANCE* musicInstance)
+    ALLEGRO_SAMPLE* hit ,ALLEGRO_SAMPLE* destroy,ALLEGRO_SAMPLE* gameover_m, ALLEGRO_SAMPLE* youwin_m, ALLEGRO_SAMPLE_INSTANCE* musicInstance, struct queue_pointers* queue)
 {
     init_level1(array);
 
+    int bonus_time = 0;
     int i = 0;
     while (working)
     {
+        
         if (lives == 0)
         {
             ball_move = 0;
@@ -102,7 +186,7 @@ void game(bool working, struct block** array,struct Quad_Tree_Node* root, struct
             break;
         }
         ALLEGRO_EVENT ev;
-        if (i == 7 && ball_move == 1) {
+        if (i == ball_speed && ball_move == 1) {
             move(&New_Ball, Platform, hit);
             i = 0;
         }
@@ -137,7 +221,7 @@ void game(bool working, struct block** array,struct Quad_Tree_Node* root, struct
                 break;
             case ALLEGRO_KEY_SPACE:
                 ball_move = 1;
-                i = 6;
+                i = ball_speed-1;
                 break;
             case ALLEGRO_KEY_ESCAPE:
                 working = false;
@@ -147,238 +231,83 @@ void game(bool working, struct block** array,struct Quad_Tree_Node* root, struct
                 break;
             }
         }
-        update(&root, &New_Ball, &Platform, array, hit, destroy);
-        i++;
-        
-    }
-}
+        update(&root, &New_Ball, &Platform, array, hit, destroy, queue);
+        if (bonus_active > 0)
+        {
+            move_bonus(queue->head);
+            if (bonus_active > 0)
+            {
+                print_queue(queue->head);
+                al_flip_display();
+            }
 
-void sortowanie_babelkowe(int tab[])
-{
- for (int i = 1; i < 7; ++i)
-    for (int j = 7 - 1; j > 0; --j){
-        if (tab[j] > tab[j - 1]){
-            int tmp = tab[j - 1];
-            tab[j - 1] = tab[j];
-            tab[j] = tmp;
+            //if (bonus_time == 1000)
+            //{
+            //    bonus_time = 0;
+            //    bonus_active = (-1);
+            //}
         }
+        i++;
+        if(bonus_active>0)
+            bonus_time++;
     }
- }
-
-void sort_scores(FILE* scores)
-{
-    fclose(scores);
-    int scores_table[7] = { 0, 0, 0, 0, 0, 0, 0 };
-    int number;
-    scores = fopen("scores.txt", "r");
-    if (scores)
-        for (int i = 0; fscanf(scores, "%d", &number) != EOF && i < 7; i++)
-            scores_table[i] = number;
-
-    fclose(scores);
-    sortowanie_babelkowe(scores_table);
-
-    scores = fopen("scores.txt", "w");
-    if (scores)
-        for (int i = 0; i < 5; i++)
-            fprintf(scores, "%d\n", (int)scores_table[i]);
-    fclose(scores);
 }
 
-void save_score(FILE* scores)
+void make_bonus(int bonus_type, struct block* block, struct queue_pointers* queue)
 {
-    fclose(scores);
-    scores = fopen("scores.txt", "a");
-    if(scores)
-        fprintf(scores, "%d\n", points);
-    sort_scores(scores);
+
+    switch (bonus_type)
+    {
+    case 1:
+        enqueue(queue, block, faster_ball);
+        printf("1.");
+        bonus_active += 1;
+        break;
+    case 2:
+        enqueue(queue, block, slower_ball);
+        printf("2.");
+        bonus_active += 1;
+        break;
+    case 3:
+        enqueue(queue, block, bigger_platform);
+        printf("3.");
+        bonus_active += 1;
+        break;
+    case 4:
+        enqueue(queue, block, smaller_platform);
+        printf("4.");
+        bonus_active += 1;
+        break;
+    case 5:
+        enqueue(queue, block, going_through);
+        printf("5.");
+        bonus_active += 1;
+        break;
+    }
 }
 
+void bonus(struct block* block,struct queue_pointers* queue)
+{
+    int chance = 0;
+    srand(time(NULL));
+    chance = rand() % 100;
+    if (chance < 5)
+        return;
+    else
+    {
+        int bonus_type = 0;
+        bonus_type = 1 + rand() % 4;
+        make_bonus(bonus_type, block, queue);
+    }
 
+}
 
 int main(int argc, char* argv[])
 {
-    bool working;
-
     struct block Platform = { (width / 2), height - 30,75,10, 1 };
     struct Ball New_Ball = { Platform.x , Platform.y - Platform.h - 5, 10, 1, 1 };
-    ALLEGRO_DISPLAY* display = NULL;
-    ALLEGRO_EVENT_QUEUE* event_queue = NULL;
-    ALLEGRO_TIMER* timer_FPS = NULL;
-    ALLEGRO_BITMAP* tlo = NULL;
-    ALLEGRO_BITMAP* menu1 = NULL;
-    ALLEGRO_BITMAP* menu2 = NULL;
-    ALLEGRO_BITMAP* menu3 = NULL;
-    ALLEGRO_BITMAP* menu4 = NULL;
-    ALLEGRO_BITMAP* opcje1 = NULL;
-    ALLEGRO_BITMAP* opcje2 = NULL;
-    ALLEGRO_BITMAP* opcje3 = NULL;
-    ALLEGRO_BITMAP* wyniki = NULL;
-    ALLEGRO_BITMAP* zycie = NULL;
-    ALLEGRO_BITMAP* gameover = NULL;
-    ALLEGRO_BITMAP* youwin = NULL;
-    ALLEGRO_SAMPLE* ruch = NULL;
-    ALLEGRO_SAMPLE* klik = NULL;
-    ALLEGRO_SAMPLE* check = NULL;
-    ALLEGRO_SAMPLE* hit = NULL;
-    ALLEGRO_SAMPLE* destroy = NULL;
-    ALLEGRO_SAMPLE* gameover_m = NULL;
-    ALLEGRO_SAMPLE* youwin_m = NULL;
-    ALLEGRO_SAMPLE* music = NULL;
-    ALLEGRO_SAMPLE_INSTANCE* musicInstance = NULL;
-    ALLEGRO_FONT* font = NULL;
-    FILE* scores;
-    scores = fopen("scores.txt", "a");
-    if (scores == NULL)
-    {
-        fprintf(stderr, "Blad otwarcia pliku");
-        return -1;
-    }
-
-    if (!al_init()) {
-        fprintf(stderr, "Failed to initialize allegro!\n");
-        return -1;
-    }
-    al_init_ttf_addon();
-    al_init_image_addon();
-    al_init_primitives_addon();
-    al_install_audio();
-    al_init_acodec_addon();
-    al_reserve_samples(7);
-    event_queue = al_create_event_queue();
-    display = al_create_display(width, height);
-    if (!display) {
-        fprintf(stderr, "Failed to create display!\n");
-        return -1;
-    }
-    font = al_load_ttf_font("font.ttf", 28, ALLEGRO_TTF_MONOCHROME);
-    if (!font)
-    {
-        fprintf(stderr, "Failed to initialize font!\n");
-        return -1;
-    }
-    tlo = al_load_bitmap("BACKGROUND.png");
-    if (!tlo) {
-        fprintf(stderr, "Failed to create bitmap!\n");
-        return -1;
-    }
-    menu1 = al_load_bitmap("MENU1.png");
-    if (!menu1) {
-        fprintf(stderr, "Failed to create bitmap!\n");
-        return -1;
-    }
-    menu2 = al_load_bitmap("MENU2.png");
-    if (!menu2) {
-        fprintf(stderr, "Failed to create bitmap!\n");
-        return -1;
-    }
-    menu3 = al_load_bitmap("MENU3.png");
-    if (!menu3) {
-        fprintf(stderr, "Failed to create bitmap!\n");
-        return -1;
-    }
-    menu4 = al_load_bitmap("MENU4.png");
-    if (!menu4) {
-        fprintf(stderr, "Failed to create bitmap!\n");
-        return -1;
-    }
-    opcje1 = al_load_bitmap("OPCJE1.png");
-    if (!opcje1) {
-        fprintf(stderr, "Failed to create bitmap!\n");
-        return -1;
-    }
-    opcje2 = al_load_bitmap("OPCJE2.png");
-    if (!opcje2) {
-        fprintf(stderr, "Failed to create bitmap!\n");
-        return -1;
-    }
-    opcje3 = al_load_bitmap("OPCJE3.png");
-    if (!opcje3) {
-        fprintf(stderr, "Failed to create bitmap!\n");
-        return -1;
-    }
-    wyniki = al_load_bitmap("WYNIKI.png");
-    if (!wyniki) {
-        fprintf(stderr, "Failed to create bitmap!\n");
-        return -1;
-    }
-    zycie = al_load_bitmap("SERCE.png");
-    if (!zycie) {
-        fprintf(stderr, "Failed to create bitmap!\n");
-        return -1;
-    }
-    gameover = al_load_bitmap("GAMEOVER.png");
-    if (!gameover) {
-        fprintf(stderr, "Failed to create bitmap!\n");
-        return -1;
-    }
-    youwin = al_load_bitmap("YOUWIN.png");
-    if (!youwin) {
-        fprintf(stderr, "Failed to create bitmap!\n");
-        return -1;
-    }
-    ruch = al_load_sample("przechodzenie.ogg");
-    if (!ruch) {
-        fprintf(stderr, "Failed to load audio!\n");
-        return -1;
-    }
-    klik = al_load_sample("wybor.ogg");
-    if (!klik) {
-        fprintf(stderr, "Failed to load audio!\n");
-        return -1;
-    }
-    check = al_load_sample("odchaczenie.ogg");
-    if (!check) {
-        fprintf(stderr, "Failed to load audio!\n");
-        return -1;
-    }
-    hit = al_load_sample("odbicie.ogg");
-    if (!hit) {
-        fprintf(stderr, "Failed to load audio!\n");
-        return -1;
-    }
-    destroy = al_load_sample("zbicie.ogg");
-    if (!destroy) {
-        fprintf(stderr, "Failed to load audio!\n");
-        return -1;
-    }
-    gameover_m = al_load_sample("gameover.ogg");
-    if (!gameover_m) {
-        fprintf(stderr, "Failed to load audio!\n");
-        return -1;
-    }
-    youwin_m = al_load_sample("youwin.ogg");
-    if (!youwin_m) {
-        fprintf(stderr, "Failed to load audio!\n");
-        return -1;
-    }
-    music = al_load_sample("muzyka.ogg");
-    if (!music) {
-        fprintf(stderr, "Failed to load audio!\n");
-        return -1;
-    }
-    musicInstance = al_create_sample_instance(music);
-    if (!musicInstance) {
-        fprintf(stderr, "Failed to create audio!\n");
-        return -1;
-    }
-    al_set_sample_instance_playmode(musicInstance, ALLEGRO_PLAYMODE_LOOP);
-    al_attach_sample_instance_to_mixer(musicInstance, al_get_default_mixer());
-    timer_FPS = al_create_timer(1.0 / 160);
-    if (!timer_FPS) {
-        fprintf(stderr, "Failed to create FPS timer!\n");
-        return -1;
-    }
-
-
-    al_register_event_source(event_queue, al_get_timer_event_source(timer_FPS));
-
-    al_install_keyboard();
-    al_start_timer(timer_FPS);
-    al_flip_display();
-
-    al_register_event_source(event_queue, al_get_keyboard_event_source());
-
+    struct queue_pointers queue = { NULL, NULL };
+    init_arkanoid();
     do
     {
         lives = 3;
@@ -400,12 +329,11 @@ int main(int argc, char* argv[])
         game(working, array, root, Platform, New_Ball,
             event_queue, menu1, menu2, menu3, menu4,
             opcje1, opcje2, opcje3, wyniki, tlo, zycie, gameover, youwin, scores, font,
-            ruch, klik, check, hit, destroy, gameover_m, youwin_m, musicInstance);
+            ruch, klik, check, hit, destroy, gameover_m, youwin_m, musicInstance, &queue);
         al_stop_sample_instance(musicInstance);
         free_ptr(array);
         save_score(scores);
     } while (working);
-    al_uninstall_keyboard();
-    al_destroy_display(display);
+    uninstall_arkanoid();
     return 0;
 }
