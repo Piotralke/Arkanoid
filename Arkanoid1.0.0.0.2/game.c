@@ -48,16 +48,16 @@ void game(bool working, struct block** array, struct Quad_Tree_Node* root, struc
             switch (choice_lvl)
             {
             case 1:
-                //init_level1(array);
+                init_level1(array);
                 break;
             case 2:
                 init_level2(array);
                 break;
             case 3:
-               // init_level3(array);
+                init_level3(array);
                 break;
             case 4:
-                //init_level4(array);
+                init_level4(array);
                 break;
             case 5:
                 ball_move = 0;
