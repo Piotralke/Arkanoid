@@ -31,6 +31,7 @@ void uninstall_arkanoid()
     al_destroy_sample(gameover_m);
     al_destroy_sample(youwin_m);
     al_destroy_sample(music);
+    al_destroy_sample(bonus_m);
     al_destroy_sample_instance(musicInstance);
     al_destroy_font(font);
 }

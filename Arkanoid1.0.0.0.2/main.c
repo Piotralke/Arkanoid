@@ -5,8 +5,6 @@
 #include "game.h"
 #include "uninstall.h"
 
-
-
 int main(int argc, char* argv[])
 {
     struct block Platform = { (width / 2), height - 30,75,10, 1 };
