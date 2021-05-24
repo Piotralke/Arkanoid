@@ -29,7 +29,7 @@ void move(struct Ball* ball, struct block platform, ALLEGRO_SAMPLE* hit)
     }
 }
 
-bool check_collision(struct Ball* ball, struct block* block)
+bool check_block(struct Ball* ball, struct block* block)
 {
     float testX = ball->x;
     float testY = ball->y;
@@ -62,13 +62,95 @@ bool check_collision(struct Ball* ball, struct block* block)
 
     if (distance <= ball->r && block->state == 1)
     {
+        if (g_t <= 0)
+        {
+            ball->y -= 1;
+            if (odbicie == 1)
+                ball->vx = (-1) * ball->vx;
+            if (odbicie == 2)
+                ball->vy = (-1) * ball->vy;
+        }
+        block->state = 0;
+        return true;
+    }
+    return false;
+}
+
+bool check_platform(struct Ball* ball, struct block* block)
+{
+    float testX = ball->x;
+    float testY = ball->y;
+    int odbicie = 0;
+
+    if (ball->x < block->x - block->w) {
+        testX = block->x - block->w;
+        odbicie = 1;
+    }
+
+    else if (ball->x > block->x + block->w) {
+        testX = block->x + block->w;
+        odbicie = 1;
+    }
+
+    if (ball->y < block->y - block->h) {
+        testY = block->y - block->h;
+        odbicie = 2;
+    }
+
+    else if (ball->y > block->y + block->h) {
+        testY = block->y + block->h;
+        odbicie = 2;
+    }
+
+
+    float distX = ball->x - testX;
+    float distY = ball->y - testY;
+    float distance = sqrt((distX * distX) + (distY * distY));
+
+    if (distance <= ball->r && block->state == 1)
+    {
         ball->y -= 1;
-        if(odbicie==1)
+        if (odbicie == 1)
             ball->vx = (-1) * ball->vx;
-        if(odbicie==2)
+        if (odbicie == 2)
             ball->vy = (-1) * ball->vy;
         block->state = 0;
         return true;
     }
+    return false;
+}
+
+bool check_bonus(struct block* block, struct bonus* bonus)
+{
+    float testX = bonus->x;
+    float testY = bonus->y;
+    int odbicie = 0;
+
+    if (bonus->x < bonus->x - block->w) {
+        testX = block->x - block->w;
+        odbicie = 1;
+    }
+
+    else if (bonus->x > block->x + block->w) {
+        testX = block->x + block->w;
+        odbicie = 1;
+    }
+
+    if (bonus->y < block->y - block->h) {
+        testY = block->y - block->h;
+        odbicie = 2;
+    }
+
+    else if (bonus->y > block->y + block->h) {
+        testY = block->y + block->h;
+        odbicie = 2;
+    }
+
+
+    float distX = bonus->x - testX;
+    float distY = bonus->y - testY;
+    float distance = sqrt((distX * distX) + (distY * distY));
+    if (distance <= 0.5 * (bonus->h))
+        return true;
     return false;
 }

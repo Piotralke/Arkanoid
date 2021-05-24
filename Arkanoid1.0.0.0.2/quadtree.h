@@ -3,6 +3,7 @@
 #define QUADTREE_H
 #include "include_lib.h"
 #include "physic.h"
+#include "bonus.h"
 int bonus_counter;
 extern struct Quad_Tree_Node* init_node(struct Quad_Tree_Node* root, int choice);
 extern void draw_node(struct Quad_Tree_Node* node);

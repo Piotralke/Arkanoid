@@ -32,6 +32,7 @@ ALLEGRO_SAMPLE* destroy ;
 ALLEGRO_SAMPLE* gameover_m;
 ALLEGRO_SAMPLE* youwin_m ;
 ALLEGRO_SAMPLE* music ;
+ALLEGRO_SAMPLE* bonus_m;
 ALLEGRO_SAMPLE_INSTANCE* musicInstance ;
 ALLEGRO_FONT* font ;
 FILE* scores;

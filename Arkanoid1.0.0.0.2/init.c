@@ -27,6 +27,7 @@ void init_arkanoid()
     check = NULL;
     hit = NULL;
     destroy = NULL;
+    bonus_m = NULL;
     gameover_m = NULL;
     youwin_m = NULL;
     music = NULL;
@@ -168,6 +169,11 @@ void init_arkanoid()
     }
     destroy = al_load_sample("zbicie.ogg");
     if (!destroy) {
+        fprintf(stderr, "Failed to load audio!\n");
+        return -1;
+    }
+    bonus_m = al_load_sample("bonus.ogg");
+    if (!bonus_m) {
         fprintf(stderr, "Failed to load audio!\n");
         return -1;
     }

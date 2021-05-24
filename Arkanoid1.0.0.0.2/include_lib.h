@@ -25,7 +25,11 @@ int block_counter;
 int points ;
 int choice_lvl;
 int ball_speed;
+int ball_s;
 int bonus_active;
+int bonus_speed;
+int g_t;
+int bonus_time;
 struct block
 {
     int x;
@@ -50,4 +54,13 @@ struct Ball
     int r;
     int vx;
     int vy;
+};
+struct bonus
+{
+    int x;
+    int y;
+    int w;
+    int h;
+    int type;
+    ALLEGRO_BITMAP* bonus_bitmap;
 };

@@ -199,6 +199,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bonus.c" />
+    <ClCompile Include="game.c" />
     <ClCompile Include="include_lib.c" />
     <ClCompile Include="init.c" />
     <ClCompile Include="levels.c" />
@@ -213,6 +215,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bonus.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="include_lib.h" />
     <ClInclude Include="init.h" />
     <ClInclude Include="levels.h" />

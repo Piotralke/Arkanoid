@@ -200,7 +200,7 @@ void free_node(struct Quad_Tree_Node* node)
 }
 
 void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struct block* platform, struct block** block,
-    ALLEGRO_SAMPLE* hit, ALLEGRO_SAMPLE* destroy, struct queue_pointers* queue)
+    ALLEGRO_SAMPLE* hit, ALLEGRO_SAMPLE* destroy, struct bonus* New_bonus)
 {
     if (node && levels > 0 && contain(node, ball))
     {
@@ -215,10 +215,10 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
         }
 
         levels--;
-        subdivide(node->ne, levels, ball, platform, block, hit, destroy, queue);
-        subdivide(node->nw, levels, ball, platform, block, hit, destroy, queue);
-        subdivide(node->sw, levels, ball, platform, block, hit, destroy, queue);
-        subdivide(node->se, levels, ball, platform, block, hit, destroy, queue);
+        subdivide(node->ne, levels, ball, platform, block, hit, destroy, New_bonus);
+        subdivide(node->nw, levels, ball, platform, block, hit, destroy, New_bonus);
+        subdivide(node->sw, levels, ball, platform, block, hit, destroy, New_bonus);
+        subdivide(node->se, levels, ball, platform, block, hit, destroy, New_bonus);
 
     }
 
@@ -226,7 +226,7 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
         if (contain_platform(node, platform)) {
             if (debug > 0)
                 draw_outline(node);
-            if (check_collision(ball, platform)) {
+            if (check_platform(ball, platform, 0)) {
                 bonus_counter = 1;
                 if (sound > 0)
                     al_play_sample(hit, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
@@ -242,12 +242,16 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
                 {
                     if (debug > 0)
                         draw_outline(node);
-                    if (check_collision(ball, &(block[i][j])))
+                    if (check_block(ball, &(block[i][j])))
                     {
                         points += bonus_counter*100;
                         bonus_counter++;
                         block_counter--;
-                        bonus(&(block[i][j]),queue);
+                        if (bonus_active <= 0)
+                        {
+                            bonus_speed = 9;
+                            bonus(&(block[i][j]), New_bonus);
+                        }
                         if (sound > 0)
                             al_play_sample(destroy, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                     }
@@ -258,10 +262,10 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
     }
 }
 
-void update(struct Quad_Tree_Node** root, struct Ball* ball, struct block* platform, struct block** block, ALLEGRO_SAMPLE* hit, ALLEGRO_SAMPLE* destroy, struct queue_pointers* queue)
+void update(struct Quad_Tree_Node** root, struct Ball* ball, struct block* platform, struct bonus* New_bonus, struct block** block, ALLEGRO_SAMPLE* hit, ALLEGRO_SAMPLE* destroy)
 {
     free_node(*root);
     *root = NULL;
     *root = init_node(*root, 0);
-    subdivide(*root, MAX_LVL - 1, ball, platform, block, hit, destroy, queue);
+    subdivide(*root, MAX_LVL - 1, ball, platform, block, hit, destroy, New_bonus);
 }
