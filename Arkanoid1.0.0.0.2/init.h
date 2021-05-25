@@ -24,6 +24,8 @@ ALLEGRO_BITMAP* slower_ball;
 ALLEGRO_BITMAP* bigger_platform;
 ALLEGRO_BITMAP* smaller_platform;
 ALLEGRO_BITMAP* going_through;
+ALLEGRO_BITMAP* add_life;
+ALLEGRO_BITMAP* double_points;
 ALLEGRO_SAMPLE* ruch ;
 ALLEGRO_SAMPLE* klik ;
 ALLEGRO_SAMPLE* check ;
@@ -36,5 +38,5 @@ ALLEGRO_SAMPLE* bonus_m;
 ALLEGRO_SAMPLE_INSTANCE* musicInstance ;
 ALLEGRO_FONT* font ;
 FILE* scores;
-extern void init_arkanoid();
+extern int init_arkanoid();
 #endif // !INIT_H

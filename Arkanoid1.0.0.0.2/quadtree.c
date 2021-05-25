@@ -244,7 +244,7 @@ void subdivide(struct Quad_Tree_Node* node, int levels, struct Ball* ball, struc
                         draw_outline(node);
                     if (check_block(ball, &(block[i][j])))
                     {
-                        points += bonus_counter*100;
+                        points += score_multiplier*bonus_counter*100;
                         bonus_counter++;
                         block_counter--;
                         if (bonus_active <= 0)

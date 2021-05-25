@@ -20,7 +20,7 @@ int size;
 int debug ;
 int sound ;
 int pause;
-int lives ;
+int lifes ;
 int block_counter;
 int points ;
 int choice_lvl;
@@ -30,6 +30,7 @@ int bonus_active;
 int bonus_speed;
 int g_t;
 int bonus_time;
+int score_multiplier;
 struct block
 {
     int x;

@@ -20,7 +20,7 @@ void move(struct Ball* ball, struct block platform, ALLEGRO_SAMPLE* hit)
     }
 
     if (ball->y == 890) {
-        lives--;
+        lifes--;
         points -= 100;
         ball_move = 0;
         ball->vy = (-1) * ball->vy;

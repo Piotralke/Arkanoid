@@ -12,6 +12,7 @@ void give_bonus(struct bonus* New_bonus, struct block* platform, ALLEGRO_SAMPLE*
     platform->w = 75;
     ball_speed = 6;
     g_t = 0;
+    score_multiplier = 1;
     if(sound>0)
         al_play_sample(bonus, 1.0, 1.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
     switch (New_bonus->type)
@@ -34,6 +35,15 @@ void give_bonus(struct bonus* New_bonus, struct block* platform, ALLEGRO_SAMPLE*
         break;
     case 5:
         g_t++;
+        bonus_active--;
+        break;
+    case 6:
+        if(lifes<3)
+            lifes++;
+        bonus_active--;
+        break;
+    case 7:
+        score_multiplier = 2;
         bonus_active--;
         break;
     }
@@ -74,6 +84,16 @@ void make_bonus(int bonus_type, struct block* block, struct bonus* New_bonus)
         New_bonus->type = 5;
         bonus_active += 1;
         break;
+    case 6:
+        New_bonus->bonus_bitmap = add_life;
+        New_bonus->type = 6;
+        bonus_active += 1;
+        break;
+    case 7:
+        New_bonus->bonus_bitmap = double_points;
+        New_bonus->type = 7;
+        bonus_active += 1;
+        break;
     }
 }
 
@@ -82,12 +102,12 @@ void bonus(struct block* block, struct bonus* New_bonus)
     int chance = 0;
     srand(time(NULL));
     chance = rand() % 100;
-    if (chance < 70)
+    if (chance < 5)
         return;
     else
     {
         int bonus_type = 0;
-        bonus_type = 1 + rand() % 5;
+        bonus_type = 1 + rand() % 7;
         make_bonus(bonus_type, block, New_bonus);
     }
 

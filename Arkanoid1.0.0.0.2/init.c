@@ -1,6 +1,6 @@
 #include "init.h"
 
-void init_arkanoid()
+int init_arkanoid()
 {
     display = NULL;
     event_queue = NULL;
@@ -22,6 +22,8 @@ void init_arkanoid()
     bigger_platform = NULL;
     smaller_platform = NULL;
     going_through = NULL;
+    add_life = NULL;
+    double_points = NULL;
     ruch = NULL;
     klik = NULL;
     check = NULL;
@@ -147,6 +149,16 @@ void init_arkanoid()
         fprintf(stderr, "Failed to create bitmap!\n");
         return -1;
     }
+    add_life = al_load_bitmap("ADD_LIFE.png");
+    if (!add_life) {
+        fprintf(stderr, "Failed to create bitmap!\n");
+        return -1;
+    }
+    double_points = al_load_bitmap("DOUBLE_POINTS.png");
+    if (!double_points) {
+        fprintf(stderr, "Failed to create bitmap!\n");
+        return -1;
+    }
     ruch = al_load_sample("przechodzenie.ogg");
     if (!ruch) {
         fprintf(stderr, "Failed to load audio!\n");
@@ -209,5 +221,4 @@ void init_arkanoid()
     al_start_timer(timer_FPS);
     al_flip_display();
     al_register_event_source(event_queue, al_get_keyboard_event_source());
-
 }

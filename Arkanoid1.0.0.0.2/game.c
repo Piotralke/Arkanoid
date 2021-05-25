@@ -24,7 +24,7 @@ void game(bool working, struct block** array, struct Quad_Tree_Node* root, struc
     while (working)
     {
         
-        if (lives == 0)
+        if (lifes == 0)
         {
             ball_move = 0;
             al_stop_sample_instance(musicInstance);
@@ -67,13 +67,13 @@ void game(bool working, struct block** array, struct Quad_Tree_Node* root, struc
                 Sleep(3000);
                 wait_for_keypress();
                 working = false;
-                points += lives * 100;
+                points += lifes * 100;
                 break;
             }
         }
         Platform.state = 1;
         al_draw_textf(font, al_map_rgb(255, 255, 255), 30, 30, 0, "SCORE: %d", points);
-        for (int j = 0; j < lives;j++)
+        for (int j = 0; j < lifes;j++)
             al_draw_scaled_bitmap(zycie, 0, 0, 570, 570, 700 - j * 100, 10, 70, 70, 0);
         al_draw_rectangle(1, height * 1.0 / 9.0, width - 1, height - 1, al_map_rgb(150, 150, 150), 4);
         al_draw_filled_rectangle(Platform.x - Platform.w, Platform.y - Platform.h, Platform.x + Platform.w, Platform.y + Platform.h, al_map_rgb(200, 200, 200));

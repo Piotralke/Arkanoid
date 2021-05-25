@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
     init_arkanoid();
     do
     {
-        lives = 3;
+        lifes = 3;
         points = 0;
         ball_move = 0;
         choice_lvl = 0;

@@ -23,6 +23,8 @@ void uninstall_arkanoid()
     al_destroy_bitmap(bigger_platform);
     al_destroy_bitmap(smaller_platform);
     al_destroy_bitmap(going_through);
+    al_destroy_bitmap(add_life);
+    al_destroy_bitmap(double_points);
     al_destroy_sample(ruch);
     al_destroy_sample(klik);
     al_destroy_sample(check);
