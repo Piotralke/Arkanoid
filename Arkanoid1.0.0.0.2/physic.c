@@ -126,7 +126,7 @@ bool check_bonus(struct block* block, struct bonus* bonus)
     float testY = bonus->y;
     int odbicie = 0;
 
-    if (bonus->x < bonus->x - block->w) {
+    if (bonus->x < block->x - block->w) {
         testX = block->x - block->w;
         odbicie = 1;
     }

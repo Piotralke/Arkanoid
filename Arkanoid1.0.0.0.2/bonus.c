@@ -45,8 +45,8 @@ void make_bonus(int bonus_type, struct block* block, struct bonus* New_bonus)
 {
     New_bonus->x = block->x;
     New_bonus->y = block->y;
-    New_bonus->w = 50;
-    New_bonus->h = 50;
+    New_bonus->w = 25;
+    New_bonus->h = 25;
     switch (bonus_type)
     {
     case 1:

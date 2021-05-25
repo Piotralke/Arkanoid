@@ -16,7 +16,8 @@ int main(int argc, char* argv[])
         lives = 3;
         points = 0;
         ball_move = 0;
-        choice_lvl = 1;
+        choice_lvl = 0;
+        block_counter = 0;
         struct block** array = (struct block**)calloc(size, sizeof(struct block*));
         for (int a = 0; a < size; a++)
             array[a] = (struct block*)calloc(size, sizeof(struct block));

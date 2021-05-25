@@ -21,10 +21,9 @@ void game(bool working, struct block** array, struct Quad_Tree_Node* root, struc
     ALLEGRO_BITMAP* gameover, ALLEGRO_BITMAP* youwin, FILE* scores, ALLEGRO_FONT* font, ALLEGRO_SAMPLE* ruch, ALLEGRO_SAMPLE* klik, ALLEGRO_SAMPLE* check,
     ALLEGRO_SAMPLE* hit, ALLEGRO_SAMPLE* destroy, ALLEGRO_SAMPLE* gameover_m, ALLEGRO_SAMPLE* youwin_m, ALLEGRO_SAMPLE_INSTANCE* musicInstance)
 {
-
     while (working)
     {
-
+        
         if (lives == 0)
         {
             ball_move = 0;
@@ -39,7 +38,6 @@ void game(bool working, struct block** array, struct Quad_Tree_Node* root, struc
         }
         if (block_counter == 0 && choice_lvl <= 5)
         {
-
             choice_lvl++;
             ball_move = 0;
             New_Ball.vy = (-1) * New_Ball.vy;
@@ -147,7 +145,7 @@ void game(bool working, struct block** array, struct Quad_Tree_Node* root, struc
         if (bonus_active > 0)
         {
             if (New_bonus.bonus_bitmap != NULL)
-                al_draw_bitmap(New_bonus.bonus_bitmap, New_bonus.x, New_bonus.y, 0);
+                al_draw_bitmap(New_bonus.bonus_bitmap, New_bonus.x-New_bonus.w, New_bonus.y-New_bonus.h, 0);
             if (bonus_speed == 10)
             {
                 move_bonus(&New_bonus);
