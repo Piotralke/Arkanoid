@@ -1,12 +1,5 @@
 #include "bonus.h"
 
-void move_bonus(struct bonus* New_bonus)
-{
-    New_bonus->y++;
-    if (New_bonus->y > 900)
-        bonus_active--;
-}
-
 void give_bonus(struct bonus* New_bonus, struct block* platform, ALLEGRO_SAMPLE* bonus)
 {
     platform->w = 75;
@@ -102,7 +95,7 @@ void bonus(struct block* block, struct bonus* New_bonus)
     int chance = 0;
     srand(time(NULL));
     chance = rand() % 100;
-    if (chance < 5)
+    if (chance < 70)
         return;
     else
     {

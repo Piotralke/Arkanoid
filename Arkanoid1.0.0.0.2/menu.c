@@ -190,15 +190,4 @@ bool menu(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_BITMAP* menu1, ALLEGRO_BITMA
     }
 }
 
-void read_scores(FILE* scores, ALLEGRO_FONT* font)
-{
-    int number;
-    fclose(scores);
-    scores = fopen("scores.txt", "r");
-    if (scores)
-        for (int i = 0; fscanf(scores, "%d", &number) != EOF && i < 5;i++)
-        {
-            al_draw_textf(font, al_map_rgb(0, 0, 0), 195, 495 + i * 50, 0, "%d. %d", i + 1, number);
-        }
-    fclose(scores);
-}
+

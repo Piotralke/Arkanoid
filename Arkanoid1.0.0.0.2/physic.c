@@ -29,6 +29,13 @@ void move(struct Ball* ball, struct block platform, ALLEGRO_SAMPLE* hit)
     }
 }
 
+void move_bonus(struct bonus* New_bonus)
+{
+    New_bonus->y++;
+    if (New_bonus->y > 900)
+        bonus_active--;
+}
+
 bool check_block(struct Ball* ball, struct block* block)
 {
     float testX = ball->x;
