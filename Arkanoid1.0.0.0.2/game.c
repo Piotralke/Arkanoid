@@ -1,5 +1,6 @@
+///@file game.c Plik game.c zawiera g³ówn¹ pêtlê gry
 #include "game.h"
-
+/// Funkcja wait_for_keypress() czeka a¿ u¿ytkownik wciœnie dowolny klawisz, wtedy zakañcza swoje dzia³anie
 void wait_for_keypress()
 {
     ALLEGRO_EVENT_QUEUE* event_queue;
@@ -14,7 +15,39 @@ void wait_for_keypress()
 
     al_destroy_event_queue(event_queue);
 }
-
+/**
+* Funkcja game() jest funkcj¹ zawieraj¹c¹ g³ówn¹ pêtlê gry. W ka¿dym przejœciu pêtli odœwie¿any jest ekran, s¹ od nowa rysowane elementy o zmienionych pozycjach. 
+* Sprawdzana jest tak¿e iloœæ ¿yæ oraz bloczków, które odpowiednio koñcz¹ grê w przypadku braku ¿yæ oraz przechodz¹ do nastêpnego poziomu w przypadku zbicia wszystkich bloczków
+* @param working Odpowiada za dzia³anie pêtli
+* @param array To Dynamiczna dwuwymiarowa tablica, która zawiera informacje o bloczkach po³o¿onych na planszy
+* @param root WskaŸnik na korzeñ drzewa czwórkowego
+* @param Platform Struktura zawieraj¹ca informacje o platformie
+* @param New_Ball Struktura zawieraj¹ca informacje o pi³ce
+* @param New_Bonus Struktura zawieraj¹ca informacje o bonusie
+* @param event_queue WskaŸnik na kolejkê zdarzeñ, które s¹ interpretowane jako wciœniêcia klawisza
+* @param menu1 WskaŸnik na bitmapê ³adowan¹ w g³ównym menu
+* @param menu2 WskaŸnik na bitmapê ³adowan¹ w g³ównym menu
+* @param menu3 WskaŸnik na bitmapê ³adowan¹ w g³ównym menu
+* @param menu4 WskaŸnik na bitmapê ³adowan¹ w g³ównym menu
+* @param opcje1 WskaŸnik na bitmapê ³adowan¹ w menu opcji
+* @param opcje2 WskaŸnik na bitmapê ³adowan¹ w menu opcji
+* @param opcje3 WskaŸnik na bitmapê ³adowan¹ w menu opcji
+* @param wyniki WskaŸnik na bitmapê ³adowan¹ w menu najlepszych wyników
+* @param tlo WskaŸnik na bitmapê, która jest t³em planszy
+* @param zycie WskaŸnik na bitmapê ¿ycia
+* @param gameover WskaŸnik na bitmapê napisu "Game Over" wyœwietlanego przy przegranej 
+* @param youwin WskaŸnik na bitmapê napisu "You Win" wyœwietlanego przy wygranej 
+* @param scores WskaŸnik na plik zawieraj¹cy najlepsze wyniki
+* @param font WskaŸnik na czcionkê u¿ywan¹ w programie
+* @param ruch WskaŸnik na plik dŸwiêkowy, który wywo³ywany jest w menu podczas przechodzenia miêdzy opcjami
+* @param klik WskaŸnik na plik dŸwiêkowy, który wywo³ywany jest w menu podczas klikniêcia w dan¹ opcjê
+* @param check WskaŸnik na plik dŸwiêkowy, który wywo³ywany jest w menu opcji podczas prze³¹czenia, którejœ z wybranych opcji
+* @param hit  WskaŸnik na plik dŸwiêkowy, który jest wywo³ywany przy kolizji pi³ki od elementu
+* @param destroy  WskaŸnik na plik dŸwiêkowy, który jest wywo³ywany przy niszczeniu bloczku
+* @param gameover_m WskaŸnik na plik dŸwiêkowy, który jest wywo³ywany przy przegranej
+* @param youwin_m WskaŸnik na plik dŸwiêkowy, który jest wywo³ywany przy wygranej
+* @param musicInstance WskaŸnik na odtwarzaln¹ instancjê, która zawiera wczeœniej predefiniowany dŸwiêk, który jest muzyk¹ graj¹c¹ podczas gry. Instancja jest zapêtlona
+*/
 void game(bool working, struct block** array, struct Quad_Tree_Node* root, struct block Platform, struct Ball New_Ball, struct bonus New_bonus,
     ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_BITMAP* menu1, ALLEGRO_BITMAP* menu2, ALLEGRO_BITMAP* menu3, ALLEGRO_BITMAP* menu4,
     ALLEGRO_BITMAP* opcje1, ALLEGRO_BITMAP* opcje2, ALLEGRO_BITMAP* opcje3, ALLEGRO_BITMAP* wyniki, ALLEGRO_BITMAP* tlo, ALLEGRO_BITMAP* zycie,

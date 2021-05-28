@@ -1,0 +1,486 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Arkanoid: Dokumentacja pliku quadtree.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Arkanoid
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Wygenerowano przez Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Szukaj','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Szukaj');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('quadtree_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">Definicje</a> &#124;
+<a href="#func-members">Funkcje</a> &#124;
+<a href="#var-members">Zmienne</a>  </div>
+  <div class="headertitle">
+<div class="title">Dokumentacja pliku quadtree.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="include__lib_8h_source.html">include_lib.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="physic_8h_source.html">physic.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="bonus_8h_source.html">bonus.h</a>&quot;</code><br />
+</div>
+<p><a href="quadtree_8h_source.html">Idź do kodu źródłowego tego pliku.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Definicje</h2></td></tr>
+<tr class="memitem:a33f12f2bd6c336123ca69f512736d299"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8h.html#a33f12f2bd6c336123ca69f512736d299">QUADTREE_H</a></td></tr>
+<tr class="separator:a33f12f2bd6c336123ca69f512736d299"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Funkcje</h2></td></tr>
+<tr class="memitem:abccb7f9dad064fe9e76bc43707b0b281"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8h.html#abccb7f9dad064fe9e76bc43707b0b281">init_node</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *root, int choice)</td></tr>
+<tr class="separator:abccb7f9dad064fe9e76bc43707b0b281"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac28afee2d643a89341b5b4f1a075657c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8h.html#ac28afee2d643a89341b5b4f1a075657c">draw_node</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *node)</td></tr>
+<tr class="separator:ac28afee2d643a89341b5b4f1a075657c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7413e04019a9547171fd2f0694e1b66c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8h.html#a7413e04019a9547171fd2f0694e1b66c">draw_range</a> (struct <a class="el" href="struct_ball.html">Ball</a> *ball)</td></tr>
+<tr class="separator:a7413e04019a9547171fd2f0694e1b66c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87cce4d5334812133702fa0a891c44fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8h.html#a87cce4d5334812133702fa0a891c44fc">draw_outline</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *node)</td></tr>
+<tr class="separator:a87cce4d5334812133702fa0a891c44fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6851beed90bc6b07be0c329b60aba12"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8h.html#ac6851beed90bc6b07be0c329b60aba12">contain</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *node, struct <a class="el" href="struct_ball.html">Ball</a> *ball)</td></tr>
+<tr class="separator:ac6851beed90bc6b07be0c329b60aba12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a644820395e408e884d093980084ea203"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8h.html#a644820395e408e884d093980084ea203">contain_platform</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *node, struct <a class="el" href="structblock.html">block</a> *<a class="el" href="structblock.html">block</a>)</td></tr>
+<tr class="separator:a644820395e408e884d093980084ea203"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6ef494e2b1c82902ef9487b81baa7f7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8h.html#af6ef494e2b1c82902ef9487b81baa7f7">contain_block</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *node, struct <a class="el" href="structblock.html">block</a> *<a class="el" href="structblock.html">block</a>)</td></tr>
+<tr class="separator:af6ef494e2b1c82902ef9487b81baa7f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad02da135b0791257e0581fde540724c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8h.html#ad02da135b0791257e0581fde540724c4">free_node</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *node)</td></tr>
+<tr class="separator:ad02da135b0791257e0581fde540724c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6a0ca48d9eda7b0a4eb30c9e5bd9460"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8h.html#ad6a0ca48d9eda7b0a4eb30c9e5bd9460">subdivide</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *node, int levels, struct <a class="el" href="struct_ball.html">Ball</a> *ball, struct <a class="el" href="structblock.html">block</a> *platform, struct <a class="el" href="structblock.html">block</a> **<a class="el" href="structblock.html">block</a>, ALLEGRO_SAMPLE *<a class="el" href="init_8h.html#a98edf9eb9a73cbf377bf805a5c4709e5">hit</a>, ALLEGRO_SAMPLE *<a class="el" href="init_8h.html#a8456e990b060b2818ff561a4b2082d22">destroy</a>)</td></tr>
+<tr class="separator:ad6a0ca48d9eda7b0a4eb30c9e5bd9460"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76471581ac598f5b0e56e439c8d3cebf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8h.html#a76471581ac598f5b0e56e439c8d3cebf">update</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> **root, struct <a class="el" href="struct_ball.html">Ball</a> *ball, struct <a class="el" href="structblock.html">block</a> *platform, struct <a class="el" href="structblock.html">block</a> **<a class="el" href="structblock.html">block</a>, ALLEGRO_SAMPLE *<a class="el" href="init_8h.html#a98edf9eb9a73cbf377bf805a5c4709e5">hit</a>, ALLEGRO_SAMPLE *<a class="el" href="init_8h.html#a8456e990b060b2818ff561a4b2082d22">destroy</a>)</td></tr>
+<tr class="separator:a76471581ac598f5b0e56e439c8d3cebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Zmienne</h2></td></tr>
+<tr class="memitem:a44135c266d35d670ab383cbfd138ab23"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8h.html#a44135c266d35d670ab383cbfd138ab23">bonus_counter</a></td></tr>
+<tr class="separator:a44135c266d35d670ab383cbfd138ab23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Dokumentacja definicji</h2>
+<a id="a33f12f2bd6c336123ca69f512736d299"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33f12f2bd6c336123ca69f512736d299">&#9670;&nbsp;</a></span>QUADTREE_H</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define QUADTREE_H</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8h_source.html#l00003">3</a> pliku <a class="el" href="quadtree_8h_source.html">quadtree.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Dokumentacja funkcji</h2>
+<a id="ac6851beed90bc6b07be0c329b60aba12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6851beed90bc6b07be0c329b60aba12">&#9670;&nbsp;</a></span>contain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool contain </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="struct_ball.html">Ball</a> *&#160;</td>
+          <td class="paramname"><em>ball</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00099">99</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+
+</div>
+</div>
+<a id="af6ef494e2b1c82902ef9487b81baa7f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6ef494e2b1c82902ef9487b81baa7f7">&#9670;&nbsp;</a></span>contain_block()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool contain_block </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structblock.html">block</a> *&#160;</td>
+          <td class="paramname"><em>block</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00157">157</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+
+</div>
+</div>
+<a id="a644820395e408e884d093980084ea203"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a644820395e408e884d093980084ea203">&#9670;&nbsp;</a></span>contain_platform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool contain_platform </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structblock.html">block</a> *&#160;</td>
+          <td class="paramname"><em>block</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00122">122</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+
+</div>
+</div>
+<a id="ac28afee2d643a89341b5b4f1a075657c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac28afee2d643a89341b5b4f1a075657c">&#9670;&nbsp;</a></span>draw_node()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void draw_node </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00081">81</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+
+</div>
+</div>
+<a id="a87cce4d5334812133702fa0a891c44fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87cce4d5334812133702fa0a891c44fc">&#9670;&nbsp;</a></span>draw_outline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void draw_outline </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00094">94</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+
+</div>
+</div>
+<a id="a7413e04019a9547171fd2f0694e1b66c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7413e04019a9547171fd2f0694e1b66c">&#9670;&nbsp;</a></span>draw_range()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void draw_range </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct_ball.html">Ball</a> *&#160;</td>
+          <td class="paramname"><em>ball</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00089">89</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+
+</div>
+</div>
+<a id="ad02da135b0791257e0581fde540724c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad02da135b0791257e0581fde540724c4">&#9670;&nbsp;</a></span>free_node()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void free_node </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00190">190</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+
+</div>
+</div>
+<a id="abccb7f9dad064fe9e76bc43707b0b281"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abccb7f9dad064fe9e76bc43707b0b281">&#9670;&nbsp;</a></span>init_node()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a>* init_node </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *&#160;</td>
+          <td class="paramname"><em>root</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>choice</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00005">5</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+
+</div>
+</div>
+<a id="ad6a0ca48d9eda7b0a4eb30c9e5bd9460"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6a0ca48d9eda7b0a4eb30c9e5bd9460">&#9670;&nbsp;</a></span>subdivide()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void subdivide </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>levels</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="struct_ball.html">Ball</a> *&#160;</td>
+          <td class="paramname"><em>ball</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structblock.html">block</a> *&#160;</td>
+          <td class="paramname"><em>platform</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structblock.html">block</a> **&#160;</td>
+          <td class="paramname"><em>block</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ALLEGRO_SAMPLE *&#160;</td>
+          <td class="paramname"><em>hit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ALLEGRO_SAMPLE *&#160;</td>
+          <td class="paramname"><em>destroy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a76471581ac598f5b0e56e439c8d3cebf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76471581ac598f5b0e56e439c8d3cebf">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void update </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> **&#160;</td>
+          <td class="paramname"><em>root</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="struct_ball.html">Ball</a> *&#160;</td>
+          <td class="paramname"><em>ball</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structblock.html">block</a> *&#160;</td>
+          <td class="paramname"><em>platform</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structblock.html">block</a> **&#160;</td>
+          <td class="paramname"><em>block</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ALLEGRO_SAMPLE *&#160;</td>
+          <td class="paramname"><em>hit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ALLEGRO_SAMPLE *&#160;</td>
+          <td class="paramname"><em>destroy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Dokumentacja zmiennych</h2>
+<a id="a44135c266d35d670ab383cbfd138ab23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44135c266d35d670ab383cbfd138ab23">&#9670;&nbsp;</a></span>bonus_counter</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int bonus_counter</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8h_source.html#l00007">7</a> pliku <a class="el" href="quadtree_8h_source.html">quadtree.h</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="quadtree_8h.html">quadtree.h</a></li>
+    <li class="footer">Wygenerowano przez <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

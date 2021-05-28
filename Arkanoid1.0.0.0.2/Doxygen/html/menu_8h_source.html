@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Arkanoid: Plik źródłowy menu.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Arkanoid
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Wygenerowano przez Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Szukaj','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Szukaj');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('menu_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">menu.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="menu_8h.html">Idź do dokumentacji tego pliku.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#ifndef MENU_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno"><a class="line" href="menu_8h.html#a9552ba249c0540ffe9a08a05d1b92504">    3</a></span>&#160;<span class="preprocessor">#define MENU_H</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="include__lib_8h.html">include_lib.h</a>&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scores_8h.html">scores.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="menu_8h.html#a0853dab650ef1737d453cbcd37550da9">    7</a></span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="menu_8h.html#a0853dab650ef1737d453cbcd37550da9">wynik</a>(ALLEGRO_EVENT_QUEUE* <a class="code" href="init_8h.html#a1b547b3fd150c01ccf92506cf719a14d">event_queue</a>, ALLEGRO_BITMAP* <a class="code" href="init_8h.html#a9acc845e22e7cb5b41ef78c7f2d35fd0">wyniki</a>, FILE* <a class="code" href="init_8h.html#a6b90640a1722bd1ccd01d9279eea358d">scores</a>, ALLEGRO_SAMPLE* <a class="code" href="init_8h.html#a31257ac80c2f9b9af1ddae474a68c58c">klik</a>);</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="menu_8h.html#a9b8ada00e9545355011d713bb5372cad">opcje</a>(ALLEGRO_EVENT_QUEUE* <a class="code" href="init_8h.html#a1b547b3fd150c01ccf92506cf719a14d">event_queue</a>, ALLEGRO_BITMAP* <a class="code" href="init_8h.html#aa5be6a4ecdda6250bd43b47986d139c8">opcje1</a>, ALLEGRO_BITMAP* <a class="code" href="init_8h.html#a5faba444af0559c1b219ce7621efc225">opcje2</a>, ALLEGRO_BITMAP* <a class="code" href="init_8h.html#ac5558893bce6205dc826f7e88953a2da">opcje3</a>, ALLEGRO_FONT* <a class="code" href="init_8h.html#ae4254615de94af5fc74d43e8b676dcf9">font</a>,</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;                 ALLEGRO_SAMPLE* <a class="code" href="init_8h.html#afec50891d17d831571f31db4642bd163">ruch</a>, ALLEGRO_SAMPLE* <a class="code" href="init_8h.html#a31257ac80c2f9b9af1ddae474a68c58c">klik</a>, ALLEGRO_SAMPLE* <a class="code" href="init_8h.html#a6e314397785df48bca50cb95410e1ec8">check</a>, ALLEGRO_SAMPLE_INSTANCE* <a class="code" href="init_8h.html#aa11f8ee4aa8bffb939725b53102bbfb4">musicInstance</a>);</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">bool</span> <a class="code" href="menu_8h.html#a9a24a6a800301f126c34f54aeabfacfd">menu</a>(ALLEGRO_EVENT_QUEUE* <a class="code" href="init_8h.html#a1b547b3fd150c01ccf92506cf719a14d">event_queue</a>, ALLEGRO_BITMAP* <a class="code" href="init_8h.html#a6123afa6517c0382a3007d52547a5b35">menu1</a>, ALLEGRO_BITMAP* <a class="code" href="init_8h.html#a406024550a8e40cf1dc842df4f9b77a1">menu2</a>, ALLEGRO_BITMAP* <a class="code" href="init_8h.html#aee85ecdd48b0658d6bf31dd484676382">menu3</a>, ALLEGRO_BITMAP* <a class="code" href="init_8h.html#a0122e839f0007ca55381058d8657baa7">menu4</a>,</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                 ALLEGRO_BITMAP* <a class="code" href="init_8h.html#aa5be6a4ecdda6250bd43b47986d139c8">opcje1</a>, ALLEGRO_BITMAP* <a class="code" href="init_8h.html#a5faba444af0559c1b219ce7621efc225">opcje2</a>, ALLEGRO_BITMAP* <a class="code" href="init_8h.html#ac5558893bce6205dc826f7e88953a2da">opcje3</a>, ALLEGRO_BITMAP* <a class="code" href="init_8h.html#a9acc845e22e7cb5b41ef78c7f2d35fd0">wyniki</a>, FILE* <a class="code" href="init_8h.html#a6b90640a1722bd1ccd01d9279eea358d">scores</a>, ALLEGRO_FONT* <a class="code" href="init_8h.html#ae4254615de94af5fc74d43e8b676dcf9">font</a>,</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                 ALLEGRO_SAMPLE* <a class="code" href="init_8h.html#afec50891d17d831571f31db4642bd163">ruch</a>, ALLEGRO_SAMPLE* <a class="code" href="init_8h.html#a31257ac80c2f9b9af1ddae474a68c58c">klik</a>, ALLEGRO_SAMPLE* <a class="code" href="init_8h.html#a6e314397785df48bca50cb95410e1ec8">check</a>, ALLEGRO_SAMPLE_INSTANCE* <a class="code" href="init_8h.html#aa11f8ee4aa8bffb939725b53102bbfb4">musicInstance</a>);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// !MENU_H</span></div>
+<div class="ttc" id="ainclude__lib_8h_html"><div class="ttname"><a href="include__lib_8h.html">include_lib.h</a></div></div>
+<div class="ttc" id="ainit_8h_html_a0122e839f0007ca55381058d8657baa7"><div class="ttname"><a href="init_8h.html#a0122e839f0007ca55381058d8657baa7">menu4</a></div><div class="ttdeci">ALLEGRO_BITMAP * menu4</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00014">init.h:14</a></div></div>
+<div class="ttc" id="ainit_8h_html_a1b547b3fd150c01ccf92506cf719a14d"><div class="ttname"><a href="init_8h.html#a1b547b3fd150c01ccf92506cf719a14d">event_queue</a></div><div class="ttdeci">ALLEGRO_EVENT_QUEUE * event_queue</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00008">init.h:8</a></div></div>
+<div class="ttc" id="ainit_8h_html_a31257ac80c2f9b9af1ddae474a68c58c"><div class="ttname"><a href="init_8h.html#a31257ac80c2f9b9af1ddae474a68c58c">klik</a></div><div class="ttdeci">ALLEGRO_SAMPLE * klik</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00030">init.h:30</a></div></div>
+<div class="ttc" id="ainit_8h_html_a406024550a8e40cf1dc842df4f9b77a1"><div class="ttname"><a href="init_8h.html#a406024550a8e40cf1dc842df4f9b77a1">menu2</a></div><div class="ttdeci">ALLEGRO_BITMAP * menu2</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00012">init.h:12</a></div></div>
+<div class="ttc" id="ainit_8h_html_a5faba444af0559c1b219ce7621efc225"><div class="ttname"><a href="init_8h.html#a5faba444af0559c1b219ce7621efc225">opcje2</a></div><div class="ttdeci">ALLEGRO_BITMAP * opcje2</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00016">init.h:16</a></div></div>
+<div class="ttc" id="ainit_8h_html_a6123afa6517c0382a3007d52547a5b35"><div class="ttname"><a href="init_8h.html#a6123afa6517c0382a3007d52547a5b35">menu1</a></div><div class="ttdeci">ALLEGRO_BITMAP * menu1</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00011">init.h:11</a></div></div>
+<div class="ttc" id="ainit_8h_html_a6b90640a1722bd1ccd01d9279eea358d"><div class="ttname"><a href="init_8h.html#a6b90640a1722bd1ccd01d9279eea358d">scores</a></div><div class="ttdeci">FILE * scores</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00040">init.h:40</a></div></div>
+<div class="ttc" id="ainit_8h_html_a6e314397785df48bca50cb95410e1ec8"><div class="ttname"><a href="init_8h.html#a6e314397785df48bca50cb95410e1ec8">check</a></div><div class="ttdeci">ALLEGRO_SAMPLE * check</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00031">init.h:31</a></div></div>
+<div class="ttc" id="ainit_8h_html_a9acc845e22e7cb5b41ef78c7f2d35fd0"><div class="ttname"><a href="init_8h.html#a9acc845e22e7cb5b41ef78c7f2d35fd0">wyniki</a></div><div class="ttdeci">ALLEGRO_BITMAP * wyniki</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00018">init.h:18</a></div></div>
+<div class="ttc" id="ainit_8h_html_aa11f8ee4aa8bffb939725b53102bbfb4"><div class="ttname"><a href="init_8h.html#aa11f8ee4aa8bffb939725b53102bbfb4">musicInstance</a></div><div class="ttdeci">ALLEGRO_SAMPLE_INSTANCE * musicInstance</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00038">init.h:38</a></div></div>
+<div class="ttc" id="ainit_8h_html_aa5be6a4ecdda6250bd43b47986d139c8"><div class="ttname"><a href="init_8h.html#aa5be6a4ecdda6250bd43b47986d139c8">opcje1</a></div><div class="ttdeci">ALLEGRO_BITMAP * opcje1</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00015">init.h:15</a></div></div>
+<div class="ttc" id="ainit_8h_html_ac5558893bce6205dc826f7e88953a2da"><div class="ttname"><a href="init_8h.html#ac5558893bce6205dc826f7e88953a2da">opcje3</a></div><div class="ttdeci">ALLEGRO_BITMAP * opcje3</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00017">init.h:17</a></div></div>
+<div class="ttc" id="ainit_8h_html_ae4254615de94af5fc74d43e8b676dcf9"><div class="ttname"><a href="init_8h.html#ae4254615de94af5fc74d43e8b676dcf9">font</a></div><div class="ttdeci">ALLEGRO_FONT * font</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00039">init.h:39</a></div></div>
+<div class="ttc" id="ainit_8h_html_aee85ecdd48b0658d6bf31dd484676382"><div class="ttname"><a href="init_8h.html#aee85ecdd48b0658d6bf31dd484676382">menu3</a></div><div class="ttdeci">ALLEGRO_BITMAP * menu3</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00013">init.h:13</a></div></div>
+<div class="ttc" id="ainit_8h_html_afec50891d17d831571f31db4642bd163"><div class="ttname"><a href="init_8h.html#afec50891d17d831571f31db4642bd163">ruch</a></div><div class="ttdeci">ALLEGRO_SAMPLE * ruch</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00029">init.h:29</a></div></div>
+<div class="ttc" id="amenu_8h_html_a0853dab650ef1737d453cbcd37550da9"><div class="ttname"><a href="menu_8h.html#a0853dab650ef1737d453cbcd37550da9">wynik</a></div><div class="ttdeci">void wynik(ALLEGRO_EVENT_QUEUE *event_queue, ALLEGRO_BITMAP *wyniki, FILE *scores, ALLEGRO_SAMPLE *klik)</div></div>
+<div class="ttc" id="amenu_8h_html_a9a24a6a800301f126c34f54aeabfacfd"><div class="ttname"><a href="menu_8h.html#a9a24a6a800301f126c34f54aeabfacfd">menu</a></div><div class="ttdeci">bool menu(ALLEGRO_EVENT_QUEUE *event_queue, ALLEGRO_BITMAP *menu1, ALLEGRO_BITMAP *menu2, ALLEGRO_BITMAP *menu3, ALLEGRO_BITMAP *menu4, ALLEGRO_BITMAP *opcje1, ALLEGRO_BITMAP *opcje2, ALLEGRO_BITMAP *opcje3, ALLEGRO_BITMAP *wyniki, FILE *scores, ALLEGRO_FONT *font, ALLEGRO_SAMPLE *ruch, ALLEGRO_SAMPLE *klik, ALLEGRO_SAMPLE *check, ALLEGRO_SAMPLE_INSTANCE *musicInstance)</div><div class="ttdef"><b>Definition:</b> <a href="menu_8c_source.html#l00104">menu.c:104</a></div></div>
+<div class="ttc" id="amenu_8h_html_a9b8ada00e9545355011d713bb5372cad"><div class="ttname"><a href="menu_8h.html#a9b8ada00e9545355011d713bb5372cad">opcje</a></div><div class="ttdeci">void opcje(ALLEGRO_EVENT_QUEUE *event_queue, ALLEGRO_BITMAP *opcje1, ALLEGRO_BITMAP *opcje2, ALLEGRO_BITMAP *opcje3, ALLEGRO_FONT *font, ALLEGRO_SAMPLE *ruch, ALLEGRO_SAMPLE *klik, ALLEGRO_SAMPLE *check, ALLEGRO_SAMPLE_INSTANCE *musicInstance)</div><div class="ttdef"><b>Definition:</b> <a href="menu_8c_source.html#l00028">menu.c:28</a></div></div>
+<div class="ttc" id="ascores_8h_html"><div class="ttname"><a href="scores_8h.html">scores.h</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="menu_8h.html">menu.h</a></li>
+    <li class="footer">Wygenerowano przez <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>
