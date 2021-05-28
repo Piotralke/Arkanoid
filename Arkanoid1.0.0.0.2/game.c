@@ -1,6 +1,6 @@
 ///@file game.c Plik game.c zawiera g³ówn¹ pêtlê gry
 #include "game.h"
-/// Funkcja wait_for_keypress() czeka a¿ u¿ytkownik wciœnie dowolny klawisz, wtedy zakañcza swoje dzia³anie
+/// @brief Funkcja wait_for_keypress() czeka a¿ u¿ytkownik wciœnie dowolny klawisz, wtedy zakañcza swoje dzia³anie
 void wait_for_keypress()
 {
     ALLEGRO_EVENT_QUEUE* event_queue;
@@ -16,7 +16,7 @@ void wait_for_keypress()
     al_destroy_event_queue(event_queue);
 }
 /**
-* Funkcja game() jest funkcj¹ zawieraj¹c¹ g³ówn¹ pêtlê gry. W ka¿dym przejœciu pêtli odœwie¿any jest ekran, s¹ od nowa rysowane elementy o zmienionych pozycjach. 
+* @brief Funkcja game() jest funkcj¹ zawieraj¹c¹ g³ówn¹ pêtlê gry. W ka¿dym przejœciu pêtli odœwie¿any jest ekran, s¹ od nowa rysowane elementy o zmienionych pozycjach. 
 * Sprawdzana jest tak¿e iloœæ ¿yæ oraz bloczków, które odpowiednio koñcz¹ grê w przypadku braku ¿yæ oraz przechodz¹ do nastêpnego poziomu w przypadku zbicia wszystkich bloczków
 * @param working Odpowiada za dzia³anie pêtli
 * @param array To Dynamiczna dwuwymiarowa tablica, która zawiera informacje o bloczkach po³o¿onych na planszy

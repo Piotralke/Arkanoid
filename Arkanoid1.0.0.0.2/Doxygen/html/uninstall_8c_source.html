@@ -86,44 +86,46 @@ $(document).ready(function(){initNavTree('uninstall_8c_source.html',''); initRes
 </div><!--header-->
 <div class="contents">
 <a href="uninstall_8c.html">Idź do dokumentacji tego pliku.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="uninstall_8h.html">uninstall.h</a>&quot;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno"><a class="line" href="uninstall_8c.html#a8f5d854cf4fbd53c589b46310d883026">    3</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="uninstall_8c.html#a8f5d854cf4fbd53c589b46310d883026">uninstall_arkanoid</a>()</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    al_uninstall_keyboard();</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    al_destroy_display(<a class="code" href="init_8h.html#af64cc6c8a47e5ddbf510b5aa92e062b9">display</a>);</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    al_destroy_event_queue(<a class="code" href="init_8h.html#a1b547b3fd150c01ccf92506cf719a14d">event_queue</a>);</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    al_destroy_timer(<a class="code" href="init_8h.html#a22045c356beccd98008e6234d1c5f2d1">timer_FPS</a>);</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#afc8e0eee0c1080652c6ec91c3e55c644">tlo</a>);</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#a6123afa6517c0382a3007d52547a5b35">menu1</a>);</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#a406024550a8e40cf1dc842df4f9b77a1">menu2</a>);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#aee85ecdd48b0658d6bf31dd484676382">menu3</a>);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#a0122e839f0007ca55381058d8657baa7">menu4</a>);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#aa5be6a4ecdda6250bd43b47986d139c8">opcje1</a>);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#a5faba444af0559c1b219ce7621efc225">opcje2</a>);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#ac5558893bce6205dc826f7e88953a2da">opcje3</a>);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#a9acc845e22e7cb5b41ef78c7f2d35fd0">wyniki</a>);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#ad2abff8492e6b7bdeadac9a7c3d9b6fc">zycie</a>);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#a61955867c01cee2ef82935c29b15486c">gameover</a>);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#a035da57d2937da4ab6ee47ec4de3f7bc">youwin</a>);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#ac92525578625e3df78045cbd5a9d7d1a">faster_ball</a>);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#abec0a5759ea6d2b93551d3347bf0d2bf">slower_ball</a>);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#ad58271e5f599529a41ab4c7d491d7d3f">bigger_platform</a>);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#aa7d6bb6489b3c7d0497d269b5cfa810d">smaller_platform</a>);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#ac1524791f341b3cfc8f528000f6cda96">going_through</a>);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#acea3a3c583dceb1c287597dee09d4573">add_life</a>);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#a3d2f4c9aed4e933940920ddbedd83a35">double_points</a>);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#afec50891d17d831571f31db4642bd163">ruch</a>);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#a31257ac80c2f9b9af1ddae474a68c58c">klik</a>);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#a6e314397785df48bca50cb95410e1ec8">check</a>);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#a98edf9eb9a73cbf377bf805a5c4709e5">hit</a>);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#a8456e990b060b2818ff561a4b2082d22">destroy</a>);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#ae972a9c8b2703bf43fb840b1de43f755">gameover_m</a>);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#a6c7d0a82e651b561fd552e6700528d3b">youwin_m</a>);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#a2d99de6011bf45b4221c2ace4da4c2a3">music</a>);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#a690f4b3ae94c80a72bbf7f4c612d0bcf">bonus_m</a>);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    al_destroy_sample_instance(<a class="code" href="init_8h.html#aa11f8ee4aa8bffb939725b53102bbfb4">musicInstance</a>);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    al_destroy_font(<a class="code" href="init_8h.html#ae4254615de94af5fc74d43e8b676dcf9">font</a>);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="uninstall_8c.html#a8f5d854cf4fbd53c589b46310d883026">    7</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="uninstall_8c.html#a8f5d854cf4fbd53c589b46310d883026">uninstall_arkanoid</a>()</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    al_uninstall_keyboard();</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    al_destroy_display(<a class="code" href="init_8h.html#af64cc6c8a47e5ddbf510b5aa92e062b9">display</a>);</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    al_destroy_event_queue(<a class="code" href="init_8h.html#a1b547b3fd150c01ccf92506cf719a14d">event_queue</a>);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    al_destroy_timer(<a class="code" href="init_8h.html#a22045c356beccd98008e6234d1c5f2d1">timer_FPS</a>);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#afc8e0eee0c1080652c6ec91c3e55c644">tlo</a>);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#a6123afa6517c0382a3007d52547a5b35">menu1</a>);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#a406024550a8e40cf1dc842df4f9b77a1">menu2</a>);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#aee85ecdd48b0658d6bf31dd484676382">menu3</a>);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#a0122e839f0007ca55381058d8657baa7">menu4</a>);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#aa5be6a4ecdda6250bd43b47986d139c8">opcje1</a>);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#a5faba444af0559c1b219ce7621efc225">opcje2</a>);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#ac5558893bce6205dc826f7e88953a2da">opcje3</a>);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#a9acc845e22e7cb5b41ef78c7f2d35fd0">wyniki</a>);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#ad2abff8492e6b7bdeadac9a7c3d9b6fc">zycie</a>);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#a61955867c01cee2ef82935c29b15486c">gameover</a>);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#a035da57d2937da4ab6ee47ec4de3f7bc">youwin</a>);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#ac92525578625e3df78045cbd5a9d7d1a">faster_ball</a>);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#abec0a5759ea6d2b93551d3347bf0d2bf">slower_ball</a>);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#ad58271e5f599529a41ab4c7d491d7d3f">bigger_platform</a>);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#aa7d6bb6489b3c7d0497d269b5cfa810d">smaller_platform</a>);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#ac1524791f341b3cfc8f528000f6cda96">going_through</a>);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#acea3a3c583dceb1c287597dee09d4573">add_life</a>);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    al_destroy_bitmap(<a class="code" href="init_8h.html#a3d2f4c9aed4e933940920ddbedd83a35">double_points</a>);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#afec50891d17d831571f31db4642bd163">ruch</a>);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#a31257ac80c2f9b9af1ddae474a68c58c">klik</a>);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#a6e314397785df48bca50cb95410e1ec8">check</a>);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#a98edf9eb9a73cbf377bf805a5c4709e5">hit</a>);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#a8456e990b060b2818ff561a4b2082d22">destroy</a>);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#ae972a9c8b2703bf43fb840b1de43f755">gameover_m</a>);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#a6c7d0a82e651b561fd552e6700528d3b">youwin_m</a>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#a2d99de6011bf45b4221c2ace4da4c2a3">music</a>);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    al_destroy_sample(<a class="code" href="init_8h.html#a690f4b3ae94c80a72bbf7f4c612d0bcf">bonus_m</a>);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    al_destroy_sample_instance(<a class="code" href="init_8h.html#aa11f8ee4aa8bffb939725b53102bbfb4">musicInstance</a>);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    al_destroy_font(<a class="code" href="init_8h.html#ae4254615de94af5fc74d43e8b676dcf9">font</a>);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    al_shutdown_primitives_addon();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    al_uninstall_system();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
 <div class="ttc" id="ainit_8h_html_a0122e839f0007ca55381058d8657baa7"><div class="ttname"><a href="init_8h.html#a0122e839f0007ca55381058d8657baa7">menu4</a></div><div class="ttdeci">ALLEGRO_BITMAP * menu4</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00014">init.h:14</a></div></div>
 <div class="ttc" id="ainit_8h_html_a035da57d2937da4ab6ee47ec4de3f7bc"><div class="ttname"><a href="init_8h.html#a035da57d2937da4ab6ee47ec4de3f7bc">youwin</a></div><div class="ttdeci">ALLEGRO_BITMAP * youwin</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00021">init.h:21</a></div></div>
 <div class="ttc" id="ainit_8h_html_a1b547b3fd150c01ccf92506cf719a14d"><div class="ttname"><a href="init_8h.html#a1b547b3fd150c01ccf92506cf719a14d">event_queue</a></div><div class="ttdeci">ALLEGRO_EVENT_QUEUE * event_queue</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00008">init.h:8</a></div></div>
@@ -157,7 +159,7 @@ $(document).ready(function(){initNavTree('uninstall_8c_source.html',''); initRes
 <div class="ttc" id="ainit_8h_html_af64cc6c8a47e5ddbf510b5aa92e062b9"><div class="ttname"><a href="init_8h.html#af64cc6c8a47e5ddbf510b5aa92e062b9">display</a></div><div class="ttdeci">ALLEGRO_DISPLAY * display</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00007">init.h:7</a></div></div>
 <div class="ttc" id="ainit_8h_html_afc8e0eee0c1080652c6ec91c3e55c644"><div class="ttname"><a href="init_8h.html#afc8e0eee0c1080652c6ec91c3e55c644">tlo</a></div><div class="ttdeci">ALLEGRO_BITMAP * tlo</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00010">init.h:10</a></div></div>
 <div class="ttc" id="ainit_8h_html_afec50891d17d831571f31db4642bd163"><div class="ttname"><a href="init_8h.html#afec50891d17d831571f31db4642bd163">ruch</a></div><div class="ttdeci">ALLEGRO_SAMPLE * ruch</div><div class="ttdef"><b>Definition:</b> <a href="init_8h_source.html#l00029">init.h:29</a></div></div>
-<div class="ttc" id="auninstall_8c_html_a8f5d854cf4fbd53c589b46310d883026"><div class="ttname"><a href="uninstall_8c.html#a8f5d854cf4fbd53c589b46310d883026">uninstall_arkanoid</a></div><div class="ttdeci">void uninstall_arkanoid()</div><div class="ttdef"><b>Definition:</b> <a href="uninstall_8c_source.html#l00003">uninstall.c:3</a></div></div>
+<div class="ttc" id="auninstall_8c_html_a8f5d854cf4fbd53c589b46310d883026"><div class="ttname"><a href="uninstall_8c.html#a8f5d854cf4fbd53c589b46310d883026">uninstall_arkanoid</a></div><div class="ttdeci">void uninstall_arkanoid()</div><div class="ttdoc">Funkcja uninstall_arkanoid() odinstalowywuje funkcje z allegro oraz niszczy bitmapy i dźwięki.</div><div class="ttdef"><b>Definition:</b> <a href="uninstall_8c_source.html#l00007">uninstall.c:7</a></div></div>
 <div class="ttc" id="auninstall_8h_html"><div class="ttname"><a href="uninstall_8h.html">uninstall.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

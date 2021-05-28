@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('quadtree_8c.html',''); initResizable()
 <div class="title">Dokumentacja pliku quadtree.c</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Zawiera implementację drzewa czwórkowego.  
+<a href="#details">Więcej...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="quadtree_8h_source.html">quadtree.h</a>&quot;</code><br />
 </div>
 <p><a href="quadtree_8c_source.html">Idź do kodu źródłowego tego pliku.</a></p>
@@ -95,24 +98,34 @@ $(document).ready(function(){initNavTree('quadtree_8c.html',''); initResizable()
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funkcje</h2></td></tr>
 <tr class="memitem:abccb7f9dad064fe9e76bc43707b0b281"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8c.html#abccb7f9dad064fe9e76bc43707b0b281">init_node</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *root, int choice)</td></tr>
+<tr class="memdesc:abccb7f9dad064fe9e76bc43707b0b281"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcja <a class="el" href="quadtree_8c.html#abccb7f9dad064fe9e76bc43707b0b281" title="Funkcja init_node() Inicjuje korzeń oraz ćwiartki drzewa czwórkowego nadając im odpowiednie wartości.">init_node()</a> Inicjuje korzeń oraz ćwiartki drzewa czwórkowego nadając im odpowiednie wartości.  <a href="quadtree_8c.html#abccb7f9dad064fe9e76bc43707b0b281">Więcej...</a><br /></td></tr>
 <tr class="separator:abccb7f9dad064fe9e76bc43707b0b281"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac28afee2d643a89341b5b4f1a075657c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8c.html#ac28afee2d643a89341b5b4f1a075657c">draw_node</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *node)</td></tr>
+<tr class="memdesc:ac28afee2d643a89341b5b4f1a075657c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcja <a class="el" href="quadtree_8c.html#ac28afee2d643a89341b5b4f1a075657c" title="Funkcja draw_node() rysuje na planszy obszar zagnieżdżenia drzewa czwórkowego.">draw_node()</a> rysuje na planszy obszar zagnieżdżenia drzewa czwórkowego.  <a href="quadtree_8c.html#ac28afee2d643a89341b5b4f1a075657c">Więcej...</a><br /></td></tr>
 <tr class="separator:ac28afee2d643a89341b5b4f1a075657c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7413e04019a9547171fd2f0694e1b66c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8c.html#a7413e04019a9547171fd2f0694e1b66c">draw_range</a> (struct <a class="el" href="struct_ball.html">Ball</a> *ball)</td></tr>
+<tr class="memdesc:a7413e04019a9547171fd2f0694e1b66c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcja <a class="el" href="quadtree_8c.html#a7413e04019a9547171fd2f0694e1b66c" title="Funkcja draw_range() rysuje zasięg detekcji kolizji wokół piłki.">draw_range()</a> rysuje zasięg detekcji kolizji wokół piłki.  <a href="quadtree_8c.html#a7413e04019a9547171fd2f0694e1b66c">Więcej...</a><br /></td></tr>
 <tr class="separator:a7413e04019a9547171fd2f0694e1b66c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87cce4d5334812133702fa0a891c44fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8c.html#a87cce4d5334812133702fa0a891c44fc">draw_outline</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *node)</td></tr>
+<tr class="memdesc:a87cce4d5334812133702fa0a891c44fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcja <a class="el" href="quadtree_8c.html#a87cce4d5334812133702fa0a891c44fc" title="Funkcja draw_outline() zaznacza na czerwono najmniejsze ćwiartki, które znajdują się w zasiegu detekc...">draw_outline()</a> zaznacza na czerwono najmniejsze ćwiartki, które znajdują się w zasiegu detekcji kolizji piłki.  <a href="quadtree_8c.html#a87cce4d5334812133702fa0a891c44fc">Więcej...</a><br /></td></tr>
 <tr class="separator:a87cce4d5334812133702fa0a891c44fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6851beed90bc6b07be0c329b60aba12"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8c.html#ac6851beed90bc6b07be0c329b60aba12">contain</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *node, struct <a class="el" href="struct_ball.html">Ball</a> *ball)</td></tr>
+<tr class="memdesc:ac6851beed90bc6b07be0c329b60aba12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcja <a class="el" href="quadtree_8c.html#ac6851beed90bc6b07be0c329b60aba12" title="Funkcja contain() sprawdza, w których najmniejszych ćwiartkach znajduje się zasięg detekcji piłki.">contain()</a> sprawdza, w których najmniejszych ćwiartkach znajduje się zasięg detekcji piłki.  <a href="quadtree_8c.html#ac6851beed90bc6b07be0c329b60aba12">Więcej...</a><br /></td></tr>
 <tr class="separator:ac6851beed90bc6b07be0c329b60aba12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a644820395e408e884d093980084ea203"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8c.html#a644820395e408e884d093980084ea203">contain_platform</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *node, struct <a class="el" href="structblock.html">block</a> *<a class="el" href="structblock.html">block</a>)</td></tr>
+<tr class="memdesc:a644820395e408e884d093980084ea203"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcja <a class="el" href="quadtree_8c.html#a644820395e408e884d093980084ea203" title="Funkcja contain_platform() sprawdza, czy platforma znajduje się w danej najmniejszej ćwiartce.">contain_platform()</a> sprawdza, czy platforma znajduje się w danej najmniejszej ćwiartce.  <a href="quadtree_8c.html#a644820395e408e884d093980084ea203">Więcej...</a><br /></td></tr>
 <tr class="separator:a644820395e408e884d093980084ea203"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6ef494e2b1c82902ef9487b81baa7f7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8c.html#af6ef494e2b1c82902ef9487b81baa7f7">contain_block</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *node, struct <a class="el" href="structblock.html">block</a> *<a class="el" href="structblock.html">block</a>)</td></tr>
+<tr class="memdesc:af6ef494e2b1c82902ef9487b81baa7f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcja <a class="el" href="quadtree_8c.html#af6ef494e2b1c82902ef9487b81baa7f7" title="Funkcja contain_block() sprawdza, czy bloczek znajduje się w danej najmniejszej ćwiartce.">contain_block()</a> sprawdza, czy bloczek znajduje się w danej najmniejszej ćwiartce.  <a href="quadtree_8c.html#af6ef494e2b1c82902ef9487b81baa7f7">Więcej...</a><br /></td></tr>
 <tr class="separator:af6ef494e2b1c82902ef9487b81baa7f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad02da135b0791257e0581fde540724c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8c.html#ad02da135b0791257e0581fde540724c4">free_node</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *node)</td></tr>
+<tr class="memdesc:ad02da135b0791257e0581fde540724c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcja rekurencyjna <a class="el" href="quadtree_8c.html#ad02da135b0791257e0581fde540724c4" title="Funkcja rekurencyjna free_node() dealokuje pamięć drzewa czwórkowego rozpoczynając zwalnianie pamięci...">free_node()</a> dealokuje pamięć drzewa czwórkowego rozpoczynając zwalnianie pamięci od najmniejszych ćwiartek kończąc na korzeniu.  <a href="quadtree_8c.html#ad02da135b0791257e0581fde540724c4">Więcej...</a><br /></td></tr>
 <tr class="separator:ad02da135b0791257e0581fde540724c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0da1915e7b04d00f9992720766c5dc8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8c.html#a0da1915e7b04d00f9992720766c5dc8d">subdivide</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> *node, int levels, struct <a class="el" href="struct_ball.html">Ball</a> *ball, struct <a class="el" href="structblock.html">block</a> *platform, struct <a class="el" href="structblock.html">block</a> **<a class="el" href="structblock.html">block</a>, ALLEGRO_SAMPLE *<a class="el" href="init_8h.html#a98edf9eb9a73cbf377bf805a5c4709e5">hit</a>, ALLEGRO_SAMPLE *<a class="el" href="init_8h.html#a8456e990b060b2818ff561a4b2082d22">destroy</a>, struct <a class="el" href="structbonus.html">bonus</a> *New_bonus)</td></tr>
+<tr class="memdesc:a0da1915e7b04d00f9992720766c5dc8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcja <a class="el" href="quadtree_8c.html#a0da1915e7b04d00f9992720766c5dc8d" title="Funkcja subdivide() dzieli ekran maksymalnie 5 razy (wizualnie 4, bo 1 podział to utworzenie korzenia...">subdivide()</a> dzieli ekran maksymalnie 5 razy (wizualnie 4, bo 1 podział to utworzenie korzenia, czyli węzła, który będzie miał wymiary planszy) aż ograniczy obszar wykrywania kolizji wokół piłki do najmniejszego.  <a href="quadtree_8c.html#a0da1915e7b04d00f9992720766c5dc8d">Więcej...</a><br /></td></tr>
 <tr class="separator:a0da1915e7b04d00f9992720766c5dc8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c057cc2a57502c7fd2ff555ba48f4f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8c.html#a7c057cc2a57502c7fd2ff555ba48f4f7">update</a> (struct <a class="el" href="struct_quad___tree___node.html">Quad_Tree_Node</a> **root, struct <a class="el" href="struct_ball.html">Ball</a> *ball, struct <a class="el" href="structblock.html">block</a> *platform, struct <a class="el" href="structbonus.html">bonus</a> *New_bonus, struct <a class="el" href="structblock.html">block</a> **<a class="el" href="structblock.html">block</a>, ALLEGRO_SAMPLE *<a class="el" href="init_8h.html#a98edf9eb9a73cbf377bf805a5c4709e5">hit</a>, ALLEGRO_SAMPLE *<a class="el" href="init_8h.html#a8456e990b060b2818ff561a4b2082d22">destroy</a>)</td></tr>
+<tr class="memdesc:a7c057cc2a57502c7fd2ff555ba48f4f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcja <a class="el" href="quadtree_8c.html#a7c057cc2a57502c7fd2ff555ba48f4f7" title="Funkcja update() aktualizuje nasze drzewo. Jest ona wywoływana w głównej pętli gry przy każdym jej pr...">update()</a> aktualizuje nasze drzewo. Jest ona wywoływana w głównej pętli gry przy każdym jej przejściu.  <a href="quadtree_8c.html#a7c057cc2a57502c7fd2ff555ba48f4f7">Więcej...</a><br /></td></tr>
 <tr class="separator:a7c057cc2a57502c7fd2ff555ba48f4f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -120,7 +133,11 @@ Zmienne</h2></td></tr>
 <tr class="memitem:a691505c4b0e8f0b7969a25cd561cc773"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quadtree_8c.html#a691505c4b0e8f0b7969a25cd561cc773">bonus_counter</a> = 1</td></tr>
 <tr class="separator:a691505c4b0e8f0b7969a25cd561cc773"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Dokumentacja funkcji</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Opis szczegółowy</h2>
+<div class="textblock"><p>Zawiera implementację drzewa czwórkowego. </p>
+
+<p class="definition">Definicja w pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+</div><h2 class="groupheader">Dokumentacja funkcji</h2>
 <a id="ac6851beed90bc6b07be0c329b60aba12"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac6851beed90bc6b07be0c329b60aba12">&#9670;&nbsp;</a></span>contain()</h2>
 
@@ -147,7 +164,19 @@ Zmienne</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00099">99</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+<p>Funkcja <a class="el" href="quadtree_8c.html#ac6851beed90bc6b07be0c329b60aba12" title="Funkcja contain() sprawdza, w których najmniejszych ćwiartkach znajduje się zasięg detekcji piłki.">contain()</a> sprawdza, w których najmniejszych ćwiartkach znajduje się zasięg detekcji piłki. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Wskaźnik na ćwiartkę drzewa czwórkowego </td></tr>
+    <tr><td class="paramname">ball</td><td>Wskaźnik na strukturę piłki </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>true W przypadku, kiedy zasięg znajduje się w ćwiartce </dd>
+<dd>
+false Jeśli się w niej nie znajduje </dd></dl>
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00121">121</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
 
 </div>
 </div>
@@ -177,7 +206,19 @@ Zmienne</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00157">157</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+<p>Funkcja <a class="el" href="quadtree_8c.html#af6ef494e2b1c82902ef9487b81baa7f7" title="Funkcja contain_block() sprawdza, czy bloczek znajduje się w danej najmniejszej ćwiartce.">contain_block()</a> sprawdza, czy bloczek znajduje się w danej najmniejszej ćwiartce. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Wskaźnik na ćwiartkę drzewa czwórkowego </td></tr>
+    <tr><td class="paramname">block</td><td>Wskaźnik na strukturę bloczka </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>true W przypadku, kiedy bloczek znajduje się w ćwiartce </dd>
+<dd>
+false Jeśli się w niej nie znajduje </dd></dl>
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00191">191</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
 
 </div>
 </div>
@@ -207,7 +248,19 @@ Zmienne</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00122">122</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+<p>Funkcja <a class="el" href="quadtree_8c.html#a644820395e408e884d093980084ea203" title="Funkcja contain_platform() sprawdza, czy platforma znajduje się w danej najmniejszej ćwiartce.">contain_platform()</a> sprawdza, czy platforma znajduje się w danej najmniejszej ćwiartce. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Wskaźnik na ćwiartkę drzewa czwórkowego </td></tr>
+    <tr><td class="paramname">block</td><td>Wskaźnik na strukturę reprezentującą platformę </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>true W przypadku, kiedy platforma znajduje się w ćwiartce </dd>
+<dd>
+false Jeśli się w niej nie znajduje </dd></dl>
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00150">150</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
 
 </div>
 </div>
@@ -227,7 +280,15 @@ Zmienne</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00081">81</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+<p>Funkcja <a class="el" href="quadtree_8c.html#ac28afee2d643a89341b5b4f1a075657c" title="Funkcja draw_node() rysuje na planszy obszar zagnieżdżenia drzewa czwórkowego.">draw_node()</a> rysuje na planszy obszar zagnieżdżenia drzewa czwórkowego. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Wskaźnik na ćwiartkę drzewa czwórkowego </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00091">91</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
 
 </div>
 </div>
@@ -247,7 +308,15 @@ Zmienne</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00094">94</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+<p>Funkcja <a class="el" href="quadtree_8c.html#a87cce4d5334812133702fa0a891c44fc" title="Funkcja draw_outline() zaznacza na czerwono najmniejsze ćwiartki, które znajdują się w zasiegu detekc...">draw_outline()</a> zaznacza na czerwono najmniejsze ćwiartki, które znajdują się w zasiegu detekcji kolizji piłki. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Wskaźnik na ćwiartkę drzewa czwórkowego </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00110">110</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
 
 </div>
 </div>
@@ -267,7 +336,15 @@ Zmienne</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00089">89</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+<p>Funkcja <a class="el" href="quadtree_8c.html#a7413e04019a9547171fd2f0694e1b66c" title="Funkcja draw_range() rysuje zasięg detekcji kolizji wokół piłki.">draw_range()</a> rysuje zasięg detekcji kolizji wokół piłki. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ball</td><td>Wskaźnik na strukturę piłki </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00102">102</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
 
 </div>
 </div>
@@ -287,7 +364,15 @@ Zmienne</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00190">190</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+<p>Funkcja rekurencyjna <a class="el" href="quadtree_8c.html#ad02da135b0791257e0581fde540724c4" title="Funkcja rekurencyjna free_node() dealokuje pamięć drzewa czwórkowego rozpoczynając zwalnianie pamięci...">free_node()</a> dealokuje pamięć drzewa czwórkowego rozpoczynając zwalnianie pamięci od najmniejszych ćwiartek kończąc na korzeniu. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Wskaźnik na węzeł drzewa czwórkowego </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00227">227</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
 
 </div>
 </div>
@@ -317,7 +402,19 @@ Zmienne</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00005">5</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+<p>Funkcja <a class="el" href="quadtree_8c.html#abccb7f9dad064fe9e76bc43707b0b281" title="Funkcja init_node() Inicjuje korzeń oraz ćwiartki drzewa czwórkowego nadając im odpowiednie wartości.">init_node()</a> Inicjuje korzeń oraz ćwiartki drzewa czwórkowego nadając im odpowiednie wartości. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">root</td><td>Wskaźnik na korzeń drzewa </td></tr>
+    <tr><td class="paramname">choice</td><td>Zmienna określająca która ćwiartka ma być zainicjowana (0-korzen,1-NE,2-NW,3-SW,4-SE) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>root, w przypadku kiedy inicjowany jest korzen </dd>
+<dd>
+node w przypadku kiedy inicjowana jest ćwiartka </dd></dl>
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00012">12</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
 
 </div>
 </div>
@@ -383,7 +480,22 @@ Zmienne</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00202">202</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+<p>Funkcja <a class="el" href="quadtree_8c.html#a0da1915e7b04d00f9992720766c5dc8d" title="Funkcja subdivide() dzieli ekran maksymalnie 5 razy (wizualnie 4, bo 1 podział to utworzenie korzenia...">subdivide()</a> dzieli ekran maksymalnie 5 razy (wizualnie 4, bo 1 podział to utworzenie korzenia, czyli węzła, który będzie miał wymiary planszy) aż ograniczy obszar wykrywania kolizji wokół piłki do najmniejszego. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Wskaźnik na węzeł drzewa czwórkowego </td></tr>
+    <tr><td class="paramname">levels</td><td>Zmienna odpowiadająca za ilość zagnieżdżeń drzewa </td></tr>
+    <tr><td class="paramname">ball</td><td>Wskaźnik na strukturę piłki </td></tr>
+    <tr><td class="paramname">platform</td><td>Wskaźnik na strukturę platformy </td></tr>
+    <tr><td class="paramname">block</td><td>Dynamiczna dwuwymiarowa tablica struktur reprezentujących bloczki </td></tr>
+    <tr><td class="paramname">hit</td><td>Wskaźnik na dźwięk, który jest wywoływany podczas kolizji piłki z elementem planszy </td></tr>
+    <tr><td class="paramname">destroy</td><td>Wskaźnik na dźwięk, który jest wywoływany podczas zniszczenia bloczka </td></tr>
+    <tr><td class="paramname">New_bonus</td><td>Wskaźnik na strukturę bonusu </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00250">250</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
 
 </div>
 </div>
@@ -443,7 +555,21 @@ Zmienne</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00265">265</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+<p>Funkcja <a class="el" href="quadtree_8c.html#a7c057cc2a57502c7fd2ff555ba48f4f7" title="Funkcja update() aktualizuje nasze drzewo. Jest ona wywoływana w głównej pętli gry przy każdym jej pr...">update()</a> aktualizuje nasze drzewo. Jest ona wywoływana w głównej pętli gry przy każdym jej przejściu. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">root</td><td>Podwójny wskaźnik na korzeń drzewa czwórkowego </td></tr>
+    <tr><td class="paramname">ball</td><td>Wskaźnik na strukturę piłki </td></tr>
+    <tr><td class="paramname">platform</td><td>Wskaźnik na strukturę platformy </td></tr>
+    <tr><td class="paramname">New_bonus</td><td>Wskaźnik na strukturę bonusu </td></tr>
+    <tr><td class="paramname">block</td><td>Dynamiczna dwuwymiarowa tablica struktur reprezentujących bloczki </td></tr>
+    <tr><td class="paramname">hit</td><td>Wskaźnik na dźwięk, który jest wywoływany podczas kolizji piłki z elementem planszy </td></tr>
+    <tr><td class="paramname">destroy</td><td>Wskaźnik na dźwięk, który jest wywoływany podczas zniszczenia bloczka </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00322">322</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
 
 </div>
 </div>
@@ -459,8 +585,14 @@ Zmienne</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bonus_counter</td><td>Mnożnik punktów, który jest inkrementowany przy wielu zbiciach bloczków bez odbicia od platformy </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00003">3</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
+<p class="definition">Definicja w linii <a class="el" href="quadtree_8c_source.html#l00004">4</a> pliku <a class="el" href="quadtree_8c_source.html">quadtree.c</a>.</p>
 
 </div>
 </div>

@@ -1,4 +1,10 @@
+///@file levels.c zawiera funkcje odpowiedzialne za odpowiedni¹ inicjacjê tablicy dwuwymiarowej dla danego poziomu, funkcje rysuj¹ce bloki w odpowiednim kolorze dla danego poziomu, oraz funkcjê zwalniaj¹c¹ tablicê
 #include "levels.h"
+
+/**
+* @brief Funkcja init_level1() generuje sposób u³o¿enia klocków na danym poziomie
+* @param array To Dynamiczna dwuwymiarowa tablica, która zawiera informacje o bloczkach po³o¿onych na planszy
+*/
 void init_level1(struct block** array)
 {
     for (int i = 0; i < size; i++)
@@ -20,6 +26,10 @@ void init_level1(struct block** array)
     }
 }
 
+/**
+* @brief Funkcja init_level2() generuje sposób u³o¿enia klocków na danym poziomie
+* @param array To Dynamiczna dwuwymiarowa tablica, która zawiera informacje o bloczkach po³o¿onych na planszy
+*/
 void init_level2(struct block** array)
 {
     for (int i = 0; i < size; i += 2)
@@ -36,6 +46,10 @@ void init_level2(struct block** array)
     }
 }
 
+/**
+* @brief Funkcja init_level3() generuje sposób u³o¿enia klocków na danym poziomie
+* @param array To Dynamiczna dwuwymiarowa tablica, która zawiera informacje o bloczkach po³o¿onych na planszy
+*/
 void init_level3(struct block** array)
 {
     for (int i = 0; i < size; i++)
@@ -56,6 +70,10 @@ void init_level3(struct block** array)
     }
 }
 
+/**
+* @brief Funkcja init_level4() generuje sposób u³o¿enia klocków na danym poziomie
+* @param array To Dynamiczna dwuwymiarowa tablica, która zawiera informacje o bloczkach po³o¿onych na planszy
+*/
 void init_level4(struct block** array)
 {
     for (int i = 0; i < size; i++)
@@ -72,6 +90,10 @@ void init_level4(struct block** array)
     }
 }
 
+/**
+* @brief Funkcja draw_block1() rysuje na ekranie bloczki z tablicy z kolorem zale¿nym od poziomu
+* @param array To Dynamiczna dwuwymiarowa tablica, która zawiera informacje o bloczkach po³o¿onych na planszy
+*/
 void draw_block1(struct block** array)
 {
     srand(time(NULL));
@@ -96,6 +118,11 @@ void draw_block1(struct block** array)
         }
     }
 }
+
+/**
+* @brief Funkcja draw_block2() rysuje na ekranie bloczki z tablicy z kolorem zale¿nym od poziomu
+* @param array To Dynamiczna dwuwymiarowa tablica, która zawiera informacje o bloczkach po³o¿onych na planszy
+*/
 void draw_block2(struct block** array)
 {
     srand(time(NULL));
@@ -120,6 +147,11 @@ void draw_block2(struct block** array)
         }
     }
 }
+
+/**
+* @brief Funkcja draw_block3() rysuje na ekranie bloczki z tablicy z kolorem zale¿nym od poziomu
+* @param array To Dynamiczna dwuwymiarowa tablica, która zawiera informacje o bloczkach po³o¿onych na planszy
+*/
 void draw_block3(struct block** array)
 {
     srand(time(NULL));
@@ -144,6 +176,11 @@ void draw_block3(struct block** array)
         }
     }
 }
+
+/**
+* @brief Funkcja draw_block4() rysuje na ekranie bloczki z tablicy z kolorem zale¿nym od poziomu
+* @param array To Dynamiczna dwuwymiarowa tablica, która zawiera informacje o bloczkach po³o¿onych na planszy
+*/
 void draw_block4(struct block** array)
 {
     srand(time(NULL));
@@ -168,6 +205,11 @@ void draw_block4(struct block** array)
         }
     }
 }
+
+/**
+* @brief Funkcja free+ptr() zwalnia pamiêæ dwuwymiarowej tablicy bloczków
+* @param array To Dynamiczna dwuwymiarowa tablica, która zawiera informacje o bloczkach po³o¿onych na planszy
+*/
 void free_ptr(struct block** array)
 {
     for (int i = 0; i < size; i++)

@@ -1,4 +1,10 @@
+///@file init.c zawiera potrzebne inicjalizacje funkcji allegro oraz tworzone s¹ tam bitmapy, czy dŸwiêki.
 #include "init.h"
+
+/**
+* @brief funkcja init_arkanoid() odpowiada za inicjalizacje potrzebnych parametrów z biblioteki Allegro
+* @return -1 je¿eli nie uda siê za³adowaæ/zainicjowaæ elementu
+*/
 
 int init_arkanoid()
 {

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Arkanoid: Strona główna</title>
+<title>Arkanoid: Projekt Gra Arkanoid</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -80,11 +80,51 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </iframe>
 </div>
 
-<div class="header">
+<div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">Arkanoid Dokumentacja</div>  </div>
+<div class="title">Projekt Gra Arkanoid </div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><h1><a class="anchor" id="gra_sec"></a>
+1. Gra Arkanoid</h1>
+<p>Jest to gra komputerowa, w ktorej gracz porusza platforma i za jej pomoca odbija pileczke, ktora musi zbijac klocki rozstawione na planszy. Za zniszczenie klocka gracz otrzymuje punkty oraz czasem moga z nich wypadac bonusy do zebrania, ktore np. powiekszaja paletke. Gracz ma okreslona ilosc zyc, ktore traci, kiedy nie uda mu sie odbic pileczki. Celem gry jest zniszczenie wszystkich klockow.</p>
+<p><img src="arkanoid.png" alt="" class="inline"/></p>
+<h1><a class="anchor" id="drzewo_sec"></a>
+2. Drzewo czworkowe</h1>
+<p>Drzewo czworkowe to jeden z podtypow drzewa, ktore jest struktura dynamiczna. Kazdy element zawiera 4 potomkow. Drzewo czworkowe znalazlo swoje zastosowanie, przy wykrywaniu kolizji w przestrzeni 2D. Ekran jest dzielony na 4 cwiartki i jesli zajdzie potrzeba to te cwiartki dzielone sa na kolejne cwiartki. Sposob ten umozliwia ograniczenie sprawdzania kolizji elementow bardzo odleglych od siebie.</p>
+<p><img src="drzewo.png" alt="" class="inline"/></p>
+<h1><a class="anchor" id="drzewo2_sec"></a>
+3. Kolizja w drzewie czworkowym</h1>
+<p>Drzewo czworkowe dzieli nasz ekran maksymalnie czterokrotnie, aby ograniczyc obszar sprawdzania kolizji. Obszar ten ogranicza sie do miejsca w ktorym znajduje sie pilka, a wlasciwie jej zasieg detekcji. Wykrycie kolizji jest sprawdzane poprzez uzycie przez nas Twierdzenia Pitagorasa. Nasza sprawdzana odlegloscia jest przeciwprostokatna w trojkacie prostokatnym. W przypadku, kiedy kolizja zaszlaby pod katem 90, z powyzszego Twierdzenia wynikaloby, ze nasza odleglosc, czyli szukana przeciwprostokatna pokryje sie z dluzsza przyprostokatna, natomiast druga bedzie rowna 0, czyli zamiast trojkata prostokatnego, bedziemy mieli po prostu odcinek. Jezeli odleglosc srodka pilki od krawedzi bloczku badz platformy jest rowna promieniowi pileczki to wykonywana jest kolizja.</p>
+<h1><a class="anchor" id="zapis_sec"></a>
+4. Dynamiczna tablica dwuwymiarowa</h1>
+<p>W naszym projekcie, do przechowywania danych o bloczkach na planszy uzylismy dynamicznej dwuwymiarowej macierzy 8x8. Tworzone sa w niej prostokatne bloczki o wymiarach bedacych w stosunki 1:2. W taki sposob utworzylismy bloczki, ktore zajmuja maksymalnie powierzchnie polowy calej planszy. Utworzylismy tez kilka wariantow poziomow, ktore inicjuja nasza tablice dynamiczna zaleznie od wzoru matematycznego (pomijane sa wtedy niektore miejsca w tablicy, zaleznie od indeksow).</p>
+<p><img src="bloczki.png" alt="" class="inline"/></p>
+<h1><a class="anchor" id="bonusy_sec"></a>
+5. Bonusy</h1>
+<p>Dodalismy do naszej gry 7 bonusow, na ktore jest mala szansa podczas rozbicia klocka. Podczas zbijania losowana jest wartosc od 0 do 100, jesli wylosowana wartosc bedzie wieksza od 70 to bedzie losowany numer 1-7, ktory bedzie odpowiadal danemu bonusowi. Mozna trafic nastepujace bonusy:</p>
+<p><img src="bonus1.png" alt="" class="inline"/></p>
+<p>Wieksza platforma - powieksza podstawowy rozmiar platformy o 25 pikseli (standardowo platforma ma szerokosc 75 pikseli)</p>
+<p><img src="bonus2.png" alt="" class="inline"/></p>
+<p>Mniejsza platforma - pomniejsza podstawowy rozmiar platformy o 25 pikseli</p>
+<p><img src="bonus3.png" alt="" class="inline"/></p>
+<p>Szybsza pilka - pilka porusza sie szybciej</p>
+<p><img src="bonus4.png" alt="" class="inline"/></p>
+<p>Wolniejsza pilka - pilka porusza sie wolniej</p>
+<p><img src="bonus5.png" alt="" class="inline"/></p>
+<p>Przenikanie - pilka przestaje sie odbijac od klockow, tylko zbija je i przechodzi przez nie dalej</p>
+<p><img src="bonus6.png" alt="" class="inline"/></p>
+<p>Dodatkowe zycie - dodaje zycie, jezeli mamy ich mniej niz 3.</p>
+<p><img src="bonus7.png" alt="" class="inline"/></p>
+<p>Podwojne punkty - punkty przy zbijaniu bloczkow sa podwajane</p>
+<h1><a class="anchor" id="punktacja_sec"></a>
+6. Punktacja</h1>
+<p>Standardowo za zbicie jednego bloczku gracz otrzymuje 100 punktow. Jesli natomiast, uda mu sie zbic kilka bloczkow, bez odbicia od platformy, kazdy nastepny bloczek bedzie zwiekszal mnoznik punktow o 1 (standardowo jest on ustawiany na 1, wiec przy np. zbiciu 4 klockow po jednym odbiciu od platformy uzyskamy 1- 100, 2 - 2*100, 3 - 3*100, 4 - 4*100, czyli lacznie 1000 punktow). Jesli graczowi nie uda odbic sie pileczki i spadnie ona ponizej platformy straci on zycie oraz 100 punktow. Na koniec gry zycia ktore pozostaly zamieniane sa na dodatkowe 100 punktow za kazde. <br  />
+</p>
+<h1><a class="anchor" id="podsumowanie_sec"></a>
+7. Podsumowanie i podzial pracy</h1>
+<p>Udalo nam sie zrobic wszystko co zaplanowalismy na nasz projekt. Jestesmy zadowoleni z efektu jaki udalo nam sie uzyskac. Z reguly wszyscy pracowalismy wspolnie nad projektem, kiedy nie moglismy znalezc rozwiazania, robilismy "burze mozgow" jak za dany problem sie zabrac. Uwazamy, ze wszyscy wlozylismy do projektu cale nasze serca i nikt nie odstaje w udziale wykonanej pracy. Nasz podzial pracy w formie procentowej: Piotr Dziewiecki -33,(3)% Jan Dyrdul - 33,(3)% Figura Filip - 33,(3)% </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

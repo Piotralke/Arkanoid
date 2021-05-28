@@ -5,7 +5,8 @@ var indexSectionsWithContent =
   2: "bgilmpqsu",
   3: "bcdfgimorsuw",
   4: "abcdefghklmnoprstvwxyz",
-  5: "hilmpqsw"
+  5: "hilmpqsw",
+  6: "p"
 };
 
 var indexSectionNames =
@@ -15,7 +16,8 @@ var indexSectionNames =
   2: "files",
   3: "functions",
   4: "variables",
-  5: "defines"
+  5: "defines",
+  6: "pages"
 };
 
 var indexSectionLabels =
@@ -25,6 +27,7 @@ var indexSectionLabels =
   2: "Pliki",
   3: "Funkcje",
   4: "Zmienne",
-  5: "Definicje"
+  5: "Definicje",
+  6: "Strony"
 };
 

@@ -1,7 +1,7 @@
 /// @file bonus.c Plik bonus.c zawiera funkcje odpowiedzialne za przydial bonusu oraz jego utworzenie
 #include "bonus.h"
 /**
-* Funkcja give_bonus() na poczatku ustawia domyœlne wartoœci, które s¹ modyfikowane przez bonusy, a póŸniej zale¿nie od rodzaju bonusu, modyfikuje któr¹œ z nich
+* @brief Funkcja give_bonus() na poczatku ustawia domyœlne wartoœci, które s¹ modyfikowane przez bonusy, a póŸniej zale¿nie od rodzaju bonusu, modyfikuje któr¹œ z nich
 * @param New_bonus Struktura przechowujaca dane o bonusie (np.: koordynaty, typ bonusu)
 * @param platform struktura reprezentujaca platforme
 * @param bonus plik dŸwiêkowy, który jest wywo³ywany przy zebraniu bonusa
@@ -50,7 +50,7 @@ void give_bonus(struct bonus* New_bonus, struct block* platform, ALLEGRO_SAMPLE*
     ball_s = ball_speed - 1;
 }
 /**
-* Funkcja make_bonus() tworzy bonus w miejscu bloczka, który zosta³ zbity i zale¿nie od wylosowanego rodzaju zmienia jego typ oraz ³aduje odpowiedni¹ bitmapê
+* @brief Funkcja make_bonus() tworzy bonus w miejscu bloczka, który zosta³ zbity i zale¿nie od wylosowanego rodzaju zmienia jego typ oraz ³aduje odpowiedni¹ bitmapê
 * @param bonus_type rodzaj bonusu (1-Wiêksza platforma, 2-Mniejsza platforma, 3-Szybsza pi³ka, 4-Wolniejsza pi³ka, 5-Przechodzenie, 6-Dodatkowe ¿ycie, 7-Mno¿nik punktów)
 * @param block struktura zawieraj¹ca informacje o zbitym bloczku
 * @param New_bonus Struktura przechowujaca dane o bonusie (np.: koordynaty, typ bonusu)
@@ -101,7 +101,7 @@ void make_bonus(int bonus_type, struct block* block, struct bonus* New_bonus)
     }
 }
 /**
-* Funkcja bonus() jest wywo³ywana przy zbiciu bloczku i losuje liczbê, od której bêdzie zale¿a³o, czy bonus zostanie utworzony
+* @brief Funkcja bonus() jest wywo³ywana przy zbiciu bloczku i losuje liczbê, od której bêdzie zale¿a³o, czy bonus zostanie utworzony
 * @param block struktura zawieraj¹ca informacje o zbitym bloczku
 * @param New_bonus Struktura przechowujaca dane o bonusie (np.: koordynaty, typ bonusu)
 */

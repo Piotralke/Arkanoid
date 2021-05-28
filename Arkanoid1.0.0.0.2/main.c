@@ -1,11 +1,12 @@
+/// @file main.c G³ówny plik z funkcj¹ main.
 #include "quadtree.h"
 #include "menu.h"
 #include "scores.h"
 #include "init.h"
 #include "game.h"
 #include "uninstall.h"
-
-int main(int argc, char* argv[])
+/// @brief Funkcja main to g³ówna funkcja programu. Na pocz¹tku ustawiane s¹ wartoœci domyœlne struktur oraz zmiennych. Alokowana jest równie¿ pamiêæ dla dwuwymiarowej tablicy dynamicznej
+int main()
 {
     struct block Platform = { (width / 2), height - 30,75,10, 1 };
     struct Ball New_Ball = { Platform.x , Platform.y - Platform.h - 5, 10, 1, 1 };

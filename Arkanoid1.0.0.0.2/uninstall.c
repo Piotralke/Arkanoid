@@ -1,5 +1,9 @@
+///@file uninstall.c jest w niej zawarta funkcja, która jest wywo³ywana przy koñczeniu pracy programu i odinstalowywuje ona funkcje z allegro oraz niszczy bitmapy i dŸwiêki
 #include "uninstall.h"
 
+/**
+* @brief Funkcja uninstall_arkanoid() odinstalowywuje funkcje z allegro oraz niszczy bitmapy i dŸwiêki
+*/
 void uninstall_arkanoid()
 {
     al_uninstall_keyboard();
@@ -36,4 +40,6 @@ void uninstall_arkanoid()
     al_destroy_sample(bonus_m);
     al_destroy_sample_instance(musicInstance);
     al_destroy_font(font);
+    al_shutdown_primitives_addon();
+    al_uninstall_system();
 }

@@ -1,4 +1,12 @@
+///@file physic.c zawiera implementacjê kolizji elementów znajduj¹cych siê na planszy oraz funkcje przemieszczaj¹ce pi³kê oraz bonusy
 #include "physic.h"
+
+/**
+* @brief Funkcja move() odpowiada za poruszanie siê pi³ki oraz za odbicie od borderów, a tak¿e za ponowne ustawienie pi³ki na platformie gdy u¿ytkownik straci ¿ycie
+* @param ball Struktura zawieraj¹ca informacje o pi³ce
+* @param platform Struktura zawieraj¹ca informacje o platformie
+* @param hit  WskaŸnik na plik dŸwiêkowy, który jest wywo³ywany przy kolizji pi³ki od elementu
+*/
 
 void move(struct Ball* ball, struct block platform, ALLEGRO_SAMPLE* hit)
 {
@@ -29,12 +37,25 @@ void move(struct Ball* ball, struct block platform, ALLEGRO_SAMPLE* hit)
     }
 }
 
+/**
+* @brief Funkcja move_bonus() odpowiada za poruszanie siê bonusu
+* @param New_Bonus Struktura zawieraj¹ca informacje o bonusie
+*/
+
 void move_bonus(struct bonus* New_bonus)
 {
     New_bonus->y++;
     if (New_bonus->y > 900)
         bonus_active--;
 }
+
+/**
+* @brief Funkcja check_block() sprawdza odleg³oœæ miêdzy pi³eczk¹ i bloczkiem oraz odpowiada za odpowiedni¹ zmianê wektora poruszania siê pi³ki
+* @param ball Struktura zawieraj¹ca informacje o pi³ce
+* @param block Struktura zawieraj¹ca informacje o bloczku
+* @return true je¿eli funkcja wykry³a kolizjê
+* @return false je¿eli funkcja nie wykry³a kolizji
+*/
 
 bool check_block(struct Ball* ball, struct block* block)
 {
@@ -46,17 +67,17 @@ bool check_block(struct Ball* ball, struct block* block)
         testX = block->x - block->w;
         odbicie = 1;
     }
-        
+
     else if (ball->x > block->x + block->w) {
         testX = block->x + block->w;
         odbicie = 1;
     }
-        
+
     if (ball->y < block->y - block->h) {
         testY = block->y - block->h;
         odbicie = 2;
     }
-        
+
     else if (ball->y > block->y + block->h) {
         testY = block->y + block->h;
         odbicie = 2;
@@ -82,6 +103,14 @@ bool check_block(struct Ball* ball, struct block* block)
     }
     return false;
 }
+
+/**
+* @brief Funkcja check_platform() sprawdza odleg³oœæ miêdzy pi³eczk¹ i bloczkiem oraz odpowiada za odpowiedni¹ zmianê wektora poruszania siê pi³ki
+* @param ball Struktura zawieraj¹ca informacje o pi³ce
+* @param block Struktura zawieraj¹ca informacje o platformie
+* @return true je¿eli funkcja wykry³a kolizjê
+* @return false je¿eli funkcja nie wykry³a kolizji
+*/
 
 bool check_platform(struct Ball* ball, struct block* block)
 {
@@ -126,6 +155,14 @@ bool check_platform(struct Ball* ball, struct block* block)
     }
     return false;
 }
+
+/**
+* @brief Funkcja check_bonus() sprawdza odleg³oœæ miêdzy platform¹ i bonusem
+* @param block Struktura zawieraj¹ca informacje o platformie
+* @param bonus Struktura zawieraj¹ca informacje o bonusie
+* @return true je¿eli funkcja wykry³a kolizjê
+* @return false je¿eli funkcja nie wykry³a kolizji
+*/
 
 bool check_bonus(struct block* block, struct bonus* bonus)
 {

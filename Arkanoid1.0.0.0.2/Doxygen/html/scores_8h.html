@@ -100,12 +100,16 @@ Definicje</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funkcje</h2></td></tr>
 <tr class="memitem:aeb131f0b00464364e9d14196b032a91c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scores_8h.html#aeb131f0b00464364e9d14196b032a91c">sortowanie_babelkowe</a> (int tab[])</td></tr>
+<tr class="memdesc:aeb131f0b00464364e9d14196b032a91c"><td class="mdescLeft">&#160;</td><td class="mdescRight">@files <a class="el" href="scores_8c.html">scores.c</a> zawiera funkcje odpowiadające za zapis, odczyt i sortowanie wyników  <a href="scores_8h.html#aeb131f0b00464364e9d14196b032a91c">Więcej...</a><br /></td></tr>
 <tr class="separator:aeb131f0b00464364e9d14196b032a91c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea7cd8566212625dac2fcd5f2cbba7e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scores_8h.html#aea7cd8566212625dac2fcd5f2cbba7e3">sort_scores</a> (FILE *<a class="el" href="init_8h.html#a6b90640a1722bd1ccd01d9279eea358d">scores</a>)</td></tr>
+<tr class="memdesc:aea7cd8566212625dac2fcd5f2cbba7e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcja <a class="el" href="scores_8c.html#aea7cd8566212625dac2fcd5f2cbba7e3" title="Funkcja sort_scores() najpierw odczytuje dane z pliku i zapisuje je do tablicy, po czym wywołuje funk...">sort_scores()</a> najpierw odczytuje dane z pliku i zapisuje je do tablicy, po czym wywołuje funkcje od sortowania tej tablicy, a następnie zapisuje do pliku 5 najlepszych wyników z tablicy.  <a href="scores_8h.html#aea7cd8566212625dac2fcd5f2cbba7e3">Więcej...</a><br /></td></tr>
 <tr class="separator:aea7cd8566212625dac2fcd5f2cbba7e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56d6fe1c3953bd27aef4222405eda482"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scores_8h.html#a56d6fe1c3953bd27aef4222405eda482">save_score</a> (FILE *<a class="el" href="init_8h.html#a6b90640a1722bd1ccd01d9279eea358d">scores</a>)</td></tr>
+<tr class="memdesc:a56d6fe1c3953bd27aef4222405eda482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcja <a class="el" href="scores_8c.html#a56d6fe1c3953bd27aef4222405eda482" title="Funkcja save_score() dopisuje wynik punktów do pliku a następnie wywołuje funkcje do posortowania wyn...">save_score()</a> dopisuje wynik punktów do pliku a następnie wywołuje funkcje do posortowania wyników w pliku.  <a href="scores_8h.html#a56d6fe1c3953bd27aef4222405eda482">Więcej...</a><br /></td></tr>
 <tr class="separator:a56d6fe1c3953bd27aef4222405eda482"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaafe75c8f5b3d06667954007ebe95458"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scores_8h.html#aaafe75c8f5b3d06667954007ebe95458">read_scores</a> (FILE *<a class="el" href="init_8h.html#a6b90640a1722bd1ccd01d9279eea358d">scores</a>, ALLEGRO_FONT *<a class="el" href="init_8h.html#ae4254615de94af5fc74d43e8b676dcf9">font</a>)</td></tr>
+<tr class="memdesc:aaafe75c8f5b3d06667954007ebe95458"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcja <a class="el" href="scores_8c.html#aaafe75c8f5b3d06667954007ebe95458" title="Funkcja read_scores() wypisuje na ekran najlepsze wyniki odczytane z pliku.">read_scores()</a> wypisuje na ekran najlepsze wyniki odczytane z pliku.  <a href="scores_8h.html#aaafe75c8f5b3d06667954007ebe95458">Więcej...</a><br /></td></tr>
 <tr class="separator:aaafe75c8f5b3d06667954007ebe95458"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Dokumentacja definicji</h2>
@@ -152,7 +156,16 @@ Funkcje</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definicja w linii <a class="el" href="scores_8c_source.html#l00044">44</a> pliku <a class="el" href="scores_8c_source.html">scores.c</a>.</p>
+<p>Funkcja <a class="el" href="scores_8c.html#aaafe75c8f5b3d06667954007ebe95458" title="Funkcja read_scores() wypisuje na ekran najlepsze wyniki odczytane z pliku.">read_scores()</a> wypisuje na ekran najlepsze wyniki odczytane z pliku. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scores</td><td>Wskaźnik na plik zawierający najlepsze wyniki </td></tr>
+    <tr><td class="paramname">font</td><td>Wskaźnik na czcionkę używaną w programie </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definicja w linii <a class="el" href="scores_8c_source.html#l00063">63</a> pliku <a class="el" href="scores_8c_source.html">scores.c</a>.</p>
 
 </div>
 </div>
@@ -172,7 +185,15 @@ Funkcje</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definicja w linii <a class="el" href="scores_8c_source.html#l00035">35</a> pliku <a class="el" href="scores_8c_source.html">scores.c</a>.</p>
+<p>Funkcja <a class="el" href="scores_8c.html#a56d6fe1c3953bd27aef4222405eda482" title="Funkcja save_score() dopisuje wynik punktów do pliku a następnie wywołuje funkcje do posortowania wyn...">save_score()</a> dopisuje wynik punktów do pliku a następnie wywołuje funkcje do posortowania wyników w pliku. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scores</td><td>Wskaźnik na plik zawierający najlepsze wyniki </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definicja w linii <a class="el" href="scores_8c_source.html#l00049">49</a> pliku <a class="el" href="scores_8c_source.html">scores.c</a>.</p>
 
 </div>
 </div>
@@ -192,7 +213,15 @@ Funkcje</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definicja w linii <a class="el" href="scores_8c_source.html#l00015">15</a> pliku <a class="el" href="scores_8c_source.html">scores.c</a>.</p>
+<p>Funkcja <a class="el" href="scores_8c.html#aea7cd8566212625dac2fcd5f2cbba7e3" title="Funkcja sort_scores() najpierw odczytuje dane z pliku i zapisuje je do tablicy, po czym wywołuje funk...">sort_scores()</a> najpierw odczytuje dane z pliku i zapisuje je do tablicy, po czym wywołuje funkcje od sortowania tej tablicy, a następnie zapisuje do pliku 5 najlepszych wyników z tablicy. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scores</td><td>Wskaźnik na plik zawierający najlepsze wyniki </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definicja w linii <a class="el" href="scores_8c_source.html#l00025">25</a> pliku <a class="el" href="scores_8c_source.html">scores.c</a>.</p>
 
 </div>
 </div>
@@ -212,7 +241,15 @@ Funkcje</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definicja w linii <a class="el" href="scores_8c_source.html#l00003">3</a> pliku <a class="el" href="scores_8c_source.html">scores.c</a>.</p>
+<p>@files <a class="el" href="scores_8c.html">scores.c</a> zawiera funkcje odpowiadające za zapis, odczyt i sortowanie wyników </p>
+<p>Funkcja <a class="el" href="scores_8c.html#aeb131f0b00464364e9d14196b032a91c" title="@files scores.c zawiera funkcje odpowiadające za zapis, odczyt i sortowanie wyników">sortowanie_babelkowe()</a> sortuje tablice przez porównanie dwóch kolejnych elementów i zamianie ich kolejności, jeżeli zaburza ona porządek </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tab[]</td><td>tablica zawierające wyników odczytanych z pliku </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definicja w linii <a class="el" href="scores_8c_source.html#l00009">9</a> pliku <a class="el" href="scores_8c_source.html">scores.c</a>.</p>
 
 </div>
 </div>

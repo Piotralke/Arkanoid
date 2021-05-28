@@ -25,6 +25,15 @@
 var NAVTREE =
 [
   [ "Arkanoid", "index.html", [
+    [ "Projekt Gra Arkanoid", "index.html", [
+      [ "1. Gra Arkanoid", "index.html#gra_sec", null ],
+      [ "2. Drzewo czworkowe", "index.html#drzewo_sec", null ],
+      [ "3. Kolizja w drzewie czworkowym", "index.html#drzewo2_sec", null ],
+      [ "4. Dynamiczna tablica dwuwymiarowa", "index.html#zapis_sec", null ],
+      [ "5. Bonusy", "index.html#bonusy_sec", null ],
+      [ "6. Punktacja", "index.html#punktacja_sec", null ],
+      [ "7. Podsumowanie i podzial pracy", "index.html#podsumowanie_sec", null ]
+    ] ],
     [ "Struktury Danych", "annotated.html", [
       [ "Struktury danych", "annotated.html", "annotated_dup" ],
       [ "Indeks struktur danych", "classes.html", null ],

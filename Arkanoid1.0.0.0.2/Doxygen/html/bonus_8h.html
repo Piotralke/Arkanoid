@@ -95,10 +95,13 @@ $(document).ready(function(){initNavTree('bonus_8h.html',''); initResizable(); }
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funkcje</h2></td></tr>
 <tr class="memitem:a493cab9696dcdb8ec8e959f36588921f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bonus_8h.html#a493cab9696dcdb8ec8e959f36588921f">give_bonus</a> (struct <a class="el" href="structbonus.html">bonus</a> *New_bonus, struct <a class="el" href="structblock.html">block</a> *platform, ALLEGRO_SAMPLE *<a class="el" href="structbonus.html">bonus</a>)</td></tr>
+<tr class="memdesc:a493cab9696dcdb8ec8e959f36588921f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcja <a class="el" href="bonus_8c.html#a493cab9696dcdb8ec8e959f36588921f" title="Funkcja give_bonus() na poczatku ustawia domyślne wartości, które są modyfikowane przez bonusy,...">give_bonus()</a> na poczatku ustawia domyślne wartości, które są modyfikowane przez bonusy, a później zależnie od rodzaju bonusu, modyfikuje którąś z nich.  <a href="bonus_8h.html#a493cab9696dcdb8ec8e959f36588921f">Więcej...</a><br /></td></tr>
 <tr class="separator:a493cab9696dcdb8ec8e959f36588921f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4969767d56b27ac8446fd482d43260c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bonus_8h.html#aa4969767d56b27ac8446fd482d43260c">make_bonus</a> (int bonus_type, struct <a class="el" href="structblock.html">block</a> *<a class="el" href="structblock.html">block</a>, struct <a class="el" href="structbonus.html">bonus</a> *New_bonus)</td></tr>
+<tr class="memdesc:aa4969767d56b27ac8446fd482d43260c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcja <a class="el" href="bonus_8c.html#aa4969767d56b27ac8446fd482d43260c" title="Funkcja make_bonus() tworzy bonus w miejscu bloczka, który został zbity i zależnie od wylosowanego ro...">make_bonus()</a> tworzy bonus w miejscu bloczka, który został zbity i zależnie od wylosowanego rodzaju zmienia jego typ oraz ładuje odpowiednią bitmapę  <a href="bonus_8h.html#aa4969767d56b27ac8446fd482d43260c">Więcej...</a><br /></td></tr>
 <tr class="separator:aa4969767d56b27ac8446fd482d43260c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3970179aefcc75800740d57cc612f195"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bonus_8h.html#a3970179aefcc75800740d57cc612f195">bonus</a> (struct <a class="el" href="structblock.html">block</a> *<a class="el" href="structblock.html">block</a>, struct <a class="el" href="structbonus.html">bonus</a> *New_bonus)</td></tr>
+<tr class="memdesc:a3970179aefcc75800740d57cc612f195"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcja <a class="el" href="bonus_8c.html#a3970179aefcc75800740d57cc612f195" title="Funkcja bonus() jest wywoływana przy zbiciu bloczku i losuje liczbę, od której będzie zależało,...">bonus()</a> jest wywoływana przy zbiciu bloczku i losuje liczbę, od której będzie zależało, czy bonus zostanie utworzony.  <a href="bonus_8h.html#a3970179aefcc75800740d57cc612f195">Więcej...</a><br /></td></tr>
 <tr class="separator:a3970179aefcc75800740d57cc612f195"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Dokumentacja funkcji</h2>
@@ -127,7 +130,9 @@ Funkcje</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Funkcja <a class="el" href="bonus_8c.html#a3970179aefcc75800740d57cc612f195">bonus()</a> jest wywoływana przy zbiciu bloczku i losuje liczbę, od której będzie zależało, czy bonus zostanie utworzony </p><dl class="params"><dt>Parametry</dt><dd>
+
+<p>Funkcja <a class="el" href="bonus_8c.html#a3970179aefcc75800740d57cc612f195" title="Funkcja bonus() jest wywoływana przy zbiciu bloczku i losuje liczbę, od której będzie zależało,...">bonus()</a> jest wywoływana przy zbiciu bloczku i losuje liczbę, od której będzie zależało, czy bonus zostanie utworzony. </p>
+<dl class="params"><dt>Parametry</dt><dd>
   <table class="params">
     <tr><td class="paramname">block</td><td>struktura zawierająca informacje o zbitym bloczku </td></tr>
     <tr><td class="paramname">New_bonus</td><td>Struktura przechowujaca dane o bonusie (np.: koordynaty, typ bonusu) </td></tr>
@@ -170,7 +175,9 @@ Funkcje</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Funkcja <a class="el" href="bonus_8c.html#a493cab9696dcdb8ec8e959f36588921f">give_bonus()</a> na poczatku ustawia domyślne wartości, które są modyfikowane przez bonusy, a później zależnie od rodzaju bonusu, modyfikuje którąś z nich </p><dl class="params"><dt>Parametry</dt><dd>
+
+<p>Funkcja <a class="el" href="bonus_8c.html#a493cab9696dcdb8ec8e959f36588921f" title="Funkcja give_bonus() na poczatku ustawia domyślne wartości, które są modyfikowane przez bonusy,...">give_bonus()</a> na poczatku ustawia domyślne wartości, które są modyfikowane przez bonusy, a później zależnie od rodzaju bonusu, modyfikuje którąś z nich. </p>
+<dl class="params"><dt>Parametry</dt><dd>
   <table class="params">
     <tr><td class="paramname">New_bonus</td><td>Struktura przechowujaca dane o bonusie (np.: koordynaty, typ bonusu) </td></tr>
     <tr><td class="paramname">platform</td><td>struktura reprezentujaca platforme </td></tr>
@@ -214,7 +221,9 @@ Funkcje</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Funkcja <a class="el" href="bonus_8c.html#aa4969767d56b27ac8446fd482d43260c">make_bonus()</a> tworzy bonus w miejscu bloczka, który został zbity i zależnie od wylosowanego rodzaju zmienia jego typ oraz ładuje odpowiednią bitmapę </p><dl class="params"><dt>Parametry</dt><dd>
+
+<p>Funkcja <a class="el" href="bonus_8c.html#aa4969767d56b27ac8446fd482d43260c" title="Funkcja make_bonus() tworzy bonus w miejscu bloczka, który został zbity i zależnie od wylosowanego ro...">make_bonus()</a> tworzy bonus w miejscu bloczka, który został zbity i zależnie od wylosowanego rodzaju zmienia jego typ oraz ładuje odpowiednią bitmapę </p>
+<dl class="params"><dt>Parametry</dt><dd>
   <table class="params">
     <tr><td class="paramname">bonus_type</td><td>rodzaj bonusu (1-Większa platforma, 2-Mniejsza platforma, 3-Szybsza piłka, 4-Wolniejsza piłka, 5-Przechodzenie, 6-Dodatkowe życie, 7-Mnożnik punktów) </td></tr>
     <tr><td class="paramname">block</td><td>struktura zawierająca informacje o zbitym bloczku </td></tr>
